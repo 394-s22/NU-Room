@@ -7,6 +7,7 @@ import Button from '@mui/material/Button';
 import * as React from 'react';
 import { useData } from './utilities/firebase.js';
 import { useEffect, useState } from 'react';
+import Grid from "@mui/material/Grid";
 
 
 function App() {
@@ -22,9 +23,9 @@ function App() {
     // <div>
     //   <Profile profileObject={data} /> 
     // </div>,
-    <div>
+    <Grid sx={{backgroundColor: 'background.default', height: '100vh'}}>
       <Form />
-    </div>
+    </Grid>
     
   
   );

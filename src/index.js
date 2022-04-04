@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { purple } from '@mui/material/colors';
+import { purple, grey} from '@mui/material/colors';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 const theme = createTheme({
@@ -12,7 +12,7 @@ const theme = createTheme({
       main: purple[900],
     },
     background: {
-      default: '#8c4545',
+      default: grey[200],
     }
   },
 });

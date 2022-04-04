@@ -13,6 +13,9 @@ import PrimarySearchAppBar from './Appbar';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import Chip from '@mui/material/Chip';
 import FormHelperText from '@mui/material/FormHelperText';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -33,6 +36,7 @@ function getStyles(p, perfers, theme) {
           : theme.typography.fontWeightMedium,
     };
 }
+
 
 const attributes = [
     'a “night owl”',
@@ -92,101 +96,113 @@ const Form = () => {
             </Grid>
             <Grid 
                 item xs = {4}
-                sx={{
-                    '& > :not(style)': { m: 1, width: '25ch' },
-                }}
+            >  
                 
-            >
-                <TextField id="fName" label="First Name" variant="outlined" />
-                <TextField id="lName" label="Last Name" variant="outlined" />
-                
-                <Box sx = {{m: 1}}>
-                    <FormControl sx={{ml : 20, width : 200}}>
-                        <InputLabel id="gender">Gender</InputLabel>
-                            <Select
-                            labelId="gender-select-label"
-                            id="gender-select"
-                            value={gender}
-                            label="genderClass"
-                            onChange={handleChangeGender}
-                            >
-                            <MenuItem value={10}>Male</MenuItem>
-                            <MenuItem value={20}>Female</MenuItem>
-                        </Select>
-                    </FormControl> 
-                </Box>
-
-                <Box sx = {{m: 1}}>
-                    <FormControl sx={{ml : 20, width : 200}}>
-                        <InputLabel id="pronouns">Pronouns</InputLabel>
-                            <Select
-                            labelId="pronouns-select-label"
-                            id="pronouns-select"
-                            value={pronouns}
-                            label="pronounsClass"
-                            onChange={handleChangePronouns}
-                            >
-                            <MenuItem value={10}>he/him</MenuItem>
-                            <MenuItem value={20}>she/her</MenuItem>
-                            <MenuItem value={30}>they/them</MenuItem>
-                            <MenuItem value={40}>other</MenuItem>
-                        </Select>
-                    </FormControl> 
-                </Box>
-
-                <Box>
-                    <FormControl sx={{ml : 20, width : 200}}>
-                        <InputLabel id="graduation">graduationYear</InputLabel>
-                            <Select
-                            labelId="graduation-year-select-label"
-                            id="graducation-year-select"
-                            value={year}
-                            label="graduationClass"
-                            onChange={handleChangeYear}
-                            >
-                            <MenuItem value={10}>First Year</MenuItem>
-                            <MenuItem value={20}>Second Year</MenuItem>
-                            <MenuItem value={30}>Thrid Year</MenuItem>
-                            <MenuItem value={40}>Fourth Year</MenuItem>
-                            <MenuItem value={50}>Graduate/Phd</MenuItem>
-                        </Select>
-                    </FormControl>
-                </Box>
-
-                <Box>
-                    <FormControl sx={{ ml: 14, width: 300 }}>
-                        <InputLabel id="room-perfers-chip-label">I am</InputLabel>
-                        <Select
-                        labelId="room-perfers-chip-label"
-                        id="room-perfer-chip"
-                        multiple
-                        value={personName}
-                        onChange={handleChange}
-                        input={<OutlinedInput id="select-room-perfers-chip" label="Chip" />}
-                        renderValue={(selected) => (
-                            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-                            {selected.map((value) => (
-                                <Chip key={value} label={value} />
-                            ))}
-                            </Box>
-                        )}
-                        MenuProps={MenuProps}
+                    <Card >
+                        <CardContent 
+                            justifyContent="center"
+                            sx={{ mb: 2}}
+                            alignItems="center"
                         >
-                        {attributes.map((name) => (
-                            <MenuItem
-                            key={name}
-                            value={name}
-                            style={getStyles(name, personName, theme)}
-                            >
-                            {name}
-                            </MenuItem>
-                        ))}
-                        </Select>
-                        <FormHelperText>Please check all that apply</FormHelperText>
-                    </FormControl>
-                </Box>
+                        
+                        <Box sx={{
+                            '& > :not(style)': { m: 1, width: '24ch' }
+                        }}>
+                            <TextField id="fName" label="First Name" variant="outlined" />
+                            <TextField id="lName" label="Last Name" variant="outlined" />
+                        </Box>
+                        
+                        
+                        <Box sx = {{m: 1}}>
+                            <FormControl sx={{ml : 20, width : 200}}>
+                                <InputLabel id="gender">Gender</InputLabel>
+                                    <Select
+                                    labelId="gender-select-label"
+                                    id="gender-select"
+                                    value={gender}
+                                    label="genderClass"
+                                    onChange={handleChangeGender}
+                                    >
+                                    <MenuItem value={10}>Male</MenuItem>
+                                    <MenuItem value={20}>Female</MenuItem>
+                                </Select>
+                            </FormControl> 
+                        </Box>
+
+                        <Box sx = {{m: 1}}>
+                            <FormControl sx={{ml : 20, width : 200}}>
+                                <InputLabel id="pronouns">Pronouns</InputLabel>
+                                    <Select
+                                    labelId="pronouns-select-label"
+                                    id="pronouns-select"
+                                    value={pronouns}
+                                    label="pronounsClass"
+                                    onChange={handleChangePronouns}
+                                    >
+                                    <MenuItem value={10}>he/him</MenuItem>
+                                    <MenuItem value={20}>she/her</MenuItem>
+                                    <MenuItem value={30}>they/them</MenuItem>
+                                    <MenuItem value={40}>other</MenuItem>
+                                </Select>
+                            </FormControl> 
+                        </Box>
+
+                        <Box>
+                            <FormControl sx={{ml : 20, width : 200}}>
+                                <InputLabel id="graduation">graduationYear</InputLabel>
+                                    <Select
+                                    labelId="graduation-year-select-label"
+                                    id="graducation-year-select"
+                                    value={year}
+                                    label="graduationClass"
+                                    onChange={handleChangeYear}
+                                    >
+                                    <MenuItem value={10}>First Year</MenuItem>
+                                    <MenuItem value={20}>Second Year</MenuItem>
+                                    <MenuItem value={30}>Thrid Year</MenuItem>
+                                    <MenuItem value={40}>Fourth Year</MenuItem>
+                                    <MenuItem value={50}>Graduate/Phd</MenuItem>
+                                </Select>
+                            </FormControl>
+                        </Box>
+
+                        <Box>
+                            <FormControl sx={{ ml: 14, width: 300 }}>
+                                <InputLabel id="room-perfers-chip-label">I am</InputLabel>
+                                <Select
+                                labelId="room-perfers-chip-label"
+                                id="room-perfer-chip"
+                                multiple
+                                value={personName}
+                                onChange={handleChange}
+                                input={<OutlinedInput id="select-room-perfers-chip" label="Chip" />}
+                                renderValue={(selected) => (
+                                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                                    {selected.map((value) => (
+                                        <Chip key={value} label={value} />
+                                    ))}
+                                    </Box>
+                                )}
+                                MenuProps={MenuProps}
+                                >
+                                {attributes.map((name) => (
+                                    <MenuItem
+                                    key={name}
+                                    value={name}
+                                    style={getStyles(name, personName, theme)}
+                                    >
+                                    {name}
+                                    </MenuItem>
+                                ))}
+                                </Select>
+                                <FormHelperText>Please check all that apply</FormHelperText>
+                            </FormControl>
+                        </Box>
+                        </CardContent>
+                    </Card>
                 
                 
+
             </Grid>
 
             
