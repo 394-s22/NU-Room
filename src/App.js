@@ -19,8 +19,11 @@ function App() {
 
   return (
     
+    // <div>
+    //   <Profile profileObject={data} /> 
+    // </div>,
     <div>
-      <Profile profileObject={data} /> 
+      <Form />
     </div>
     
   
