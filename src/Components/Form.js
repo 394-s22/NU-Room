@@ -8,7 +8,6 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Container from '@mui/material/Container';
 import { TextField } from '@mui/material';
-import { setData } from "../utilities/firebase";
 import PrimarySearchAppBar from './Appbar';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import Chip from '@mui/material/Chip';

@@ -1,0 +1,17 @@
+{
+    "profiles": 
+    [
+        {
+            "name": ["Hugo", "Zhang"],
+            "bio": "Lorem Impsum Lorem Impsum Lorem Impsum Lorem Impsum Lorem Impsum Lorem ImpsumLorem Impsum Lorem Impsum Lorem Impsum Lorem Impsum Lorem Impsum",
+            "hobbies": ["Drawing", "Reading"],
+            "personality": ["Introvert", "Bookworm"]
+        }, 
+        {
+            "name": ["Natalie", "Brewster"],
+            "bio": "Lorem Impsum Lorem Impsum Lorem Impsum Lorem Impsum Lorem Impsum Lorem ImpsumLorem Impsum Lorem Impsum Lorem Impsum Lorem Impsum Lorem Impsum",
+            "hobbies": ["Design", "Reading"],
+            "personality": ["Introvert", "Bookworm"]
+        }
+    ]
+}
