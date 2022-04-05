@@ -31,11 +31,11 @@ function App() {
     //   <Profile profileObject={data} /> 
     // </div>,
     <div>
-    <NavBar display={displayPage} setDisplay={setDisplayPage}></NavBar>
+    <NavBar displayPage={displayPage} setDisplayPage={setDisplayPage}></NavBar>
     <Grid sx={{backgroundColor: 'background.default', height: '100vh'}}>
       {/* <Form /> */}
       {/* <Profile profileObject={data} />  */}
-      <ProfilePage data={data}></ProfilePage>
+      {(displayPage === "Form")? <Form></Form> : <ProfilePage data={data}></ProfilePage>}
     </Grid>
     
     </div>
