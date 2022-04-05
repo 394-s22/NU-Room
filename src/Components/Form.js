@@ -17,6 +17,7 @@ import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Paper from '@mui/material/Paper';
+import Button from '@mui/material/Button';
 import '@fontsource/roboto/300.css';
 import LinearWithValueLabel from './ProgressBar';
 
@@ -349,9 +350,16 @@ const Form = () => {
                                 <FormHelperText>Please check all that apply</FormHelperText>
                             </FormControl>
                         </Box>
+                        <Box sx = {{m:1, width: 300}}>
+                            <TextField id="outlined-basic" label="Enter a short bio about yourself" variant="outlined" />
+                            
+                        </Box>
+                        <Box sx = {{m:1, width: 300}}>
+                            <Button variant="contained">Submit</Button>
+                        </Box>
+                        
 
                     </Paper>
-                    <Paper variant="outlined"/>
                 </Box>
                    
             </Grid>
@@ -363,16 +371,7 @@ const Form = () => {
 
             <Grid item xs = {12}>
             
-                
-               
-                    
 
-                <div className="MoreAboutYou">
-                    
-                </div>
-                
-                <input id="bio" type="text" placeholder="Bio"></input>
-                <input type="submit" value="Submit"></input>
         
             
         </Grid>

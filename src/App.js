@@ -24,7 +24,8 @@ function App() {
     //   <Profile profileObject={data} /> 
     // </div>,
     <Grid sx={{backgroundColor: 'background.default', height: '100vh'}}>
-      <Form />
+      {/* <Form /> */}
+      <Profile profileObject={data} /> 
     </Grid>
     
   
