@@ -8,7 +8,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Container from '@mui/material/Container';
 import { TextField } from '@mui/material';
-import PrimarySearchAppBar from './Appbar';
+import ResponsiveAppBar from './Appbar';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import Chip from '@mui/material/Chip';
 import FormHelperText from '@mui/material/FormHelperText';
@@ -137,7 +137,7 @@ const Form = () => {
             alignItems="center"
         >
             <Grid item xs = {12}>
-                <PrimarySearchAppBar/>
+                <ResponsiveAppBar/>
             </Grid>
             <Grid item xs = {7}>
                <LinearWithValueLabel/>

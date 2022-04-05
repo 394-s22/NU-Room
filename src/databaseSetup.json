@@ -12,6 +12,12 @@
             "bio": "Lorem Impsum Lorem Impsum Lorem Impsum Lorem Impsum Lorem Impsum Lorem ImpsumLorem Impsum Lorem Impsum Lorem Impsum Lorem Impsum Lorem Impsum",
             "hobbies": ["Design", "Reading"],
             "personality": ["Introvert", "Bookworm"]
+        },
+        {
+            "name": ["Tony", "Wu"],
+            "bio": "Lorem Impsum Lorem Impsum Lorem Impsum Lorem Impsum Lorem Impsum Lorem ImpsumLorem Impsum Lorem Impsum Lorem Impsum Lorem Impsum Lorem Impsum",
+            "hobbies": ["Photography", "Gaming", "Cooking"],
+            "personality": ["Introvert", "Bookworm"]
         }
     ]
 }
