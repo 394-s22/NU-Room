@@ -16,6 +16,9 @@ import FormHelperText from '@mui/material/FormHelperText';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
+import Paper from '@mui/material/Paper';
+import '@fontsource/roboto/300.css';
+import LinearWithValueLabel from './ProgressBar';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -50,6 +53,19 @@ const attributes = [
     
   ];
 
+const hobbiesList = [
+    'sports',
+    'art',
+    'reading',
+    'gaming'
+
+];
+
+const personalityList = [
+    'part animal',
+    'bookworm',
+];
+
 const Form = () => {
     const theme = useTheme();
     const [year, setYear] = React.useState('');
@@ -68,17 +84,46 @@ const Form = () => {
         setPronouns(event.target.value);
     }
 
-    const [personName, setPersonName] = React.useState([]);
-
-    const handleChange = (event) => {
+    const [perfer, setPerfers] = React.useState([]);
+    const handleChangePerfers = (event) => {
         const {
         target: { value },
         } = event;
-        setPersonName(
+        setPerfers(
         // On autofill we get a stringified value.
         typeof value === 'string' ? value.split(',') : value,
         );
     };
+
+    const [place, setPlace] = React.useState('');
+    const handleChangeLocation = (event) => {
+        setPlace(event.target.value);
+    }
+
+    const [hobbies, setHobbies] = React.useState([]);
+    const handleChangeHobbies = (event) => {
+        const {
+        target: { value },
+        } = event;
+        setHobbies(
+        // On autofill we get a stringified value.
+        typeof value === 'string' ? value.split(',') : value,
+        );
+    };
+
+    const [personality, setPersonality] = React.useState([]);
+    const handleChangePersonality = (event) => {
+        const {
+        target: { value },
+        } = event;
+        setPersonality(
+        // On autofill we get a stringified value.
+        typeof value === 'string' ? value.split(',') : value,
+        );
+    };
+    
+
+    
 
     const uploadProfile = () => {
         
@@ -94,27 +139,45 @@ const Form = () => {
             <Grid item xs = {12}>
                 <PrimarySearchAppBar/>
             </Grid>
+            <Grid item xs = {7}>
+               <LinearWithValueLabel/>
+            </Grid>
             <Grid 
-                item xs = {4}
+                item xs = {10}
             >  
                 
-                    <Card >
-                        <CardContent 
-                            justifyContent="center"
-                            sx={{ mb: 2}}
-                            alignItems="center"
-                        >
-                        
+                <Box
+                sx={{
+                    display: 'flex',
+                    '& > :not(style)': {
+                    m: 1,
+                    width: 1000,
+                    minHeight: 200,
+                    },
+                }}
+                >
+                    <Paper variant="outlined" >
+                        <Box sx={{m: 1, }}>
+                            <div
+                            style={{
+                                fontSize: 35,
+                                textAlign: "left",
+                                fontWeight: "lighter",
+                            }}
+                            >   
+                                {"Basic Information"}
+                            </div>
+                        </Box>
+
                         <Box sx={{
-                            '& > :not(style)': { m: 1, width: '24ch' }
+                            '& > :not(style)': { m: 1, width: 200 }
                         }}>
                             <TextField id="fName" label="First Name" variant="outlined" />
                             <TextField id="lName" label="Last Name" variant="outlined" />
                         </Box>
-                        
-                        
+
                         <Box sx = {{m: 1}}>
-                            <FormControl sx={{ml : 20, width : 200}}>
+                            <FormControl sx={{width : 200}}>
                                 <InputLabel id="gender">Gender</InputLabel>
                                     <Select
                                     labelId="gender-select-label"
@@ -126,11 +189,11 @@ const Form = () => {
                                     <MenuItem value={10}>Male</MenuItem>
                                     <MenuItem value={20}>Female</MenuItem>
                                 </Select>
-                            </FormControl> 
+                            </FormControl>
                         </Box>
-
+                        
                         <Box sx = {{m: 1}}>
-                            <FormControl sx={{ml : 20, width : 200}}>
+                            <FormControl sx={{ width : 200}}>
                                 <InputLabel id="pronouns">Pronouns</InputLabel>
                                     <Select
                                     labelId="pronouns-select-label"
@@ -147,8 +210,8 @@ const Form = () => {
                             </FormControl> 
                         </Box>
 
-                        <Box>
-                            <FormControl sx={{ml : 20, width : 200}}>
+                        <Box sx = {{m: 1}}>
+                            <FormControl sx={{width : 200}}>
                                 <InputLabel id="graduation">graduationYear</InputLabel>
                                     <Select
                                     labelId="graduation-year-select-label"
@@ -166,15 +229,15 @@ const Form = () => {
                             </FormControl>
                         </Box>
 
-                        <Box>
-                            <FormControl sx={{ ml: 14, width: 300 }}>
+                        <Box sx = {{m: 1}}>
+                            <FormControl sx={{width: 300 }}>
                                 <InputLabel id="room-perfers-chip-label">I am</InputLabel>
                                 <Select
                                 labelId="room-perfers-chip-label"
                                 id="room-perfer-chip"
                                 multiple
-                                value={personName}
-                                onChange={handleChange}
+                                value={perfer}
+                                onChange={handleChangePerfers}
                                 input={<OutlinedInput id="select-room-perfers-chip" label="Chip" />}
                                 renderValue={(selected) => (
                                     <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
@@ -189,7 +252,7 @@ const Form = () => {
                                     <MenuItem
                                     key={name}
                                     value={name}
-                                    style={getStyles(name, personName, theme)}
+                                    style={getStyles(name, attributes, theme)}
                                     >
                                     {name}
                                     </MenuItem>
@@ -198,11 +261,99 @@ const Form = () => {
                                 <FormHelperText>Please check all that apply</FormHelperText>
                             </FormControl>
                         </Box>
-                        </CardContent>
-                    </Card>
-                
-                
 
+                        <Box sx = {{m: 1}}>
+                            <FormControl sx={{width : 200}}>
+                                <InputLabel id="location">I want to live</InputLabel>
+                                    <Select
+                                    labelId="location-select-label"
+                                    id="location-select"
+                                    value={place}
+                                    label="locationClass"
+                                    onChange={handleChangeLocation}
+                                    >
+                                    <MenuItem value={10}>On Campus</MenuItem>
+                                    <MenuItem value={20}>Off Campus</MenuItem>
+                                </Select>
+                            </FormControl>
+                        </Box>
+
+                        <Box sx={{
+                            '& > :not(style)': { m: 1, width: 200 }
+                        }}>
+                            <TextField id="Major" label="Major" variant="outlined" />
+                        </Box>
+
+                        <Box sx = {{m: 1}}>
+                            <FormControl sx={{width: 300 }}>
+                                <InputLabel id="hobbie-chip-label">My hobbies</InputLabel>
+                                <Select
+                                labelId="hobbie-chip-label"
+                                id="hobbie-chip"
+                                multiple
+                                value={hobbies}
+                                onChange={handleChangeHobbies}
+                                input={<OutlinedInput id="select-hobbie-chip" label="Chip" />}
+                                renderValue={(selected) => (
+                                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                                    {selected.map((value) => (
+                                        <Chip key={value} label={value} />
+                                    ))}
+                                    </Box>
+                                )}
+                                MenuProps={MenuProps}
+                                >
+                                {hobbiesList.map((name) => (
+                                    <MenuItem
+                                    key={name}
+                                    value={name}
+                                    style={getStyles(name, hobbiesList, theme)}
+                                    >
+                                    {name}
+                                    </MenuItem>
+                                ))}
+                                </Select>
+                                <FormHelperText>Please check all that apply</FormHelperText>
+                            </FormControl>
+                        </Box>
+
+                        <Box sx = {{m: 1}}>
+                            <FormControl sx={{width: 300 }}>
+                                <InputLabel id="personality-chip-label">My personality can be described as</InputLabel>
+                                <Select
+                                labelId="personality-chip-label"
+                                id="personality-chip"
+                                multiple
+                                value={personality}
+                                onChange={handleChangePersonality}
+                                input={<OutlinedInput id="select-personality-chip" label="Chip" />}
+                                renderValue={(selected) => (
+                                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                                    {selected.map((value) => (
+                                        <Chip key={value} label={value} />
+                                    ))}
+                                    </Box>
+                                )}
+                                MenuProps={MenuProps}
+                                >
+                                {personalityList.map((name) => (
+                                    <MenuItem
+                                    key={name}
+                                    value={name}
+                                    style={getStyles(name, personalityList, theme)}
+                                    >
+                                    {name}
+                                    </MenuItem>
+                                ))}
+                                </Select>
+                                <FormHelperText>Please check all that apply</FormHelperText>
+                            </FormControl>
+                        </Box>
+
+                    </Paper>
+                    <Paper variant="outlined"/>
+                </Box>
+                   
             </Grid>
 
             
@@ -213,61 +364,11 @@ const Form = () => {
             <Grid item xs = {12}>
             
                 
-                <div className="BasicInfo">
+               
                     
-                    <div>
-                        
-                    </div>
 
-                    <div>
-                        <label for="Housing Preference">I want to live:</label>
-                        <select name="housingPrefs">
-                            <option id="onCampus" value="onCampus">On Campus</option>
-                            <option id="offCampus" value="offCampus">Off Campus</option>
-                        </select>
-                    </div>
-
-                    <input id="major" type="text" placeholder="Major"></input>
-                </div>
-                <div className="RoomingPrefs">
-                    Please check all that apply:
-                    <div>I am:
-                        <input type="checkbox" id="q1"></input>
-                        <label for="q1">a “night owl”</label>
-                        <input type="checkbox" id="q2"></input>
-                        <label for="q2">an ”early bird”</label>
-                        <input type="checkbox" id="q3"></input>
-                        <label for="q3">a heavy sleeper</label>
-                        <input type="checkbox" id="q4"></input>
-                        <label for="q4">a light sleeper</label>
-                        <input type="checkbox" id="q5"></input>
-                        <label for="q5">an introvert</label>
-                        <input type="checkbox" id="q6"></input>
-                        <label for="q6">an extrovert</label>
-                        <input type="checkbox" id="q7"></input>
-                        <label for="q7">On Campus Housing</label>
-                        <input type="checkbox" id="q8"></input>
-                        <label for="q8">emotional/sensitive</label>
-                    </div>
-                </div>
                 <div className="MoreAboutYou">
-                    Please check all that apply:
-                    <div>My hobbies include:
-                        <input type="checkbox" id="q1"></input>
-                        <label for="q1">sports</label>
-                        <input type="checkbox" id="q2"></input>
-                        <label for="q2">art</label>
-                        <input type="checkbox" id="q3"></input>
-                        <label for="q3">reading</label>
-                        <input type="checkbox" id="q4"></input>
-                        <label for="q4">gaming</label>
-                    </div>
-                    <div>My personality can be described as:
-                        <input type="checkbox" id="q1"></input>
-                        <label for="q1">party animal</label>
-                        <input type="checkbox" id="q2"></input>
-                        <label for="q2">bookworm</label>
-                    </div>
+                    
                 </div>
                 
                 <input id="bio" type="text" placeholder="Bio"></input>
