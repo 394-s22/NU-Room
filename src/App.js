@@ -9,11 +9,13 @@ import * as React from 'react';
 import { useData } from './utilities/firebase.js';
 import { useEffect, useState } from 'react';
 import Grid from "@mui/material/Grid";
+import { AppBar } from '@material-ui/core';
+import NavBar from "./Components/NavBar";
 
 
 function App() {
   const [data, loadingData, errorData] = useData("/");
-  const [displayPage, setDisplayPage] = useData("Form");
+  const [displayPage, setDisplayPage] = useState("Form");
 
   useEffect(() => {
     if (data === undefined) return;
@@ -24,17 +26,19 @@ function App() {
   if (loadingData) return <h1>Loading the data...</h1>;
 
   return (
-    
     // <div>
 
     //   <Profile profileObject={data} /> 
     // </div>,
+    <div>
+    <NavBar display={displayPage} setDisplay={setDisplayPage}></NavBar>
     <Grid sx={{backgroundColor: 'background.default', height: '100vh'}}>
       {/* <Form /> */}
       {/* <Profile profileObject={data} />  */}
       <ProfilePage data={data}></ProfilePage>
     </Grid>
     
+    </div>
   
   );
 }
