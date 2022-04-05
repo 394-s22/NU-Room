@@ -11,6 +11,8 @@ import { useEffect, useState } from 'react';
 import Grid from "@mui/material/Grid";
 import { AppBar } from '@material-ui/core';
 import NavBar from "./Components/NavBar";
+import PrimarySearchAppBar from './Components/Appbar';
+
 
 
 function App() {
@@ -24,6 +26,7 @@ function App() {
 
   if (errorData) return <h1>{errorData}</h1>;
   if (loadingData) return <h1>Loading the data...</h1>;
+  document.body.style = 'background: #f5f5f5;';
 
   return (
     // <div>
@@ -31,12 +34,16 @@ function App() {
     //   <Profile profileObject={data} /> 
     // </div>,
     <div>
-    <NavBar displayPage={displayPage} setDisplayPage={setDisplayPage}></NavBar>
-    <Grid sx={{backgroundColor: 'background.default', height: '100vh'}}>
-      {/* <Form /> */}
-      {/* <Profile profileObject={data} />  */}
-      {(displayPage === "Form")? <Form></Form> : <ProfilePage data={data}></ProfilePage>}
-    </Grid>
+      <PrimarySearchAppBar displayPage={displayPage} setDisplayPage={setDisplayPage}/>
+      {/* <NavBar displayPage={displayPage} setDisplayPage={setDisplayPage}></NavBar> */}
+      
+      <Grid container
+            direction="row"
+            justifyContent="center"
+            alignItems="center"
+            sx={{backgroundColor: '#f5f5f5'}}>
+        {(displayPage === "Form")? <Form></Form> : <ProfilePage data={data}></ProfilePage>}
+      </Grid>
     
     </div>
   
