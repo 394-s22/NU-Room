@@ -14,6 +14,12 @@
             "personality": ["Introvert", "Bookworm"]
         },
         {
+<<<<<<< HEAD
+            "name": ["Tony", "Wu"],
+            "bio": "Lorem Impsum Lorem Impsum Lorem Impsum Lorem Impsum Lorem Impsum Lorem ImpsumLorem Impsum Lorem Impsum Lorem Impsum Lorem Impsum Lorem Impsum",
+            "hobbies": ["Photography", "Gaming", "Cooking"],
+            "personality": ["Introvert", "Bookworm"]
+=======
             "name": ["Jane", "Austin"],
             "bio": "Hi! I am Jane and I am from Naples Florida. I am really excited to come to Northwestern in the fall and plan on joining the bird watching club. I enjoy drawing in my freetime and am looking for a roomate who I can do in dorm activities with.",
             "hobbies": ["Drawing", "Introvert"],
@@ -60,6 +66,7 @@
             "bio": "Hi I am Tommy and I am a Graduate student. I study social policy at Northwestern. In my free time I enjoy cooking, going to the local market, and thrifting. Looking for someone to room with in downtown Evanston!",
             "hobbies": ["Cooking", "Homebody"],
             "personality": ["Upbeat", "Humerous"]
+>>>>>>> 1609a2858796b45344a5f9db5b5522ba00f01b00
         }
     ]
 }

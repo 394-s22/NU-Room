@@ -6,6 +6,7 @@ import Grid from "@mui/material/Grid";
 import ImageList from "@mui/material/ImageList"
 import ImageListItem from "@mui/material/ImageListItem"
 import Masonry from '@mui/lab/Masonry';
+import Box from '@mui/material/Box';
 
 const ProfilePage = ({ data }) => {
     const profiles = data.profiles;
@@ -21,6 +22,7 @@ const ProfilePage = ({ data }) => {
                     justifyContent="center"
                     direction="row"
                     alignItems="center"
+                    sx={{m: 5}}
                 >
                     <Grid item xs = {10} md = {8} lg = {8} sx = {{ marginTop:"24px"}}>
                         <div
@@ -38,15 +40,8 @@ const ProfilePage = ({ data }) => {
                                 </h2>
                         </div>
                     </Grid>
-                    <Grid item xs = {10} md = {8} lg = {8}>
-                        <Grid 
-                            container 
-                            columnSpacing={{ xs: 3}}
-                            rowSpacing={{xs: 3}}
-                            justifyContent="center"
-                            direction="row"
-                            alignItems="center"
-                        >
+                    <Grid item xs = {10} md = {8} lg = {8} sx={{ml: 3}}>
+                        
                         <Masonry columns={{ xs: 1, sm: 2, md: 3 }} spacing={2}>
 
                             { profiles.map((profile) => {
@@ -56,8 +51,8 @@ const ProfilePage = ({ data }) => {
                                         
                                 );
                             }) }
-                            </Masonry>
-                        </Grid>
+                        </Masonry>
+                       
                     </Grid>
                 </Grid>
             </div> 

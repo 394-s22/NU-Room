@@ -137,20 +137,16 @@ const Form = () => {
             paddingTop={4}
             paddingBottom={4}
         >
-            {/* <Grid item xs = {12}>
-                <PrimarySearchAppBar/>
-            </Grid> */}
-            {/* <Grid item xs = {7}>
-               <LinearWithValueLabel/>
-            </Grid> */}
-            <Grid item xs = {12} md = {10}>
+            
+            <Grid item xs = {12} md = {10} >
                 <Grid 
                     container columnSpacing={{ xs: 2}}
                     justifyContent="center"
                     direction="row"
                     alignItems="stretch"
+                    rowSpacing={3}
                 >
-                    <Grid item xs = {12} md = {6} style={{height:'100%'}}>
+                    <Grid item xs = {10} md = {6} style={{height:'100%'}}>
                         <Paper variant="outlined" style={{height:'100%'}}>
 
                             <Grid
@@ -244,7 +240,7 @@ const Form = () => {
                         </Paper>
                     </Grid>
 
-                    <Grid item xs = {12} md = {6} style={{height:'100%'}}>
+                    <Grid item xs = {10} md = {6} style={{height:'100%'}} >
 
                         <Paper variant="outlined" >
 

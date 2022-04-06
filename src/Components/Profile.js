@@ -48,16 +48,6 @@ const ExpandMore = styled((props) => {
     return (
       <Card sx={{ width: 1}}>
         <CardHeader
-        //   avatar={
-        //     <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-        //       R
-        //     </Avatar>
-        //   }
-        //   action={
-        //     <IconButton aria-label="settings">
-        //       <MoreVertIcon />
-        //     </IconButton>
-        //   }
           title={profile.name[0] + " " + profile.name[1]}
         //   subheader="September 14, 2016"
         />
@@ -73,12 +63,6 @@ const ExpandMore = styled((props) => {
           </Typography>
         </CardContent>
         <CardActions disableSpacing>
-          {/* <IconButton aria-label="add to favorites">
-            <FavoriteIcon />
-          </IconButton>
-          <IconButton aria-label="share">
-            <ShareIcon />
-          </IconButton> */}
           <ExpandMore
             expand={expanded}
             onClick={handleExpandClick}
@@ -107,51 +91,3 @@ const ExpandMore = styled((props) => {
     );
   }
 
-// const Profile = ({ profile }) => {
-
-//     return (
-
-//         <div className="profileCard">
-//             <Grid container spacing={2}>
-//                 <Grid item xs={6}>
-//                     <h1>{profile.name[0]}</h1>
-                    
-//                 </Grid>
-//                 <Grid item xs={6}>
-//                     <h1>{profile.name[1]}</h1>
-//                 </Grid>
-
-//                 <Grid item xs={12}>
-//                     <h2>Bio</h2>
-//                 </Grid>
-//                 <Grid item xs={12}>
-//                     <p>{profile.bio}</p>
-//                 </Grid>
-//                 <Grid item xs={12}>
-//                     <img id="profileImg" src="https://picsum.photos/200/300" alt="Profile Image"></img>
-//                 </Grid>
-
-//                 <Grid item xs={12}>
-                    
-//                         <h2>Hobbies</h2>
-//                             <ul>
-//                                 <li>{profile.hobbies[0]}</li>
-//                                 <li>{profile.hobbies[1]}</li>
-//                             </ul>
-//                             <h2>Personal Vibe</h2>
-//                             <ul>
-//                                 <li>{profile.personality[0]}</li>
-//                                 <li>{profile.personality[0]}</li>
-//                             </ul>
-//                         <h2>___ % Match!</h2>
-//                         <h3>Message Name at: @email</h3>
-                    
-//                 </Grid>
-//             </Grid>
-//         </div>
-
-
-//     );
-// };
-
-// export default Profile;
