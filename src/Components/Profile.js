@@ -46,20 +46,20 @@ const ExpandMore = styled((props) => {
     };
   
     return (
-      <Card sx={{ maxWidth: 345 }}>
+      <Card sx={{ width: 1}}>
         <CardHeader
-          avatar={
-            <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-              R
-            </Avatar>
-          }
-          action={
-            <IconButton aria-label="settings">
-              <MoreVertIcon />
-            </IconButton>
-          }
+        //   avatar={
+        //     <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+        //       R
+        //     </Avatar>
+        //   }
+        //   action={
+        //     <IconButton aria-label="settings">
+        //       <MoreVertIcon />
+        //     </IconButton>
+        //   }
           title={profile.name[0] + " " + profile.name[1]}
-          subheader="September 14, 2016"
+        //   subheader="September 14, 2016"
         />
         <CardMedia
           component="img"
@@ -73,12 +73,12 @@ const ExpandMore = styled((props) => {
           </Typography>
         </CardContent>
         <CardActions disableSpacing>
-          <IconButton aria-label="add to favorites">
+          {/* <IconButton aria-label="add to favorites">
             <FavoriteIcon />
           </IconButton>
           <IconButton aria-label="share">
             <ShareIcon />
-          </IconButton>
+          </IconButton> */}
           <ExpandMore
             expand={expanded}
             onClick={handleExpandClick}
@@ -90,13 +90,14 @@ const ExpandMore = styled((props) => {
         </CardActions>
         <Collapse in={expanded} timeout="auto" unmountOnExit>
           <CardContent>
-            <Typography paragraph>Method:</Typography>
+            <Typography paragraph sx = {{fontWeight: 700}}>Hobbies:</Typography>
             <Typography paragraph>
                 {profile.hobbies[0]}
             </Typography>
             <Typography paragraph>
                 {profile.hobbies[1]}
             </Typography>
+            <Typography paragraph sx = {{fontWeight: 700}}>Personality:</Typography>
             <Typography paragraph>
                 {profile.personality[0]}
             </Typography>
