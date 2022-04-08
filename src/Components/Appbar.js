@@ -13,7 +13,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { Grid } from '@mui/material';
 
-const pages = ['Preferences', 'Matches'];
+const pages = ["Preferences", "Matches"];
 const settings = ['Profile', 'Logout'];
 
 const ResponsiveAppBar = ({displayPage, setDisplayPage}) => {
@@ -28,10 +28,11 @@ const ResponsiveAppBar = ({displayPage, setDisplayPage}) => {
   // };
 
   const handleCloseNavMenu = (event) => {
-    console.log(event.currentTarget.value)
-    if (event.currentTarget.value == "Preferences") {
+    console.log(event.target)
+    console.log(event.target.textContent)
+    if (event.target.textContent == "Preferences") {
       setDisplayPage("Form")
-    } else if (event.currentTarget.value == "Matches") {
+    } else if (event.target.textContent == "Matches") {
       setDisplayPage("Matches")
     }
     setAnchorElNav(null);
