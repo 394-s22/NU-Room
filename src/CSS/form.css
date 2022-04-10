@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
+
+#formContainer {
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#formNote {
+    font-family: Roboto;
+    width: 80vw;
+    /* display: flex;
+    justify-content: center; */
+    padding-top: 15px;
+    color: rgb(100, 100, 100)
+}

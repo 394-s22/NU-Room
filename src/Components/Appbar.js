@@ -28,8 +28,8 @@ const ResponsiveAppBar = ({displayPage, setDisplayPage}) => {
   // };
 
   const handleCloseNavMenu = (event) => {
-    console.log(event.target)
-    console.log(event.target.textContent)
+    console.log('event.target:',event.target)
+    console.log('event.target.textContent:',event.target.textContent)
     if (event.target.textContent == "Preferences") {
       setDisplayPage("Form")
     } else if (event.target.textContent == "Matches") {

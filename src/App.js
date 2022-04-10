@@ -26,13 +26,10 @@ function App() {
 
   if (errorData) return <h1>{errorData}</h1>;
   if (loadingData) return <h1>Loading the data...</h1>;
-  document.body.style = 'background: #f5f5f5;';
+  document.body.style = 'background: #f5f5f5;'
 
   return (
-    // <div>
 
-    //   <Profile profileObject={data} /> 
-    // </div>,
     <div>
       <PrimarySearchAppBar displayPage={displayPage} setDisplayPage={setDisplayPage}/>
       {/* <NavBar displayPage={displayPage} setDisplayPage={setDisplayPage}></NavBar> */}
@@ -44,10 +41,9 @@ function App() {
             sx={{backgroundColor: '#f5f5f5'}}>
         {(displayPage === "Form")? <Form></Form> : <ProfilePage data={data}></ProfilePage>}
       </Grid>
-    
     </div>
   
-  );
+  )
 }
 
 export default App;
