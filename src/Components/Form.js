@@ -91,7 +91,7 @@ const housingList = [
     'House off Campus'
 ]
 
-const Form = () => {
+const Form = ({ setDisplayPage }) => {
     const theme = useTheme();
     const [year, setYear] = React.useState('');
     const handleChangeYear = (event) => {
@@ -593,6 +593,9 @@ const Form = () => {
                         fontSize: "16px",
                         whiteSpace: 'nowrap',
                         textAlign: 'center'
+                        }}
+                        onClick={() => {
+                            setDisplayPage('Matches');
                         }}>Match Me!</Button>
 
                 </Grid>

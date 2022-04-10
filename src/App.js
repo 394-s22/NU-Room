@@ -39,7 +39,7 @@ function App() {
             justifyContent="center"
             alignItems="center"
             sx={{backgroundColor: '#f5f5f5'}}>
-        {(displayPage === "Form")? <Form></Form> : <ProfilePage data={data}></ProfilePage>}
+        {(displayPage === "Form")? <Form setDisplayPage={setDisplayPage}></Form> : <ProfilePage data={data}></ProfilePage>}
       </Grid>
     </div>
   
