@@ -291,7 +291,7 @@ const Form = ({ setDisplayPage }) => {
                                                 <Select
                                                 labelId="location-select-label"
                                                 id="location-select"
-                                                value=""
+                                                value={loct}
                                                 label="I want to live"
                                                 onChange={handleChangeLocation}
                                                 >
@@ -310,7 +310,7 @@ const Form = ({ setDisplayPage }) => {
                                                 labelId="campus-select-label"
                                                 id="campus-select"
                                                 //add a state "place"
-                                                value=""
+                                                value={accomodation}
                                                 label="I want to live in a"
                                                 onChange={handleChangeAccomodation}
                                                 >
@@ -459,7 +459,14 @@ const Form = ({ setDisplayPage }) => {
                                         </Grid>
 
                                         <Grid item xs = {6} w={2}>
-                                            <TextField fullWidth id="outlined-basic" label="Enter a short bio about yourself" variant="outlined" />
+                                            <TextField 
+                                            fullWidth 
+                                            multiline
+                                            id="outlined-basic" 
+                                            label="Enter a short bio about yourself" 
+                                            rows={5}
+                                            maxRows={10}
+                                            variant="outlined" />
                                         </Grid>
 
                                         <Box sx={{ display: 'flex' }}>
