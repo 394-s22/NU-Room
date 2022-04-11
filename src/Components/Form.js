@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import Grid from "@mui/material/Grid";
 import { useTheme } from '@mui/material/styles';
@@ -25,6 +26,9 @@ import FormGroup from '@mui/material/FormGroup';
 import Input from '@mui/material/Input'
 import FormControlLabel from '@mui/material/FormControlLabel';
 import '../CSS/form.css';
+import storage  from '../utilities/firebase';
+import { getStorage, ref, uploadBytes, getDownloadURL} from "firebase/storage";
+
 
 
 const ITEM_HEIGHT = 48;
@@ -191,6 +195,29 @@ const Form = ({ setDisplayPage }) => {
     
     const { smoker, drinker, sharedRoom, petOwner, musician, partnerOver, guestsOver, excessivePossessions } = personal;
     const { isSmoker, isDrinker, ownRoom, diffSexes, isPetOwner, isMusician, hasPartnerOver, hasGuestsOver, hasExcessivePossessions } = dealBreakers;
+
+    const [image , setImage] = useState(null);
+    const [upload , setUpload] = useState(false);
+
+    const uploadImage = () => {
+        setUpload(!upload)
+    };
+    
+    useEffect(() => {
+        if(image == null)
+          return;
+        uploadBytes(ref(storage, `/images/${image.name}`), image).then((snapshot) => {
+            console.log("Image uploaded!")
+            // setDisplayPage('Matches');
+        });
+        setDisplayPage('Matches');
+        // storage.ref(`/images/${image.name}`).put(image)
+        // .on("state_changed" , alert("success") , alert);
+        // add a line to save the image name in the profile json so it can be pulled easily
+
+    }, [upload]);
+
+    // https://stackoverflow.com/questions/28822054/firebase-how-to-generate-a-unique-numeric-id-for-key
 
     return (
         <div id="formContainer">
@@ -585,6 +612,11 @@ const Form = ({ setDisplayPage }) => {
 
                 </Grid>
 
+                <Grid>
+                    <input type="file" onChange={(e)=>{setImage(e.target.files[0])}}/>
+                    <button onClick={uploadImage}>Upload Profile Image</button>
+                </Grid>
+
                 <Grid item xs = {3} w={1}>
                     <Button w={1} variant="contained" sx = {{
                         width: 1,
@@ -595,11 +627,12 @@ const Form = ({ setDisplayPage }) => {
                         textAlign: 'center'
                         }}
                         onClick={() => {
-                            setDisplayPage('Matches');
+                            uploadImage();
                         }}>Match Me!</Button>
-
+                    <img id="myimg"></img>
                 </Grid>
             </Grid>
+            
         </div>
     );
 };
