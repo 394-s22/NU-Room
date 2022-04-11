@@ -25,6 +25,7 @@ import FormGroup from '@mui/material/FormGroup';
 import Input from '@mui/material/Input'
 import FormControlLabel from '@mui/material/FormControlLabel';
 import '../CSS/form.css';
+import GeoLocation from "./GeoLocation";
 
 
 const ITEM_HEIGHT = 48;
@@ -174,6 +175,18 @@ const Form = () => {
         guestsOver: false,
         excessivePossessions: false
     });
+
+    const [expectations, setExpectations] = React.useState({
+        weeklyCleanRoom: false,
+        biweeklyCleanRoom: false,
+        monthlyCleanRoom: false, 
+        noisyBackground: false, 
+        quietBackground: false,
+        warmRoom: false,
+        coldRoom: false,
+        friendRoommate: false,
+        strangerRoommate: false
+    });
       
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setDealBreakers({
@@ -188,9 +201,22 @@ const Form = () => {
         [event.target.name]: event.target.checked,
         });
     };
+
+    const handleChangeExpectations = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setExpectations({
+        ...expectations,
+        [event.target.name]: event.target.checked,
+        });
+    };
     
     const { smoker, drinker, sharedRoom, petOwner, musician, partnerOver, guestsOver, excessivePossessions } = personal;
     const { isSmoker, isDrinker, ownRoom, diffSexes, isPetOwner, isMusician, hasPartnerOver, hasGuestsOver, hasExcessivePossessions } = dealBreakers;
+    const { weeklyCleanRoom, biweeklyCleanRoom, monthlyCleanRoom, noisyBackground, quietBackground, warmRoom, coldRoom, friendRoommate, strangerRoommate} = expectations;
+
+    const [country, setCountry] = React.useState("");
+    const [state, setState] = React.useState("");
+    const [city, setCity] = React.useState("");
+    
 
     return (
         <div id="formContainer">
@@ -342,6 +368,209 @@ const Form = () => {
                                         spacing={3}
                                         padding={3}
                                     >
+                                        <Grid 
+                                        item xs = {12} w={1} pb = {2}>
+                                            <div
+                                                style={{
+                                                    fontSize: 35,
+                                                    textAlign: "left",
+                                                    fontWeight: "lighter",
+                                                }}
+                                                >   
+                                                {"More About Me"}
+                                            </div>
+                                        </Grid>
+                                        <Box sx={{ display: 'flex' , pl: 3}}>
+                                        <FormControl sx={{ m: 3}} component="fieldset" variant="standard">
+                                                <FormLabel component="legend">Please check all that apply: </FormLabel>
+                                                <FormGroup>
+                                                <FormControlLabel
+                                                    control={
+                                                    <Checkbox checked={smoker} onChange={handleChangePersonal} name="smoker" />
+                                                    }
+                                                    label="I am a smoker"
+                                                />
+                                                <FormControlLabel
+                                                    control={
+                                                    <Checkbox checked={drinker} onChange={handleChangePersonal} name="drinker" />
+                                                    }
+                                                    label="I am a drinker (alcohol)"
+                                                />
+                                                <FormControlLabel
+                                                    control={
+                                                    <Checkbox checked={sharedRoom} onChange={handleChangePersonal} name="sharedRoom" />
+                                                    }
+                                                    label="I want to share a bedroom"
+                                                />
+                                                <FormControlLabel
+                                                    control={
+                                                    <Checkbox checked={petOwner} onChange={handleChangePersonal} name="petOwner" />
+                                                    }
+                                                    label="I am a pet owner"
+                                                />
+                                                <FormControlLabel
+                                                    control={
+                                                    <Checkbox checked={musician} onChange={handleChangePersonal} name="musician" />
+                                                    }
+                                                    label="I practice instruments often"
+                                                />
+                                                <FormControlLabel
+                                                    control={
+                                                    <Checkbox checked={partnerOver} onChange={handleChangePersonal} name="partnerOver" />
+                                                    }
+                                                    label="I have my partner over often"
+                                                />
+                                                <FormControlLabel
+                                                    control={
+                                                    <Checkbox checked={guestsOver} onChange={handleChangePersonal} name="guestsOver" />
+                                                    }
+                                                    label="I have guests over often"
+                                                />
+                                                <FormControlLabel
+                                                    control={
+                                                    <Checkbox checked={excessivePossessions} onChange={handleChangePersonal} name="excessivePossessions" />
+                                                    }
+                                                    label="My possesions occupy a lot of space"
+                                                />
+                                                </FormGroup>
+                                                <FormHelperText>This information will remain private.</FormHelperText>
+                                            </FormControl>
+                                            <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
+                                                <FormLabel component="legend">Please check all that apply: <b>I will NOT</b> </FormLabel>
+                                                
+                                                <FormGroup>
+                                                <FormControlLabel
+                                                    control={
+                                                    <Checkbox checked={isSmoker} onChange={handleChange} name="isSmoker" />
+                                                    }
+                                                    label="live with someone who smokes"
+                                                />
+                                                <FormControlLabel
+                                                    control={
+                                                    <Checkbox checked={isDrinker} onChange={handleChange} name="isDrinker" />
+                                                    }
+                                                    label="live with someone who drinks"
+                                                />
+                                                <FormControlLabel
+                                                    control={
+                                                    <Checkbox checked={ownRoom} onChange={handleChange} name="ownRoom" />
+                                                    }
+                                                    label="live in a shared a bedroom"
+                                                />
+                                                <FormControlLabel
+                                                    control={
+                                                    <Checkbox checked={diffSexes} onChange={handleChange} name="diffSexes" />
+                                                    }
+                                                    label="live with roomates of a different sex"
+                                                />
+                                                <FormControlLabel
+                                                    control={
+                                                    <Checkbox checked={isPetOwner} onChange={handleChange} name="isPetOwner" />
+                                                    }
+                                                    label="live with a pet owner"
+                                                />
+                                                <FormControlLabel
+                                                    control={
+                                                    <Checkbox checked={isMusician} onChange={handleChange} name="isMusician" />
+                                                    }
+                                                    label="live with someone who plays an instrument"
+                                                />
+                                                <FormControlLabel
+                                                    control={
+                                                    <Checkbox checked={hasPartnerOver} onChange={handleChange} name="hasPartnerOver" />
+                                                    }
+                                                    label="live with somene who has their partner over often"
+                                                />
+                                                <FormControlLabel
+                                                    control={
+                                                    <Checkbox checked={hasGuestsOver} onChange={handleChange} name="hasGuestsOver" />
+                                                    }
+                                                    label="live with somene who has guests over often"
+                                                />
+                                                <FormControlLabel
+                                                    control={
+                                                    <Checkbox checked={hasExcessivePossessions} onChange={handleChange} name="hasExcessivePossessions" />
+                                                    }
+                                                    label="live with somene who has excessive possesions"
+                                                />
+                                                </FormGroup>
+                                                <FormHelperText>This information will remain private.</FormHelperText>
+                                            </FormControl>
+                                            <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
+                                                <FormLabel component="legend">Please check all that apply: <b>I expect</b> </FormLabel>
+                                                
+                                                <FormGroup>
+                                                <FormControlLabel
+                                                    control={
+                                                    <Checkbox checked={weeklyCleanRoom} onChange={handleChangeExpectations} name="weeklyCleanRoom" />
+                                                    }
+                                                    label="to clean the room weekly"
+                                                />
+                                                <FormControlLabel
+                                                    control={
+                                                    <Checkbox checked={biweeklyCleanRoom} onChange={handleChangeExpectations} name="biweeklyCleanRoom" />
+                                                    }
+                                                    label="to clean the room biweekly"
+                                                />
+                                                <FormControlLabel
+                                                    control={
+                                                    <Checkbox checked={monthlyCleanRoom} onChange={handleChangeExpectations} name="monthlyCleanRoom" />
+                                                    }
+                                                    label="to clean the room monthly"
+                                                />
+                                                <FormControlLabel
+                                                    control={
+                                                    <Checkbox checked={noisyBackground} onChange={handleChangeExpectations} name="noisyBackground" />
+                                                    }
+                                                    label="to have background noise/music when working"
+                                                />
+                                                <FormControlLabel
+                                                    control={
+                                                    <Checkbox checked={quietBackground} onChange={handleChangeExpectations} name="quietBackground" />
+                                                    }
+                                                    label="the room to be quiet when working"
+                                                />
+                                                <FormControlLabel
+                                                    control={
+                                                    <Checkbox checked={warmRoom} onChange={handleChangeExpectations} name="warmRoom" />
+                                                    }
+                                                    label="the room to be on the warm side"
+                                                />
+                                                <FormControlLabel
+                                                    control={
+                                                    <Checkbox checked={coldRoom} onChange={handleChangeExpectations} name="coldRoom" />
+                                                    }
+                                                    label="the room to be on the cool side"
+                                                />
+                                                </FormGroup>
+                                                <FormControlLabel
+                                                    control={
+                                                    <Checkbox checked={friendRoommate} onChange={handleChangeExpectations} name="friendRoommate" />
+                                                    }
+                                                    label="to be friends with my roommate"
+                                                />
+                                                <FormControlLabel
+                                                    control={
+                                                    <Checkbox checked={strangerRoommate} onChange={handleChangeExpectations} name="strangerRoommate" />
+                                                    }
+                                                    label="to never hang out with my roommate"
+                                                />
+                                                <FormHelperText>This information will remain private.</FormHelperText>
+                                            </FormControl>
+                                        </Box>
+                                    </Grid>
+                                </Paper>
+                    </Grid>
+                    <Grid item xs = {10} md = {12} style={{height:'100%'}}>
+                                <Paper variant="outlined" >
+                                    <Grid
+                                        container
+                                        direction="row"
+                                        justifyContent="space-between"
+                                        alignItems="center"
+                                        spacing={3}
+                                        padding={3}
+                                    >
                                         <Grid item xs = {12} w={1}>
                                             <div
                                                 style={{
@@ -387,7 +616,6 @@ const Form = () => {
                                             </FormControl>
                                         </Grid>
 
-                                    
 
                                         <Grid item xs = {4} w={1}>
                                             <FormControl sx={{width: 1 }}>
@@ -458,130 +686,53 @@ const Form = () => {
                                             </FormControl>
                                         </Grid>
 
-                                        <Grid item xs = {6} w={2}>
-                                            <TextField fullWidth id="outlined-basic" label="Enter a short bio about yourself" variant="outlined" />
+                                        
+                                            <Grid item xs = {4} w={1}>
+                                            <GeoLocation
+                                                locationTitle="Country"
+                                                isCountry
+                                                onChange={setCountry}
+                                                
+                                            />
+                                            </Grid>
+                                            <Grid item xs = {4} w={1}>
+                                            <GeoLocation
+                                                locationTitle="State"
+                                                onChange={setState}
+                                                geoId={country}
+                                            />
+                                            </Grid>
+
+                                            <Grid item xs = {4}>
+                                            <GeoLocation
+                                                locationTitle="County"
+                                                onChange={setCity}
+                                                geoId={state}
+                                            />
+                                            </Grid>
+                                        
+
+                                        
+
+                                        <Grid item xs = {2} w={2} md = {6}>
+                                            <TextField
+                                                id="outlined-multiline-static"
+                                                label="Enter a short bio about yourself"
+                                                multiline
+                                                rows={4}
+                                                sx={{width : {xs: 280, md: 500}}}
+                                                
+                                            />
                                         </Grid>
 
-                                        <Box sx={{ display: 'flex' }}>
-                                        <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
-                                                <FormLabel component="legend">Please check all that apply </FormLabel>
-                                                <FormGroup>
-                                                <FormControlLabel
-                                                    control={
-                                                    <Checkbox checked={smoker} onChange={handleChangePersonal} name="smoker" />
-                                                    }
-                                                    label="I am a smoker"
-                                                />
-                                                <FormControlLabel
-                                                    control={
-                                                    <Checkbox checked={drinker} onChange={handleChangePersonal} name="drinker" />
-                                                    }
-                                                    label="I am a drinker (alcohol)"
-                                                />
-                                                <FormControlLabel
-                                                    control={
-                                                    <Checkbox checked={sharedRoom} onChange={handleChangePersonal} name="sharedRoom" />
-                                                    }
-                                                    label="I want to share a bedroom"
-                                                />
-                                                <FormControlLabel
-                                                    control={
-                                                    <Checkbox checked={petOwner} onChange={handleChangePersonal} name="petOwner" />
-                                                    }
-                                                    label="I am a pet owner"
-                                                />
-                                                <FormControlLabel
-                                                    control={
-                                                    <Checkbox checked={musician} onChange={handleChangePersonal} name="musician" />
-                                                    }
-                                                    label="I practice instruments often"
-                                                />
-                                                <FormControlLabel
-                                                    control={
-                                                    <Checkbox checked={partnerOver} onChange={handleChangePersonal} name="partnerOver" />
-                                                    }
-                                                    label="I have my partner over often"
-                                                />
-                                                <FormControlLabel
-                                                    control={
-                                                    <Checkbox checked={guestsOver} onChange={handleChangePersonal} name="guestsOver" />
-                                                    }
-                                                    label="I have guests over often"
-                                                />
-                                                <FormControlLabel
-                                                    control={
-                                                    <Checkbox checked={excessivePossessions} onChange={handleChangePersonal} name="excessivePossessions" />
-                                                    }
-                                                    label="My possesions occupy a lot of space"
-                                                />
-                                                </FormGroup>
-                                                <FormHelperText>This information will remain private.</FormHelperText>
-                                            </FormControl>
-                                            <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
-                                                <FormLabel component="legend">Deal Breakers: Please check all that apply</FormLabel>
-                                                <FormGroup>
-                                                <FormControlLabel
-                                                    control={
-                                                    <Checkbox checked={isSmoker} onChange={handleChange} name="isSmoker" />
-                                                    }
-                                                    label="I will NOT live with someone who smokes"
-                                                />
-                                                <FormControlLabel
-                                                    control={
-                                                    <Checkbox checked={isDrinker} onChange={handleChange} name="isDrinker" />
-                                                    }
-                                                    label="I will NOT live with someone who drinks"
-                                                />
-                                                <FormControlLabel
-                                                    control={
-                                                    <Checkbox checked={ownRoom} onChange={handleChange} name="ownRoom" />
-                                                    }
-                                                    label="I will NOT live in a shared a bedroom"
-                                                />
-                                                <FormControlLabel
-                                                    control={
-                                                    <Checkbox checked={diffSexes} onChange={handleChange} name="diffSexes" />
-                                                    }
-                                                    label="I will NOT live with roomates of a different sex"
-                                                />
-                                                <FormControlLabel
-                                                    control={
-                                                    <Checkbox checked={isPetOwner} onChange={handleChange} name="isPetOwner" />
-                                                    }
-                                                    label="I will NOT live with a pet owner"
-                                                />
-                                                <FormControlLabel
-                                                    control={
-                                                    <Checkbox checked={isMusician} onChange={handleChange} name="isMusician" />
-                                                    }
-                                                    label="I will NOT live with someone who plays an instrument"
-                                                />
-                                                <FormControlLabel
-                                                    control={
-                                                    <Checkbox checked={hasPartnerOver} onChange={handleChange} name="hasPartnerOver" />
-                                                    }
-                                                    label="I will NOT live with somene who has their partner over often"
-                                                />
-                                                <FormControlLabel
-                                                    control={
-                                                    <Checkbox checked={hasGuestsOver} onChange={handleChange} name="hasGuestsOver" />
-                                                    }
-                                                    label="I will NOT live with somene who has guests over often"
-                                                />
-                                                <FormControlLabel
-                                                    control={
-                                                    <Checkbox checked={hasExcessivePossessions} onChange={handleChange} name="hasExcessivePossessions" />
-                                                    }
-                                                    label="I will NOT live with somene who has excessive possesions"
-                                                />
-                                                </FormGroup>
-                                                <FormHelperText>This information will remain private.</FormHelperText>
-                                            </FormControl>
-                                        </Box>
+                                       
+
+                                        
                                     </Grid>
                                 </Paper>
-                            </Grid>
-                        </Grid>
+                    </Grid>
+                </Grid>
+                    
 
                 </Grid>
 
