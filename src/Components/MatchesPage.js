@@ -9,7 +9,7 @@ import Masonry from '@mui/lab/Masonry';
 import Box from '@mui/material/Box';
 import { getStorage, ref, getDownloadURL} from "firebase/storage";
 
-const ProfilePage = ({ data }) => {
+const MatchesPage = ({ data, setCurrentProfile, setDisplayPage}) => {
     const profiles = data.profiles;
     console.log(profiles);
 
@@ -90,7 +90,8 @@ const ProfilePage = ({ data }) => {
 
                             { profiles.map((profile, index) => {
                                 return (
-                                    <Profile key={index} profile={profile}></Profile>
+                                    <Profile key={index} profile={profile} setCurrentProfile={setCurrentProfile} setDisplayPage={setDisplayPage}></Profile>
+                                        
                                 );
                             }) }
                         </Masonry>
@@ -102,4 +103,4 @@ const ProfilePage = ({ data }) => {
     );
 };
 
-export default ProfilePage;
+export default MatchesPage;

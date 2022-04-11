@@ -17,8 +17,6 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Grid from "@mui/material/Grid";
 import Button, { ButtonProps } from '@mui/material/Button';
 import Box from '@mui/material/Box';
-import FullProfile from "./FullProfile";
-import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
 import "../CSS/profile.css";
 
 // import { setData, useData } from "../utilities/firebase";
@@ -42,22 +40,12 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export default function Profile({ profile, setCurrentProfile, setDisplayPage }) {
+const FullProfile = ({ profile, setCurrentProfile, setDisplayPage }) => {
   const [expanded, setExpanded] = React.useState(false);
-  const [fullProfilePage, setFullProfilePage] = React.useState(false);
-  
-  const showFullProfilePage = () => {
-    setFullProfilePage(true);
-    console.log('inside showFull', fullProfilePage)
-    return true;
-  }
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-
-  const randomNumber = Math.floor(Math.random() * (500 - 10 + 1)) + 10;
-  const link = `https://picsum.photos/200/${randomNumber}`;
 
   return (
     <Card sx={{ width: 1 }}>
@@ -68,12 +56,12 @@ export default function Profile({ profile, setCurrentProfile, setDisplayPage }) 
       <CardMedia
         component="img"
         height="194"
-        image={link}
+        image="https://picsum.photos/200/300"
         alt="Roommate photo"
       />
       <CardContent>
         <Typography variant="body2" color="text.secondary">
-          {profile.bio} 
+          {profile.bio}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
@@ -97,28 +85,14 @@ export default function Profile({ profile, setCurrentProfile, setDisplayPage }) 
           fontSize: "16px",
           whiteSpace: 'nowrap',
           textAlign: 'center'
-        }}
-        onClick={() => {
-          setCurrentProfile(profile);
-          setDisplayPage('FullProfile');
-        }}>
-          View Full Profile</Button>
+          }}
+          onClick={() => {
+            setDisplayPage('Matches');
+            console.log("Hello");
+          }}
+          >Back to Matches</Button>
       </Box>
 
-    {/* <Router>
-      <Routes>
-        <Route exact path="/FullProfile" 
-            component={FullProfile}>
-        </Route>
-        <Route>
-    
-              <Link to="/FullProfile" target="_blank">
-                View Person's Profile ...
-              </Link>
-  
-        </Route>
-      </Routes>
-    </Router> */}
 
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
@@ -139,3 +113,4 @@ export default function Profile({ profile, setCurrentProfile, setDisplayPage }) 
   );
 }
 
+export default FullProfile;
