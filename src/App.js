@@ -1,8 +1,9 @@
 import logo from './logo.svg';
 import './App.css';
 import Form from "./Components/Form";
-import ProfilePage from "./Components/ProfilePage"
+import MatchesPage from "./Components/MatchesPage";
 import Profile from "./Components/Profile";
+import FullProfile from "./Components/FullProfile";
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import * as React from 'react';
@@ -18,6 +19,7 @@ import PrimarySearchAppBar from './Components/Appbar';
 function App() {
   const [data, loadingData, errorData] = useData("/");
   const [displayPage, setDisplayPage] = useState("Form");
+  const [currentProfile, setCurrentProfile] = useState(null);
 
   useEffect(() => {
     if (data === undefined) return;
@@ -27,6 +29,19 @@ function App() {
   if (errorData) return <h1>{errorData}</h1>;
   if (loadingData) return <h1>Loading the data...</h1>;
   document.body.style = 'background: #f5f5f5;'
+
+  const renderSwitch = (displayPage) => {
+    switch(displayPage) {
+      case "Form":
+        return <Form setDisplayPage={setDisplayPage}></Form>; 
+      case "Matches":
+        return <MatchesPage data={data} setCurrentProfile={setCurrentProfile} setDisplayPage={setDisplayPage}></MatchesPage>;
+      case "FullProfile":
+        return <FullProfile profile={currentProfile} setDisplayPage={setDisplayPage}></FullProfile>;
+      default:
+        return null;
+    }
+  }
 
   return (
 
@@ -39,10 +54,11 @@ function App() {
             justifyContent="center"
             alignItems="center"
             sx={{backgroundColor: '#f5f5f5'}}>
-        {(displayPage === "Form")? <Form setDisplayPage={setDisplayPage}></Form> : <ProfilePage data={data}></ProfilePage>}
+        {
+          renderSwitch(displayPage)
+        }
       </Grid>
     </div>
-  
   )
 }
 
