@@ -786,8 +786,8 @@ const Form = ({ setDisplayPage }) => {
                 </Grid>
 
                 <Grid>
-                    <input type="file" onChange={(e)=>{setImage(e.target.files[0])}}/>
-                    <button onClick={uploadImage}>Upload Profile Image</button>
+                    <label for="profile-image">Upload profile image</label>
+                    <input id="profile-image" type="file" onChange={(e)=>{setImage(e.target.files[0])}}/>
                 </Grid>
 
                 <Grid item xs = {3} w={1}>
