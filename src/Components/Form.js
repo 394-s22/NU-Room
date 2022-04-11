@@ -81,8 +81,16 @@ const hobbiesList = [
 ];
 
 const personalityList = [
-    'party animal',
-    'bookworm',
+    'shy',
+    'outgoing',
+    'I like to try new things',
+    'I don\'t like change',
+    'I like to have everything planned',
+    'I like to live without a schedule',
+    'I care how others think about me',
+    'I am not intrested in people I don\'t know',
+    'I\'m always stressed',
+    'I deal with stress well'
 ];
 
 const housingList = [
@@ -311,14 +319,14 @@ const Form = () => {
                                         </div>
                                     </Grid>
 
-                                    <Grid item xs = {6} w={1}>
+                                    <Grid item xs = {12} md={6} w={1}>
                                         <FormControl sx={{width : 1}}>
                                             <InputLabel id="location-select-label">I want to live</InputLabel>
                                                 <Select
                                                 labelId="location-select-label"
                                                 id="location-select"
-                                                value=""
-                                                label="I want to live"
+                                                value={loct}
+                                                
                                                 onChange={handleChangeLocation}
                                                 >
                                                     <MenuItem value={10}>North</MenuItem>
@@ -329,14 +337,14 @@ const Form = () => {
                                         </FormControl>
                                     </Grid>
 
-                                    <Grid item xs = {6} w={1}>
+                                    <Grid item xs = {12} md={6} w={1}>
                                         <FormControl sx={{width : 1}}>
                                             <InputLabel id="campus-select-label">I want to live in a</InputLabel>
                                                 <Select
                                                 labelId="campus-select-label"
                                                 id="campus-select"
                                                 //add a state "place"
-                                                value=""
+                                                value={accomodation}
                                                 label="I want to live in a"
                                                 onChange={handleChangeAccomodation}
                                                 >
@@ -380,8 +388,16 @@ const Form = () => {
                                                 {"More About Me"}
                                             </div>
                                         </Grid>
-                                        <Box sx={{ display: 'flex' , pl: 3}}>
-                                        <FormControl sx={{ m: 3}} component="fieldset" variant="standard">
+                                        
+                                        <Grid item xs = {12} p = {1}>
+                                            <Grid w={1} pb = {2}
+                                            container
+                                            direction="row"
+                                            justifyContent="space-between"
+                                            alignItems="center"
+                                            >
+                                            <Grid item xs = {12} w={1} pb = {2} md = {4}>
+                                            <FormControl sx={{ m: 3, pb: 10 }} component="fieldset" variant="standard">
                                                 <FormLabel component="legend">Please check all that apply: </FormLabel>
                                                 <FormGroup>
                                                 <FormControlLabel
@@ -435,7 +451,9 @@ const Form = () => {
                                                 </FormGroup>
                                                 <FormHelperText>This information will remain private.</FormHelperText>
                                             </FormControl>
-                                            <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
+                                            </Grid>
+                                            <Grid item xs = {12} w={1} pb = {2} md = {4}>
+                                            <FormControl sx={{ m: 3, pb: 10}} component="fieldset" variant="standard">
                                                 <FormLabel component="legend">Please check all that apply: <b>I will NOT</b> </FormLabel>
                                                 
                                                 <FormGroup>
@@ -496,7 +514,9 @@ const Form = () => {
                                                 </FormGroup>
                                                 <FormHelperText>This information will remain private.</FormHelperText>
                                             </FormControl>
-                                            <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
+                                            </Grid>
+                                            <Grid item xs = {12} w={1} md = {4}>
+                                            <FormControl sx={{ m: 10}} component="fieldset" variant="standard">
                                                 <FormLabel component="legend">Please check all that apply: <b>I expect</b> </FormLabel>
                                                 
                                                 <FormGroup>
@@ -556,8 +576,12 @@ const Form = () => {
                                                     label="to never hang out with my roommate"
                                                 />
                                                 <FormHelperText>This information will remain private.</FormHelperText>
-                                            </FormControl>
-                                        </Box>
+                                            </FormControl>        
+                                            </Grid>
+                                            </Grid>
+                                        </Grid>
+                                        
+                                        
                                     </Grid>
                                 </Paper>
                     </Grid>
@@ -583,7 +607,7 @@ const Form = () => {
                                             </div>
                                         </Grid>
                                         
-                                        <Grid item xs = {4} w={1}>
+                                        <Grid item xs = {12} md={4} w={1}>
                                             <FormControl sx={{width: 1 }}>
                                                 <InputLabel id="room-perfers-chip-label">I am</InputLabel>
                                                 <Select
@@ -617,7 +641,7 @@ const Form = () => {
                                         </Grid>
 
 
-                                        <Grid item xs = {4} w={1}>
+                                        <Grid item xs = {12} md={4} w={1}>
                                             <FormControl sx={{width: 1 }}>
                                                 <InputLabel id="hobbie-chip-label">My hobbies</InputLabel>
                                                 <Select
@@ -651,7 +675,7 @@ const Form = () => {
                                             </FormControl>
                                         </Grid>
 
-                                        <Grid item xs = {4} w={1}>
+                                        <Grid item xs = {12} md={4} w={1}>
                                             <FormControl sx={{width: 1 }}>
                                                 <InputLabel id="personality-chip-label" label="My personality can be described as">My personality can be described as</InputLabel>
                                                 <Select
@@ -687,42 +711,42 @@ const Form = () => {
                                         </Grid>
 
                                         
-                                            <Grid item xs = {4} w={1}>
+                                        <Grid item xs = {12} md={4} w={1}>
                                             <GeoLocation
                                                 locationTitle="Country"
                                                 isCountry
                                                 onChange={setCountry}
                                                 
                                             />
-                                            </Grid>
-                                            <Grid item xs = {4} w={1}>
+                                        </Grid>
+                                        <Grid item xs = {12} md={4} w={1}>
                                             <GeoLocation
                                                 locationTitle="State"
                                                 onChange={setState}
                                                 geoId={country}
                                             />
                                             </Grid>
-
-                                            <Grid item xs = {4}>
+                                        <Grid item xs = {12} md={4} w={1}>
                                             <GeoLocation
                                                 locationTitle="County"
                                                 onChange={setCity}
                                                 geoId={state}
                                             />
-                                            </Grid>
+                                        </Grid>
                                         
 
                                         
 
-                                        <Grid item xs = {2} w={2} md = {6}>
-                                            <TextField
-                                                id="outlined-multiline-static"
-                                                label="Enter a short bio about yourself"
-                                                multiline
-                                                rows={4}
-                                                sx={{width : {xs: 280, md: 500}}}
-                                                
-                                            />
+                                        <Grid item xs = {2} w={2} md = {6}> 
+                                            <TextField  
+                                            multiline
+                                            id="outlined-basic" 
+                                            label="Enter a short bio about yourself" 
+                                            rows={5}
+                                            sx={{width : {xs: 280, md: 500}}}
+                                            maxRows={10}
+                                            variant="outlined" />
+                                            
                                         </Grid>
 
                                        
