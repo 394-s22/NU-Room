@@ -119,7 +119,6 @@ export default function Profile({ profile, setCurrentProfile, setDisplayPage }) 
         </Route>
       </Routes>
     </Router> */}
-hihihihi
 
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
