@@ -25,6 +25,7 @@ import FormGroup from '@mui/material/FormGroup';
 import Input from '@mui/material/Input'
 import FormControlLabel from '@mui/material/FormControlLabel';
 import '../CSS/form.css';
+import GeoLocation from "./GeoLocation";
 
 
 const ITEM_HEIGHT = 48;
@@ -80,8 +81,16 @@ const hobbiesList = [
 ];
 
 const personalityList = [
-    'party animal',
-    'bookworm',
+    'shy',
+    'outgoing',
+    'I like to try new things',
+    'I don\'t like change',
+    'I like to have everything planned',
+    'I like to live without a schedule',
+    'I care how others think about me',
+    'I am not intrested in people I don\'t know',
+    'I\'m always stressed',
+    'I deal with stress well'
 ];
 
 const housingList = [
@@ -174,6 +183,18 @@ const Form = ({ setDisplayPage }) => {
         guestsOver: false,
         excessivePossessions: false
     });
+
+    const [expectations, setExpectations] = React.useState({
+        weeklyCleanRoom: false,
+        biweeklyCleanRoom: false,
+        monthlyCleanRoom: false, 
+        noisyBackground: false, 
+        quietBackground: false,
+        warmRoom: false,
+        coldRoom: false,
+        friendRoommate: false,
+        strangerRoommate: false
+    });
       
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setDealBreakers({
@@ -188,9 +209,22 @@ const Form = ({ setDisplayPage }) => {
         [event.target.name]: event.target.checked,
         });
     };
+
+    const handleChangeExpectations = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setExpectations({
+        ...expectations,
+        [event.target.name]: event.target.checked,
+        });
+    };
     
     const { smoker, drinker, sharedRoom, petOwner, musician, partnerOver, guestsOver, excessivePossessions } = personal;
     const { isSmoker, isDrinker, ownRoom, diffSexes, isPetOwner, isMusician, hasPartnerOver, hasGuestsOver, hasExcessivePossessions } = dealBreakers;
+    const { weeklyCleanRoom, biweeklyCleanRoom, monthlyCleanRoom, noisyBackground, quietBackground, warmRoom, coldRoom, friendRoommate, strangerRoommate} = expectations;
+
+    const [country, setCountry] = React.useState("");
+    const [state, setState] = React.useState("");
+    const [city, setCity] = React.useState("");
+    
 
     return (
         <div id="formContainer">
@@ -285,7 +319,7 @@ const Form = ({ setDisplayPage }) => {
                                         </div>
                                     </Grid>
 
-                                    <Grid item xs = {6} w={1}>
+                                    <Grid item xs = {12} md={6} w={1}>
                                         <FormControl sx={{width : 1}}>
                                             <InputLabel id="location-select-label">I want to live</InputLabel>
                                                 <Select
@@ -303,7 +337,7 @@ const Form = ({ setDisplayPage }) => {
                                         </FormControl>
                                     </Grid>
 
-                                    <Grid item xs = {6} w={1}>
+                                    <Grid item xs = {12} md={6} w={1}>
                                         <FormControl sx={{width : 1}}>
                                             <InputLabel id="campus-select-label">I want to live in a</InputLabel>
                                                 <Select
@@ -342,7 +376,8 @@ const Form = ({ setDisplayPage }) => {
                                         spacing={3}
                                         padding={3}
                                     >
-                                        <Grid item xs = {12} w={1}>
+                                        <Grid 
+                                        item xs = {12} w={1} pb = {2}>
                                             <div
                                                 style={{
                                                     fontSize: 35,
@@ -354,124 +389,16 @@ const Form = ({ setDisplayPage }) => {
                                             </div>
                                         </Grid>
                                         
-                                        <Grid item xs = {4} w={1}>
-                                            <FormControl sx={{width: 1 }}>
-                                                <InputLabel id="room-perfers-chip-label">I am</InputLabel>
-                                                <Select
-                                                labelId="room-perfers-chip-label"
-                                                id="room-perfer-chip"
-                                                multiple
-                                                value={perfer}
-                                                onChange={handleChangePerfers}
-                                                input={<OutlinedInput id="select-room-perfers-chip" label="I am" />}
-                                                renderValue={(selected) => (
-                                                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-                                                    {selected.map((value) => (
-                                                        <Chip key={value} label={value} />
-                                                    ))}
-                                                    </Box>
-                                                )}
-                                                MenuProps={MenuProps}
-                                                >
-                                                {attributes.map((name) => (
-                                                    <MenuItem
-                                                    key={name}
-                                                    value={name}
-                                                    style={getStyles(name, attributes, theme)}
-                                                    >
-                                                    {name}
-                                                    </MenuItem>
-                                                ))}
-                                                </Select>
-                                                <FormHelperText>Please check all that apply</FormHelperText>
-                                            </FormControl>
-                                        </Grid>
-
-                                    
-
-                                        <Grid item xs = {4} w={1}>
-                                            <FormControl sx={{width: 1 }}>
-                                                <InputLabel id="hobbie-chip-label">My hobbies</InputLabel>
-                                                <Select
-                                                labelId="hobbie-chip-label"
-                                                label="My hobbies"
-                                                id="hobbie-chip"
-                                                multiple
-                                                value={hobbies}
-                                                onChange={handleChangeHobbies}
-                                                input={<OutlinedInput id="select-hobbie-chip" label="My hobbies" />}
-                                                renderValue={(selected) => (
-                                                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-                                                    {selected.map((value) => (
-                                                        <Chip key={value} label={value} />
-                                                    ))}
-                                                    </Box>
-                                                )}
-                                                MenuProps={MenuProps}
-                                                >
-                                                {hobbiesList.map((name) => (
-                                                    <MenuItem
-                                                    key={name}
-                                                    value={name}
-                                                    style={getStyles(name, hobbiesList, theme)}
-                                                    >
-                                                    {name}
-                                                    </MenuItem>
-                                                ))}
-                                                </Select>
-                                                <FormHelperText>Please check all that apply</FormHelperText>
-                                            </FormControl>
-                                        </Grid>
-
-                                        <Grid item xs = {4} w={1}>
-                                            <FormControl sx={{width: 1 }}>
-                                                <InputLabel id="personality-chip-label" label="My personality can be described as">My personality can be described as</InputLabel>
-                                                <Select
-                                                labelId="personality-chip-label"
-                                                label="My personality can be described as"
-                                                id="personality-chip"
-                                                multiple
-                                                value={personality}
-                                                onChange={handleChangePersonality}
-                                                input={<OutlinedInput id="select-personality-chip" label="My personality can be described as" />}
-                                                renderValue={(selected) => (
-                                                        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-                                                        {selected.map((value) => (
-                                                            <Chip key={value} label={value} />
-                                                        ))}
-                                                        </Box>
-                                                    )}
-                                                    MenuProps={MenuProps}
-                                                    >
-                                                        
-                                                    {personalityList.map((name) => (
-                                                        <MenuItem
-                                                        key={name}
-                                                        value={name}
-                                                        style={getStyles(name, personalityList, theme)}
-                                                        >
-                                                        {name}
-                                                        </MenuItem>
-                                                    ))}
-                                                </Select>
-                                                <FormHelperText>Please check all that apply</FormHelperText>
-                                            </FormControl>
-                                        </Grid>
-
-                                        <Grid item xs = {6} w={2}>
-                                            <TextField 
-                                            fullWidth 
-                                            multiline
-                                            id="outlined-basic" 
-                                            label="Enter a short bio about yourself" 
-                                            rows={5}
-                                            maxRows={10}
-                                            variant="outlined" />
-                                        </Grid>
-
-                                        <Box sx={{ display: 'flex' }}>
-                                        <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
-                                                <FormLabel component="legend">Please check all that apply </FormLabel>
+                                        <Grid item xs = {12} p = {1}>
+                                            <Grid w={1} pb = {2}
+                                            container
+                                            direction="row"
+                                            justifyContent="space-between"
+                                            alignItems="center"
+                                            >
+                                            <Grid item xs = {12} w={1} pb = {2} md = {4}>
+                                            <FormControl sx={{ m: 3, pb: 10 }} component="fieldset" variant="standard">
+                                                <FormLabel component="legend">Please check all that apply: </FormLabel>
                                                 <FormGroup>
                                                 <FormControlLabel
                                                     control={
@@ -524,71 +451,310 @@ const Form = ({ setDisplayPage }) => {
                                                 </FormGroup>
                                                 <FormHelperText>This information will remain private.</FormHelperText>
                                             </FormControl>
-                                            <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
-                                                <FormLabel component="legend">Deal Breakers: Please check all that apply</FormLabel>
+                                            </Grid>
+                                            <Grid item xs = {12} w={1} pb = {2} md = {4}>
+                                            <FormControl sx={{ m: 3, pb: 10}} component="fieldset" variant="standard">
+                                                <FormLabel component="legend">Please check all that apply: <b>I will NOT</b> </FormLabel>
+                                                
                                                 <FormGroup>
                                                 <FormControlLabel
                                                     control={
                                                     <Checkbox checked={isSmoker} onChange={handleChange} name="isSmoker" />
                                                     }
-                                                    label="I will NOT live with someone who smokes"
+                                                    label="live with someone who smokes"
                                                 />
                                                 <FormControlLabel
                                                     control={
                                                     <Checkbox checked={isDrinker} onChange={handleChange} name="isDrinker" />
                                                     }
-                                                    label="I will NOT live with someone who drinks"
+                                                    label="live with someone who drinks"
                                                 />
                                                 <FormControlLabel
                                                     control={
                                                     <Checkbox checked={ownRoom} onChange={handleChange} name="ownRoom" />
                                                     }
-                                                    label="I will NOT live in a shared a bedroom"
+                                                    label="live in a shared a bedroom"
                                                 />
                                                 <FormControlLabel
                                                     control={
                                                     <Checkbox checked={diffSexes} onChange={handleChange} name="diffSexes" />
                                                     }
-                                                    label="I will NOT live with roomates of a different sex"
+                                                    label="live with roomates of a different sex"
                                                 />
                                                 <FormControlLabel
                                                     control={
                                                     <Checkbox checked={isPetOwner} onChange={handleChange} name="isPetOwner" />
                                                     }
-                                                    label="I will NOT live with a pet owner"
+                                                    label="live with a pet owner"
                                                 />
                                                 <FormControlLabel
                                                     control={
                                                     <Checkbox checked={isMusician} onChange={handleChange} name="isMusician" />
                                                     }
-                                                    label="I will NOT live with someone who plays an instrument"
+                                                    label="live with someone who plays an instrument"
                                                 />
                                                 <FormControlLabel
                                                     control={
                                                     <Checkbox checked={hasPartnerOver} onChange={handleChange} name="hasPartnerOver" />
                                                     }
-                                                    label="I will NOT live with somene who has their partner over often"
+                                                    label="live with somene who has their partner over often"
                                                 />
                                                 <FormControlLabel
                                                     control={
                                                     <Checkbox checked={hasGuestsOver} onChange={handleChange} name="hasGuestsOver" />
                                                     }
-                                                    label="I will NOT live with somene who has guests over often"
+                                                    label="live with somene who has guests over often"
                                                 />
                                                 <FormControlLabel
                                                     control={
                                                     <Checkbox checked={hasExcessivePossessions} onChange={handleChange} name="hasExcessivePossessions" />
                                                     }
-                                                    label="I will NOT live with somene who has excessive possesions"
+                                                    label="live with somene who has excessive possesions"
                                                 />
                                                 </FormGroup>
                                                 <FormHelperText>This information will remain private.</FormHelperText>
                                             </FormControl>
-                                        </Box>
+                                            </Grid>
+                                            <Grid item xs = {12} w={1} md = {4}>
+                                            <FormControl sx={{ m: 10}} component="fieldset" variant="standard">
+                                                <FormLabel component="legend">Please check all that apply: <b>I expect</b> </FormLabel>
+                                                
+                                                <FormGroup>
+                                                <FormControlLabel
+                                                    control={
+                                                    <Checkbox checked={weeklyCleanRoom} onChange={handleChangeExpectations} name="weeklyCleanRoom" />
+                                                    }
+                                                    label="to clean the room weekly"
+                                                />
+                                                <FormControlLabel
+                                                    control={
+                                                    <Checkbox checked={biweeklyCleanRoom} onChange={handleChangeExpectations} name="biweeklyCleanRoom" />
+                                                    }
+                                                    label="to clean the room biweekly"
+                                                />
+                                                <FormControlLabel
+                                                    control={
+                                                    <Checkbox checked={monthlyCleanRoom} onChange={handleChangeExpectations} name="monthlyCleanRoom" />
+                                                    }
+                                                    label="to clean the room monthly"
+                                                />
+                                                <FormControlLabel
+                                                    control={
+                                                    <Checkbox checked={noisyBackground} onChange={handleChangeExpectations} name="noisyBackground" />
+                                                    }
+                                                    label="to have background noise/music when working"
+                                                />
+                                                <FormControlLabel
+                                                    control={
+                                                    <Checkbox checked={quietBackground} onChange={handleChangeExpectations} name="quietBackground" />
+                                                    }
+                                                    label="the room to be quiet when working"
+                                                />
+                                                <FormControlLabel
+                                                    control={
+                                                    <Checkbox checked={warmRoom} onChange={handleChangeExpectations} name="warmRoom" />
+                                                    }
+                                                    label="the room to be on the warm side"
+                                                />
+                                                <FormControlLabel
+                                                    control={
+                                                    <Checkbox checked={coldRoom} onChange={handleChangeExpectations} name="coldRoom" />
+                                                    }
+                                                    label="the room to be on the cool side"
+                                                />
+                                                </FormGroup>
+                                                <FormControlLabel
+                                                    control={
+                                                    <Checkbox checked={friendRoommate} onChange={handleChangeExpectations} name="friendRoommate" />
+                                                    }
+                                                    label="to be friends with my roommate"
+                                                />
+                                                <FormControlLabel
+                                                    control={
+                                                    <Checkbox checked={strangerRoommate} onChange={handleChangeExpectations} name="strangerRoommate" />
+                                                    }
+                                                    label="to never hang out with my roommate"
+                                                />
+                                                <FormHelperText>This information will remain private.</FormHelperText>
+                                            </FormControl>        
+                                            </Grid>
+                                            </Grid>
+                                        </Grid>
+                                        
+                                        
                                     </Grid>
                                 </Paper>
-                            </Grid>
-                        </Grid>
+                    </Grid>
+                    <Grid item xs = {10} md = {12} style={{height:'100%'}}>
+                                <Paper variant="outlined" >
+                                    <Grid
+                                        container
+                                        direction="row"
+                                        justifyContent="space-between"
+                                        alignItems="center"
+                                        spacing={3}
+                                        padding={3}
+                                    >
+                                        <Grid item xs = {12} w={1}>
+                                            <div
+                                                style={{
+                                                    fontSize: 35,
+                                                    textAlign: "left",
+                                                    fontWeight: "lighter",
+                                                }}
+                                                >   
+                                                {"More About Me"}
+                                            </div>
+                                        </Grid>
+                                        
+                                        <Grid item xs = {12} md={4} w={1}>
+                                            <FormControl sx={{width: 1 }}>
+                                                <InputLabel id="room-perfers-chip-label">I am</InputLabel>
+                                                <Select
+                                                labelId="room-perfers-chip-label"
+                                                id="room-perfer-chip"
+                                                multiple
+                                                value={perfer}
+                                                onChange={handleChangePerfers}
+                                                input={<OutlinedInput id="select-room-perfers-chip" label="I am" />}
+                                                renderValue={(selected) => (
+                                                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                                                    {selected.map((value) => (
+                                                        <Chip key={value} label={value} />
+                                                    ))}
+                                                    </Box>
+                                                )}
+                                                MenuProps={MenuProps}
+                                                >
+                                                {attributes.map((name) => (
+                                                    <MenuItem
+                                                    key={name}
+                                                    value={name}
+                                                    style={getStyles(name, attributes, theme)}
+                                                    >
+                                                    {name}
+                                                    </MenuItem>
+                                                ))}
+                                                </Select>
+                                                <FormHelperText>Please check all that apply</FormHelperText>
+                                            </FormControl>
+                                        </Grid>
+
+
+                                        <Grid item xs = {12} md={4} w={1}>
+                                            <FormControl sx={{width: 1 }}>
+                                                <InputLabel id="hobbie-chip-label">My hobbies</InputLabel>
+                                                <Select
+                                                labelId="hobbie-chip-label"
+                                                label="My hobbies"
+                                                id="hobbie-chip"
+                                                multiple
+                                                value={hobbies}
+                                                onChange={handleChangeHobbies}
+                                                input={<OutlinedInput id="select-hobbie-chip" label="My hobbies" />}
+                                                renderValue={(selected) => (
+                                                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                                                    {selected.map((value) => (
+                                                        <Chip key={value} label={value} />
+                                                    ))}
+                                                    </Box>
+                                                )}
+                                                MenuProps={MenuProps}
+                                                >
+                                                {hobbiesList.map((name) => (
+                                                    <MenuItem
+                                                    key={name}
+                                                    value={name}
+                                                    style={getStyles(name, hobbiesList, theme)}
+                                                    >
+                                                    {name}
+                                                    </MenuItem>
+                                                ))}
+                                                </Select>
+                                                <FormHelperText>Please check all that apply</FormHelperText>
+                                            </FormControl>
+                                        </Grid>
+
+                                        <Grid item xs = {12} md={4} w={1}>
+                                            <FormControl sx={{width: 1 }}>
+                                                <InputLabel id="personality-chip-label" label="My personality can be described as">My personality can be described as</InputLabel>
+                                                <Select
+                                                labelId="personality-chip-label"
+                                                label="My personality can be described as"
+                                                id="personality-chip"
+                                                multiple
+                                                value={personality}
+                                                onChange={handleChangePersonality}
+                                                input={<OutlinedInput id="select-personality-chip" label="My personality can be described as" />}
+                                                renderValue={(selected) => (
+                                                        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                                                        {selected.map((value) => (
+                                                            <Chip key={value} label={value} />
+                                                        ))}
+                                                        </Box>
+                                                    )}
+                                                    MenuProps={MenuProps}
+                                                    >
+                                                        
+                                                    {personalityList.map((name) => (
+                                                        <MenuItem
+                                                        key={name}
+                                                        value={name}
+                                                        style={getStyles(name, personalityList, theme)}
+                                                        >
+                                                        {name}
+                                                        </MenuItem>
+                                                    ))}
+                                                </Select>
+                                                <FormHelperText>Please check all that apply</FormHelperText>
+                                            </FormControl>
+                                        </Grid>           
+                                        <Grid item xs = {12} md={4} w={1}>
+                                            <GeoLocation
+                                                locationTitle="Country"
+                                                isCountry
+                                                onChange={setCountry}
+                                                
+                                            />
+                                        </Grid>
+                                        <Grid item xs = {12} md={4} w={1}>
+                                            <GeoLocation
+                                                locationTitle="State"
+                                                onChange={setState}
+                                                geoId={country}
+                                            />
+                                            </Grid>
+                                        <Grid item xs = {12} md={4} w={1}>
+                                            <GeoLocation
+                                                locationTitle="County"
+                                                onChange={setCity}
+                                                geoId={state}
+                                            />
+                                        </Grid>
+                                        
+
+                                        
+
+                                        <Grid item xs = {2} w={2} md = {6}> 
+                                            <TextField  
+                                            multiline
+                                            id="outlined-basic" 
+                                            label="Enter a short bio about yourself" 
+                                            rows={5}
+                                            sx={{width : {xs: 280, md: 500}}}
+                                            maxRows={10}
+                                            variant="outlined" />
+                                            
+                                        </Grid>
+
+                                       
+
+                                        
+                                    </Grid>
+                                </Paper>
+                    </Grid>
+                </Grid>
+                    
 
                 </Grid>
 
