@@ -8,7 +8,7 @@ import ImageListItem from "@mui/material/ImageListItem"
 import Masonry from '@mui/lab/Masonry';
 import Box from '@mui/material/Box';
 
-const ProfilePage = ({ data }) => {
+const MatchesPage = ({ data, setCurrentProfile, setDisplayPage}) => {
     const profiles = data.profiles;
     console.log(profiles);
 
@@ -47,7 +47,7 @@ const ProfilePage = ({ data }) => {
                             { profiles.map((profile) => {
                                 return (
                                         
-                                            <Profile profile={profile}></Profile>
+                                            <Profile profile={profile} setCurrentProfile={setCurrentProfile} setDisplayPage={setDisplayPage}></Profile>
                                         
                                 );
                             }) }
@@ -60,4 +60,4 @@ const ProfilePage = ({ data }) => {
     );
 };
 
-export default ProfilePage;
+export default MatchesPage;
