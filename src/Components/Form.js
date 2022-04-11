@@ -28,9 +28,10 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import '../CSS/form.css';
 import storage  from '../utilities/firebase';
 import { getStorage, ref, uploadBytes, getDownloadURL} from "firebase/storage";
-
+import AddIcon from "@mui/icons-material/AddAPhoto";
 import GeoLocation from "./GeoLocation";
-
+import Divider from '@mui/material/Divider';
+import { Stack } from '@mui/material';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -784,25 +785,51 @@ const Form = ({ setDisplayPage }) => {
                     
 
                 </Grid>
-
-                <Grid>
-                    <label for="profile-image">Upload profile image</label>
-                    <input id="profile-image" type="file" onChange={(e)=>{setImage(e.target.files[0])}}/>
-                </Grid>
-
-                <Grid item xs = {3} w={1}>
+                
+                <Grid item xs={4}>
+                    <Stack 
+                        direction="column"
+                        justifyContent="center"
+                        alignItems="center"
+                        spacing={2}
+                    >
+                        
+                        <label for="profile-image">
+                            <Button 
+                                variant="contained" 
+                                component="label" 
+                                color="primary"
+                                sx={{
+                                    textAlign: 'center'
+                                }}>
+                                {" "}
+                                <AddIcon />  Upload profile image
+                                <input accept="image/*" type="file" hidden onChange={(e)=>{setImage(e.target.files[0])}}/>
+                            </Button>   
+                        </label>
+                        
+                        
+                        
+                    
+                    <Divider variant="middle" />
+                    
+                    
                     <Button w={1} variant="contained" sx = {{
-                        width: 1,
+                        width: 300,
                         minHeight: "48px",
                         fontWeight: 700,
                         fontSize: "16px",
                         whiteSpace: 'nowrap',
                         textAlign: 'center'
+                        
                         }}
                         onClick={() => {
                             uploadImage();
                         }}>Match Me!</Button>
                     <img id="myimg"></img>
+                    
+
+                    </Stack>                                       
                 </Grid>
             </Grid>
             
