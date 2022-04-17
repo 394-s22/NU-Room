@@ -1,0 +1,279 @@
+commit 9b22394b05d3f59108140ef23416b3eb2489c85d
+Author: natbrew <57467420+natbrew@users.noreply.github.com>
+Date:   Sun Apr 10 20:11:03 2022 -0500
+
+    remove jibberish from cards
+
+M	src/Components/Profile.js
+
+commit 4709ea24a939a5a0950369253b5119bd666eb7ec
+Author: natbrew <57467420+natbrew@users.noreply.github.com>
+Date:   Sun Apr 10 20:08:34 2022 -0500
+
+    full profile with back button
+
+M	package-lock.json
+M	package.json
+M	src/App.js
+M	src/Components/FullProfile.js
+R092	src/Components/ProfilePage.js	src/Components/MatchesPage.js
+M	src/Components/Profile.js
+
+commit dcc2963a770815d7a77a0533dc2d1e943a69bcc0
+Author: twu <tbnghjan@gmail.com>
+Date:   Sun Apr 10 20:04:15 2022 -0500
+
+    fixing spacing
+
+M	src/Components/Form.js
+
+commit a83c065b62e3db9b0cd2ceb39a5bc9dddf161fff
+Author: twu <tbnghjan@gmail.com>
+Date:   Sun Apr 10 19:02:14 2022 -0500
+
+    add location selectors
+
+M	package-lock.json
+M	package.json
+M	src/Components/Form.js
+A	src/Components/GeoLocation.js
+A	src/Components/ImageList.js
+
+commit 54453a746a6093389d74a868ad35ae11ec1f7200
+Author: Josh <joshualee721@gmail.com>
+Date:   Sun Apr 10 17:09:34 2022 -0500
+
+    added view full profile button
+
+M	src/Components/Form.js
+A	src/Components/FullProfile.js
+M	src/Components/Profile.js
+
+commit 96f6521a40e00d14da4b7fc958684d8175bb4e3d
+Author: Yemi Kelani <91276489+yemi-kelani@users.noreply.github.com>
+Date:   Sun Apr 10 16:46:13 2022 -0500
+
+    Added Pseudo Functionality to the Match Me! button on the form page. I will add real functionality once we move on to implementing the matching algorithm
+
+M	src/App.js
+M	src/Components/Form.js
+
+commit fcba94c1c397e306eb7c694f166b70d3720431f6
+Author: Yemi Kelani <91276489+yemi-kelani@users.noreply.github.com>
+Date:   Sat Apr 9 20:42:23 2022 -0500
+
+    Josh, Kelvin, Hugo, and Yemi revamped the form
+
+M	src/App.js
+A	src/CSS/form.css
+M	src/Components/Appbar.js
+M	src/Components/Form.js
+
+commit b3a9f31fec3f5c423487353ef87b6218a176c83f
+Author: Yemi Kelani <91276489+yemi-kelani@users.noreply.github.com>
+Date:   Fri Apr 8 17:17:54 2022 -0500
+
+    nav bar bug fix
+
+M	.firebase/hosting.YnVpbGQ.cache
+M	public/index.html
+M	src/Components/Appbar.js
+
+commit c85566c3039e42631e8dd3c457cbe7f36f58a9d9
+Author: Josh <joshualee721@gmail.com>
+Date:   Fri Apr 8 16:24:26 2022 -0500
+
+    accepted incoming change in json file
+
+M	src/databaseSetup.json
+
+commit 45da047b5b1426fff1f4c27ff25cc6755fcacae1
+Author: Hugo Zhang <hugo@Hugos-MacBook-Pro.local>
+Date:   Tue Apr 5 21:34:42 2022 -0500
+
+    card
+
+M	src/Components/Profile.js
+M	src/Components/ProfilePage.js
+
+commit a39378f4b0132edaab455fc16f5ef0e4b859db22
+Author: Hugo Zhang <hugo@Hugos-MacBook-Pro.local>
+Date:   Tue Apr 5 20:40:26 2022 -0500
+
+    cards
+
+M	src/Components/Form.js
+M	src/Components/Profile.js
+M	src/Components/ProfilePage.js
+
+commit 221ef683906b7ec6673261f178220b588904e4dc
+Author: Hugo Zhang <hugo@dhcp-10-105-162-198.wireless.northwestern.private>
+Date:   Tue Apr 5 18:39:57 2022 -0500
+
+    updated form styling -hugo
+
+M	src/App.js
+M	src/Components/Appbar.js
+M	src/Components/Form.js
+
+commit 176f127a65f5a010f8866c4460511aa7dca646f5
+Author: TonyWu1998 <tbnghjan@gmail.com>
+Date:   Tue Apr 5 16:20:29 2022 -0500
+
+    tony, still working please don't merge to main branch yet
+
+M	src/Components/Appbar.js
+M	src/Components/Form.js
+M	src/databaseSetup.json
+
+commit 950036b3954fbb8160cc0101567887dd47be4aeb
+Author: natbrew <57467420+natbrew@users.noreply.github.com>
+Date:   Tue Apr 5 13:58:17 2022 -0500
+
+    hardcoded 10 responses for databaseSetupJSON
+
+M	src/databaseSetup.json
+
+commit a0daa6d84007fc7f5c8845d5fca96efd788d67de
+Author: KelvinLao-0604 <61851905+KelvinLao-0604@users.noreply.github.com>
+Date:   Mon Apr 4 23:57:01 2022 -0500
+
+    Finished NavBar
+    
+    Allows for pages to change
+
+M	src/App.js
+M	src/Components/NavBar.js
+
+commit c0871aa816efd66880b9532ec77b225121294763
+Author: Josh <joshualee721@gmail.com>
+Date:   Mon Apr 4 23:21:31 2022 -0500
+
+    navbar
+
+M	src/App.js
+A	src/Components/NavBar.js
+M	src/Components/ProfilePage.js
+
+commit 3fea4b9c121a08a1571743667bd9975e75ee9196
+Author: Yemi Kelani <91276489+yemi-kelani@users.noreply.github.com>
+Date:   Mon Apr 4 22:51:08 2022 -0500
+
+    profile page and profile component
+
+M	package-lock.json
+M	src/App.js
+M	src/Components/Form.js
+M	src/Components/Profile.js
+A	src/Components/ProfilePage.js
+A	src/databaseSetup.json
+
+commit 36d75f86ef1728348879d6e4c43f1a98668c803d
+Author: natbrew <57467420+natbrew@users.noreply.github.com>
+Date:   Mon Apr 4 22:17:46 2022 -0500
+
+    profile styling into card
+
+M	package-lock.json
+A	src/CSS/profile.css
+M	src/Components/Profile.js
+
+commit 6c7b1ffc579c015e453415e38cdb17c3f128bfca
+Author: Hugo Zhang <hugo@Hugos-MacBook-Pro.local>
+Date:   Mon Apr 4 22:00:00 2022 -0500
+
+    Profile component mui grid added
+
+M	src/App.js
+M	src/Components/Form.js
+M	src/Components/Profile.js
+
+commit 5382b11f0c87faec4be22f5062492fd061451031
+Author: TonyWu1998 <tbnghjan@gmail.com>
+Date:   Mon Apr 4 21:33:53 2022 -0500
+
+    more
+
+M	package-lock.json
+M	package.json
+M	src/Components/Appbar.js
+M	src/Components/Form.js
+A	src/Components/ProgressBar.js
+M	src/index.js
+
+commit 6ec928f91898f29abcc549ba68f0f6e50627eee1
+Author: twu <tbnghjan@gmail.com>
+Date:   Mon Apr 4 02:36:52 2022 -0500
+
+    migrating to  MUI
+
+M	src/App.js
+M	src/Components/Form.js
+M	src/index.js
+
+commit 0aa443c188d759da5f8b864183b9a1a506c396f2
+Author: twu <tbnghjan@gmail.com>
+Date:   Mon Apr 4 01:42:27 2022 -0500
+
+    migrating to MUI
+
+M	package-lock.json
+M	package.json
+M	src/App.js
+A	src/Components/Appbar.js
+M	src/Components/Form.js
+M	src/index.js
+
+commit 7acc9415167432b38a006742147628cdbec4dbbc
+Author: Yemi Kelani <91276489+yemi-kelani@users.noreply.github.com>
+Date:   Sun Apr 3 20:02:26 2022 -0500
+
+    Components created.
+
+M	src/App.js
+A	src/Components/Form.js
+A	src/Components/Profile.js
+A	src/utilities/firebase.js
+
+commit 51f79b0338733b004c306c24d55acd740f78d8c0
+Author: Yemi Kelani <91276489+yemi-kelani@users.noreply.github.com>
+Date:   Sat Apr 2 19:55:47 2022 -0500
+
+    Firebase deployed
+
+A	.firebase/hosting.YnVpbGQ.cache
+A	.firebaserc
+A	firebase.json
+
+commit 330a647446c08e82d881c5d60d913ead7b1bbd67
+Author: Yemi Kelani <91276489+yemi-kelani@users.noreply.github.com>
+Date:   Sat Apr 2 19:39:29 2022 -0500
+
+    Created Repo and Initialized Firebase
+
+M	src/App.js
+
+commit 4ada7cfe474d9967ac4c0d683fe62c46167de9d1
+Author: Yemi Kelani <91276489+yemi-kelani@users.noreply.github.com>
+Date:   Sat Apr 2 16:25:53 2022 -0500
+
+    Initialize project using Create React App
+
+A	.gitignore
+A	README.md
+A	package-lock.json
+A	package.json
+A	public/favicon.ico
+A	public/index.html
+A	public/logo192.png
+A	public/logo512.png
+A	public/manifest.json
+A	public/robots.txt
+A	src/App.css
+A	src/App.js
+A	src/App.test.js
+A	src/index.css
+A	src/index.js
+A	src/logo.svg
+A	src/reportWebVitals.js
+A	src/setupTests.js
