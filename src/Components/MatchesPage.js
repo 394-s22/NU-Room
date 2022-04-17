@@ -7,10 +7,54 @@ import ImageList from "@mui/material/ImageList"
 import ImageListItem from "@mui/material/ImageListItem"
 import Masonry from '@mui/lab/Masonry';
 import Box from '@mui/material/Box';
+import { getStorage, ref, getDownloadURL} from "firebase/storage";
 
 const MatchesPage = ({ data, setCurrentProfile, setDisplayPage}) => {
     const profiles = data.profiles;
     console.log(profiles);
+
+    // **** DO NOT DELETE THE FOLLOWING COMMENT
+    // **** THIS FUNCTION WILL PULL PROFILE IMAGES FROM
+    // **** THE DATABASE
+    // useEffect(() => {
+    //     getDownloadURL(ref(storage, ''))
+    //     .then((url) => {
+    //         // `url` is the download URL for 'images/stars.jpg'
+
+    //         // This can be downloaded directly:
+    //         // const xhr = new XMLHttpRequest();
+    //         // xhr.responseType = 'blob';
+    //         // xhr.onload = (event) => {
+    //         // const blob = xhr.response;
+    //         // };
+    //         // xhr.open('GET', url);
+    //         // xhr.send();
+
+    //         // Or inserted into an <img> element
+    //         const img = document.getElementById('myimg');
+    //         img.setAttribute('src', url);
+    //     })
+    //     .catch((error) => {
+    //         // Handle any errors
+    //         switch (error.code) {
+    //             case 'storage/object-not-found':
+    //               // File doesn't exist
+    //               break;
+    //             case 'storage/unauthorized':
+    //               // User doesn't have permission to access the object
+    //               break;
+    //             case 'storage/canceled':
+    //               // User canceled the upload
+    //               break;
+          
+    //             // ...
+          
+    //             case 'storage/unknown':
+    //               // Unknown error occurred, inspect the server response
+    //               break;
+    //           }
+    //     });
+    // }, []);
 
     return (
         <div>
@@ -44,10 +88,9 @@ const MatchesPage = ({ data, setCurrentProfile, setDisplayPage}) => {
                         
                         <Masonry columns={{ xs: 1, sm: 2, md: 3 }} spacing={2}>
 
-                            { profiles.map((profile) => {
+                            { profiles.map((profile, index) => {
                                 return (
-                                        
-                                            <Profile profile={profile} setCurrentProfile={setCurrentProfile} setDisplayPage={setDisplayPage}></Profile>
+                                    <Profile key={index} profile={profile} setCurrentProfile={setCurrentProfile} setDisplayPage={setDisplayPage}></Profile>
                                         
                                 );
                             }) }

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import Grid from "@mui/material/Grid";
 import { useTheme } from '@mui/material/styles';
@@ -25,8 +26,12 @@ import FormGroup from '@mui/material/FormGroup';
 import Input from '@mui/material/Input'
 import FormControlLabel from '@mui/material/FormControlLabel';
 import '../CSS/form.css';
+import storage  from '../utilities/firebase';
+import { getStorage, ref, uploadBytes, getDownloadURL} from "firebase/storage";
+import AddIcon from "@mui/icons-material/AddAPhoto";
 import GeoLocation from "./GeoLocation";
-
+import Divider from '@mui/material/Divider';
+import { Stack } from '@mui/material';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -225,6 +230,29 @@ const Form = ({ setDisplayPage }) => {
     const [state, setState] = React.useState("");
     const [city, setCity] = React.useState("");
     
+
+    const [image , setImage] = useState(null);
+    const [upload , setUpload] = useState(false);
+
+    const uploadImage = () => {
+        setUpload(!upload)
+    };
+    
+    useEffect(() => {
+        if(image == null)
+          return;
+        uploadBytes(ref(storage, `/images/${image.name}`), image).then((snapshot) => {
+            console.log("Image uploaded!")
+            // setDisplayPage('Matches');
+        });
+        setDisplayPage('Matches');
+        // storage.ref(`/images/${image.name}`).put(image)
+        // .on("state_changed" , alert("success") , alert);
+        // add a line to save the image name in the profile json so it can be pulled easily
+
+    }, [upload]);
+
+    // https://stackoverflow.com/questions/28822054/firebase-how-to-generate-a-unique-numeric-id-for-key
 
     return (
         <div id="formContainer">
@@ -757,22 +785,54 @@ const Form = ({ setDisplayPage }) => {
                     
 
                 </Grid>
-
-                <Grid item xs = {3} w={1}>
+                
+                <Grid item xs={4}>
+                    <Stack 
+                        direction="column"
+                        justifyContent="center"
+                        alignItems="center"
+                        spacing={2}
+                    >
+                        
+                        <label for="profile-image">
+                            <Button 
+                                variant="contained" 
+                                component="label" 
+                                color="primary"
+                                sx={{
+                                    textAlign: 'center'
+                                }}>
+                                {" "}
+                                <AddIcon />  Upload profile image
+                                <input accept="image/*" type="file" hidden onChange={(e)=>{setImage(e.target.files[0])}}/>
+                            </Button>   
+                        </label>
+                        
+                        
+                        
+                    
+                    <Divider variant="middle" />
+                    
+                    
                     <Button w={1} variant="contained" sx = {{
-                        width: 1,
+                        width: 300,
                         minHeight: "48px",
                         fontWeight: 700,
                         fontSize: "16px",
                         whiteSpace: 'nowrap',
                         textAlign: 'center'
+                        
                         }}
                         onClick={() => {
-                            setDisplayPage('Matches');
+                            uploadImage();
                         }}>Match Me!</Button>
+                    <img id="myimg"></img>
+                    
 
+                    </Stack>                                       
                 </Grid>
             </Grid>
+            
         </div>
     );
 };

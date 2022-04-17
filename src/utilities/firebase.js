@@ -1,6 +1,8 @@
 import { initializeApp } from 'firebase/app';
 import { getDatabase, onValue, ref, set } from 'firebase/database';
+import { getStorage } from "firebase/storage";
 import { useState, useEffect } from "react";
+import { getDownloadURL} from "firebase/storage";
 
 const firebaseConfig = {
     apiKey: "AIzaSyAIe24tq4GELA23AwacArSKJh0h_Z5jJ64",
@@ -14,6 +16,10 @@ const firebaseConfig = {
 
 const firebase = initializeApp(firebaseConfig);
 const database = getDatabase(firebase);
+const storage = getStorage(firebase);
+
+// const storage = getStorage(firebase);
+export default storage;
 
 export const useData = (path, transform) => {
     const [data, setData] = useState();
@@ -39,6 +45,23 @@ export const useData = (path, transform) => {
 
     return [data, loading, error];
 };
+
+export const useImage = (user_id) => {
+    let image_url = "";
+
+    useEffect(() => {
+        getDownloadURL(ref(storage, 'images/20220409_184319.jpeg'))
+        .then((url) => {
+            image_url = url;
+            return image_url;
+        })
+        .catch((error) => {
+            // Handle any errors
+        });
+    }, []);
+
+    
+}
 
 export const setData = (path, value) => (
     set(ref(database, path), value)
