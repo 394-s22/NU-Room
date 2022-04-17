@@ -130,6 +130,29 @@ const importanceMarks = [
     },
   ];
 
+  const dailyMarks = [
+    {
+      value: 0,
+      label: "Every Day",
+    },
+    {
+      value: 25,
+      label: 'Few Times A Week',
+    },
+    {
+      value: 50,
+      label: 'On Weekends',
+    },
+    {
+      value: 75,
+      label: 'Once A Week',
+    },
+    {
+        value: 100,
+        label: 'Every Other Week',
+    },
+  ];
+
 const weeklyMarks = [
     {
       value: 0,
@@ -200,6 +223,8 @@ const Form = ({ setDisplayPage }) => {
 
     const [dormTrue, setDormTrue] = React.useState(false);
     const [cleaningLevel, setCleaningLevel] = React.useState(true);
+    const [instrumentPracticeLevel, setInstrumentPracticeLevel] = React.useState(true);
+
     const handleCleaningLevel = (event) => {
         if (event.target.value != 0) {
             setCleaningLevel(false);
@@ -298,6 +323,12 @@ const Form = ({ setDisplayPage }) => {
         ...personal,
         [event.target.name]: event.target.checked,
         });
+        console.log(event.target.checked)
+        if (event.target.checked == true || event.target.checked == undefined) {
+            setInstrumentPracticeLevel(false);
+        } else {
+            setInstrumentPracticeLevel(true);
+        }
     };
 
     const handleChangeExpectations = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -564,7 +595,19 @@ const Form = ({ setDisplayPage }) => {
                                                     control={
                                                     <Checkbox checked={musician} onChange={handleChangePersonal} name="musician" />
                                                     }
-                                                    label="I practice instruments often"
+                                                    label="I practice instruments"
+                                                />
+                                                <Typography id = "cleaning-slider" gutterBottom>Instrument Practice Frequency</Typography>
+                                                <Slider
+                                                disabled = {instrumentPracticeLevel}
+                                                aria-label="Custom marks"
+                                                defaultValue={0}
+                                                aria-labelledby="cleaning-slider"
+                                                // getAriaValueText={valuetext}
+                                                step={null}
+                                                valueLabelDisplay="off"
+                                                marks={dailyMarks}
+                                                onChange={handleChangePersonal}
                                                 />
                                                 <FormControlLabel
                                                     control={
@@ -644,6 +687,17 @@ const Form = ({ setDisplayPage }) => {
                                                     <Checkbox checked={isMusician} onChange={handleChange} name="isMusician" />
                                                     }
                                                     label="live with someone who plays an instrument"
+                                                />
+                                                <Typography id = "cleaning-slider" gutterBottom>Cleaning Frequency</Typography>
+                                                <Slider
+                                                disabled = {cleaningLevel}
+                                                aria-label="Custom marks"
+                                                defaultValue={0}
+                                                aria-labelledby="cleaning-slider"
+                                                // getAriaValueText={valuetext}
+                                                step={null}
+                                                valueLabelDisplay="off"
+                                                marks={weeklyMarks}
                                                 />
                                                 <FormControlLabel
                                                     control={
