@@ -133,11 +133,15 @@ const Form = ({ setDisplayPage }) => {
         typeof value === 'string' ? value.split(',') : value,
         );
     };
-
+    const enabled = true
     const [accomodation, setAccomodation] = React.useState('');
     const handleChangeAccomodation = (event) => {
         setAccomodation(event.target.value);
+        setDormTrue(true);
     }
+
+    const [dormTrue, setDormTrue] = React.useState(false);
+
 
     const [loct, setNorthSouth] = React.useState('');
     const handleChangeLocation = (event) => {
@@ -376,10 +380,10 @@ const Form = ({ setDisplayPage }) => {
                                                 label="I want to live in a"
                                                 onChange={handleChangeAccomodation}
                                                 >
-                                                    <MenuItem value={10}>Suite On Campus</MenuItem>
-                                                    <MenuItem value={20}>Dorm On Campus</MenuItem>
-                                                    <MenuItem value={30}>Apartment Off Campus</MenuItem>
-                                                    <MenuItem value={40}>House Off Campus</MenuItem>
+                                                    <MenuItem value="Suite On Campus">Suite On Campus</MenuItem>
+                                                    <MenuItem value="Dorm On Campus">Dorm On Campus</MenuItem>
+                                                    <MenuItem value="Apartment Off Campus">Apartment Off Campus</MenuItem>
+                                                    <MenuItem value="House Off Campus">House Off Campus</MenuItem>
                                                 </Select>
                                             <FormHelperText>Housing Type</FormHelperText>
                                         </FormControl>
@@ -441,6 +445,7 @@ const Form = ({ setDisplayPage }) => {
                                                     label="I am a drinker (alcohol)"
                                                 />
                                                 <FormControlLabel
+                                                    disabled = {dormTrue}
                                                     control={
                                                     <Checkbox checked={sharedRoom} onChange={handleChangePersonal} name="sharedRoom" />
                                                     }
