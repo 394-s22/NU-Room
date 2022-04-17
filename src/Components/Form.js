@@ -200,6 +200,22 @@ const Form = ({ setDisplayPage }) => {
         friendRoommate: false,
         strangerRoommate: false
     });
+
+    const [fname, setfName] = React.useState("");
+    const [lname, setlName] = React.useState("");
+    const [email, setEmail] = React.useState("");
+
+    const handleChangefName= (event: React.ChangeEvent<HTMLInputElement>) => {
+        setfName(event.target.value);
+    };
+
+    const handleChangelName= (event: React.ChangeEvent<HTMLInputElement>) => {
+        setlName(event.target.value);
+    };
+
+    const handleChangeEmail= (event: React.ChangeEvent<HTMLInputElement>) => {
+        setEmail(event.target.value);
+    };
       
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setDealBreakers({
@@ -234,22 +250,31 @@ const Form = ({ setDisplayPage }) => {
     const [image , setImage] = useState(null);
     const [upload , setUpload] = useState(false);
 
-    const uploadImage = () => {
+    const uploadData = () => {
         setUpload(!upload)
     };
     
     useEffect(() => {
-        if(image == null)
-          return;
-        uploadBytes(ref(storage, `/images/${image.name}`), image).then((snapshot) => {
-            console.log("Image uploaded!")
-            // setDisplayPage('Matches');
-        });
-        setDisplayPage('Matches');
-        // storage.ref(`/images/${image.name}`).put(image)
-        // .on("state_changed" , alert("success") , alert);
-        // add a line to save the image name in the profile json so it can be pulled easily
+        const userData = {};
 
+        userData["basicInfo"] = {
+            fname: fname,
+            lname: lname,
+            email: email
+        }
+
+        // Uploads Image
+        if(image == null) {
+            // TODO: When Uploading Profile Json
+            // the person's json data is using a default
+            return;
+        } else {
+            uploadBytes(ref(storage, `/images/${image.name}`), image).then((snapshot) => {
+                console.log("Image uploaded!")
+            });
+        }
+
+        setDisplayPage('Matches');
     }, [upload]);
 
     // https://stackoverflow.com/questions/28822054/firebase-how-to-generate-a-unique-numeric-id-for-key
@@ -301,19 +326,21 @@ const Form = ({ setDisplayPage }) => {
                                         </Grid>
 
                                         <Grid item xs = {6} w={1}>
-                                            <TextField fullWidth id="fName" label="First Name" variant="outlined" w={1}/>
+                                            <TextField fullWidth id="fName" label="First Name" value={fname} onChange={handleChangefName} variant="outlined"  w={1}/>
                                         </Grid>
 
                                         <Grid item xs = {6}>
-                                            <TextField fullWidth id="lName" label="Last Name" variant="outlined" />
+                                            <TextField fullWidth id="lName" label="Last Name" value={lname} onChange={handleChangelName} variant="outlined" />
                                         </Grid>
 
                                         <Grid item xs = {12} w={1}>
                                             <TextField 
                                                 fullWidth
-                                                id="emailaddressfield"
+                                                id="email"
                                                 label="Email"
                                                 helperText="A Northwestern Email is required to use our service."
+                                                value={email}
+                                                onChange={handleChangeEmail}
                                             /> 
                                         </Grid>
                                             
@@ -470,12 +497,6 @@ const Form = ({ setDisplayPage }) => {
                                                     }
                                                     label="I have guests over often"
                                                 />
-                                                <FormControlLabel
-                                                    control={
-                                                    <Checkbox checked={excessivePossessions} onChange={handleChangePersonal} name="excessivePossessions" />
-                                                    }
-                                                    label="My possesions occupy a lot of space"
-                                                />
                                                 </FormGroup>
                                                 <FormHelperText>This information will remain private.</FormHelperText>
                                             </FormControl>
@@ -532,12 +553,6 @@ const Form = ({ setDisplayPage }) => {
                                                     <Checkbox checked={hasGuestsOver} onChange={handleChange} name="hasGuestsOver" />
                                                     }
                                                     label="live with somene who has guests over often"
-                                                />
-                                                <FormControlLabel
-                                                    control={
-                                                    <Checkbox checked={hasExcessivePossessions} onChange={handleChange} name="hasExcessivePossessions" />
-                                                    }
-                                                    label="live with somene who has excessive possesions"
                                                 />
                                                 </FormGroup>
                                                 <FormHelperText>This information will remain private.</FormHelperText>
@@ -767,7 +782,7 @@ const Form = ({ setDisplayPage }) => {
                                             <TextField  
                                             multiline
                                             id="outlined-basic" 
-                                            label="Enter a short bio about yourself" 
+                                            label="What are you looking for?" 
                                             rows={5}
                                             sx={{width : {xs: 280, md: 500}}}
                                             maxRows={10}
@@ -813,7 +828,6 @@ const Form = ({ setDisplayPage }) => {
                     
                     <Divider variant="middle" />
                     
-                    
                     <Button w={1} variant="contained" sx = {{
                         width: 300,
                         minHeight: "48px",
@@ -824,7 +838,7 @@ const Form = ({ setDisplayPage }) => {
                         
                         }}
                         onClick={() => {
-                            uploadImage();
+                            uploadData();
                         }}>Match Me!</Button>
                     <img id="myimg"></img>
                     
