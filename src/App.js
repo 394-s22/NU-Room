@@ -26,9 +26,9 @@ function App() {
     console.log("data", data);
   }, [data])
 
-  if (errorData) return <h1>{errorData}</h1>;
-  if (loadingData) return <h1>Loading the data...</h1>;
-  document.body.style = 'background: #f5f5f5;'
+  if (errorData) return <h1>{errorData}</h1>
+  if (loadingData) return <h1>Loading the data...</h1>
+  document.body.style = 'background: #f5f5f5'
 
   const renderSwitch = (displayPage) => {
     switch(displayPage) {

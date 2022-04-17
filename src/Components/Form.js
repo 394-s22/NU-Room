@@ -32,6 +32,8 @@ import AddIcon from "@mui/icons-material/AddAPhoto";
 import GeoLocation from "./GeoLocation";
 import Divider from '@mui/material/Divider';
 import { Stack } from '@mui/material';
+import Slider from '@mui/material/Slider';
+import Typography from '@mui/material/Typography';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -105,6 +107,56 @@ const housingList = [
     'House off Campus'
 ]
 
+const importanceMarks = [
+    {
+      value: 0,
+      label: "Not At All",
+    },
+    {
+      value: 25,
+      label: 'Not Very',
+    },
+    {
+      value: 50,
+      label: 'Somewhat',
+    },
+    {
+      value: 75,
+      label: 'Very',
+    },
+    {
+        value: 100,
+        label: 'Extremely',
+    },
+  ];
+
+const weeklyMarks = [
+    {
+      value: 0,
+      label: "Never",
+    },
+    {
+      value: 25,
+      label: 'Daily',
+    },
+    {
+      value: 50,
+      label: 'Weekly',
+    },
+    {
+      value: 75,
+      label: 'BiWeekly',
+    },
+    {
+        value: 100,
+        label: 'Monthly',
+    },
+  ];
+  
+function valuetext(value) {
+    return `${value}°C`;
+}
+
 const Form = ({ setDisplayPage }) => {
     const theme = useTheme();
     const [year, setYear] = React.useState('');
@@ -137,11 +189,24 @@ const Form = ({ setDisplayPage }) => {
     const [accomodation, setAccomodation] = React.useState('');
     const handleChangeAccomodation = (event) => {
         setAccomodation(event.target.value);
-        setDormTrue(true);
+        if (event.target.value == "Dorm On Campus" || event.target.value == "Suite On Campus") {
+            setDormTrue(true);
+        } else if (event.target.value == "House Off Campus" || event.target.value == "Apartment Off Campus") {
+            setDormTrue(false);
+        }
     }
 
-    const [dormTrue, setDormTrue] = React.useState(false);
+    
 
+    const [dormTrue, setDormTrue] = React.useState(false);
+    const [cleaningLevel, setCleaningLevel] = React.useState(true);
+    const handleCleaningLevel = (event) => {
+        if (event.target.value != 0) {
+            setCleaningLevel(false);
+        } else {
+            setCleaningLevel(true);
+        }
+    }
 
     const [loct, setNorthSouth] = React.useState('');
     const handleChangeLocation = (event) => {
@@ -489,6 +554,7 @@ const Form = ({ setDisplayPage }) => {
                                                     label="I want to share a bedroom"
                                                 />
                                                 <FormControlLabel
+                                                    disabled = {dormTrue}
                                                     control={
                                                     <Checkbox checked={petOwner} onChange={handleChangePersonal} name="petOwner" />
                                                     }
@@ -526,6 +592,28 @@ const Form = ({ setDisplayPage }) => {
                                                     <Checkbox checked={isSmoker} onChange={handleChange} name="isSmoker" />
                                                     }
                                                     label="live with someone who smokes"
+                                                />
+                                                <Typography id = "cleaning-slider" gutterBottom>Cleaning Importance</Typography>
+                                                <Slider
+                                                aria-label="Custom marks"
+                                                defaultValue={0}
+                                                aria-labelledby="cleaning-slider"
+                                                // getAriaValueText={valuetext}
+                                                step={null}
+                                                valueLabelDisplay="off"
+                                                marks={importanceMarks}
+                                                onChange={handleCleaningLevel}
+                                                />
+                                                 <Typography id = "cleaning-slider" gutterBottom>Cleaning Frequency</Typography>
+                                                <Slider
+                                                disabled = {cleaningLevel}
+                                                aria-label="Custom marks"
+                                                defaultValue={0}
+                                                aria-labelledby="cleaning-slider"
+                                                // getAriaValueText={valuetext}
+                                                step={null}
+                                                valueLabelDisplay="off"
+                                                marks={weeklyMarks}
                                                 />
                                                 <FormControlLabel
                                                     control={
