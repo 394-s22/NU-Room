@@ -133,11 +133,15 @@ const Form = ({ setDisplayPage }) => {
         typeof value === 'string' ? value.split(',') : value,
         );
     };
-
+    const enabled = true
     const [accomodation, setAccomodation] = React.useState('');
     const handleChangeAccomodation = (event) => {
         setAccomodation(event.target.value);
+        setDormTrue(true);
     }
+
+    const [dormTrue, setDormTrue] = React.useState(false);
+
 
     const [loct, setNorthSouth] = React.useState('');
     const handleChangeLocation = (event) => {
@@ -411,10 +415,12 @@ const Form = ({ setDisplayPage }) => {
                                                 label="I want to live in a"
                                                 onChange={handleChangeAccomodation}
                                                 >
+
                                                     <MenuItem value={10}>Suite on Campus</MenuItem>
                                                     <MenuItem value={20}>Dorm on Campus</MenuItem>
                                                     <MenuItem value={30}>Apartment off Campus</MenuItem>
                                                     <MenuItem value={40}>House off Campus</MenuItem>
+
                                                 </Select>
                                             <FormHelperText>Housing Type</FormHelperText>
                                         </FormControl>
@@ -476,6 +482,7 @@ const Form = ({ setDisplayPage }) => {
                                                     label="I am a drinker (alcohol)"
                                                 />
                                                 <FormControlLabel
+                                                    disabled = {dormTrue}
                                                     control={
                                                     <Checkbox checked={sharedRoom} onChange={handleChangePersonal} name="sharedRoom" />
                                                     }
