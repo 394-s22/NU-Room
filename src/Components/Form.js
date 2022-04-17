@@ -233,10 +233,13 @@ const Form = ({ setDisplayPage }) => {
 
     const [image , setImage] = useState(null);
     const [upload , setUpload] = useState(false);
+    const [firstName, setFirstName] = useState(false);
 
     const uploadImage = () => {
-        setUpload(!upload)
+        setUpload(!upload);
+        setFirstName(!firstName)
     };
+
     
     useEffect(() => {
         if(image == null)
@@ -301,7 +304,7 @@ const Form = ({ setDisplayPage }) => {
                                         </Grid>
 
                                         <Grid item xs = {6} w={1}>
-                                            <TextField fullWidth id="fName" label="First Name" variant="outlined" w={1}/>
+                                            <TextField fullWidth id="fName" label="First Name" variant="outlined" w={1} required/>
                                         </Grid>
 
                                         <Grid item xs = {6}>
