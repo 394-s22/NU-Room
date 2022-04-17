@@ -253,9 +253,12 @@ const Form = ({ setDisplayPage }) => {
     const uploadData = () => {
         setUpload(!upload)
     };
-    
+
     useEffect(() => {
         const userData = {};
+
+        // TODO: Display error message if REQUIRED Fields 
+        // are left blank
 
         userData["basicInfo"] = {
             fname: fname,
@@ -263,18 +266,23 @@ const Form = ({ setDisplayPage }) => {
             email: email
         }
 
+        userData["housingPrefs"] = {
+            location: loct,
+            accomodation: accomodation
+        };
+
         // Uploads Image
         if(image == null) {
-            // TODO: When Uploading Profile Json
-            // the person's json data is using a default
-            return;
+            userData["profileImage"] = "DefaultProfilePicture";
         } else {
-            uploadBytes(ref(storage, `/images/${image.name}`), image).then((snapshot) => {
+            const imageName = fname + lname + Math.floor(Math.random() * 1000000);
+            uploadBytes(ref(storage, `/images/${imageName}`), image).then((snapshot) => {
                 console.log("Image uploaded!")
             });
+            userData["profileImage"] = imageName;
         }
-
-        setDisplayPage('Matches');
+        
+        // setDisplayPage('Matches');
     }, [upload]);
 
     // https://stackoverflow.com/questions/28822054/firebase-how-to-generate-a-unique-numeric-id-for-key
@@ -403,10 +411,10 @@ const Form = ({ setDisplayPage }) => {
                                                 label="I want to live in a"
                                                 onChange={handleChangeAccomodation}
                                                 >
-                                                    <MenuItem value={10}>Suite On Campus</MenuItem>
-                                                    <MenuItem value={20}>Dorm On Campus</MenuItem>
-                                                    <MenuItem value={30}>Apartment Off Campus</MenuItem>
-                                                    <MenuItem value={40}>House Off Campus</MenuItem>
+                                                    <MenuItem value={10}>Suite on Campus</MenuItem>
+                                                    <MenuItem value={20}>Dorm on Campus</MenuItem>
+                                                    <MenuItem value={30}>Apartment off Campus</MenuItem>
+                                                    <MenuItem value={40}>House off Campus</MenuItem>
                                                 </Select>
                                             <FormHelperText>Housing Type</FormHelperText>
                                         </FormControl>
