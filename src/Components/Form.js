@@ -553,27 +553,68 @@ const Form = ({ setDisplayPage }) => {
                             </Paper>
                     </Grid>
                     <Grid item xs = {10} md = {12} style={{height:'100%'}}>
-                                <Paper variant="outlined" >
-                                    <Grid
-                                        container
-                                        direction="row"
-                                        justifyContent="space-between"
-                                        alignItems="center"
-                                        spacing={3}
-                                        padding={3}
-                                    >
-                                        <Grid 
-                                        item xs = {12} w={1} pb = {2}>
-                                            <div
-                                                style={{
-                                                    fontSize: 35,
-                                                    textAlign: "left",
-                                                    fontWeight: "lighter",
-                                                }}
-                                                >   
-                                                {"About Me"}
-                                            </div>
-                                        </Grid>
+                        <Paper variant="outlined" >
+                            <Grid
+                                container
+                                direction="row"
+                                justifyContent="space-between"
+                                alignItems="center"
+                                spacing={3}
+                                padding={3}
+                            >
+                                <Grid 
+                                item xs = {12} w={1} pb = {2}>
+                                    <div
+                                        style={{
+                                            fontSize: 35,
+                                            textAlign: "left",
+                                            fontWeight: "lighter",
+                                        }}
+                                        >   
+                                        {"About Me"}
+                                    </div>
+                                </Grid>
+                                
+                                <Grid item xs = {12} p = {1}>
+                                    
+                                    <Grid item xs = {12} w={1} pb = {2} md = {8}>
+                                    <FormControl sx={{ m: 3, pb: 10 }} component="fieldset" variant="standard">
+                                        <FormLabel component="legend">Please check all that apply: </FormLabel>
+                                        <FormGroup row='true'>
+                                        <FormControlLabel
+                                            control={
+                                            <Checkbox checked={smoker} onChange={handleChangePersonal} name="smoker" />
+                                            }
+                                            label="I am a smoker"
+                                        />
+                                        <FormControlLabel
+                                            control={
+                                            <Checkbox checked={drinker} onChange={handleChangePersonal} name="drinker" />
+                                            }
+                                            label="I am a drinker (alcohol)"
+                                        />
+                                        <FormControlLabel
+                                            disabled = {dormTrue}
+                                            control={
+                                            <Checkbox checked={sharedRoom} onChange={handleChangePersonal} name="sharedRoom" />
+                                            }
+                                            label="I want to share a bedroom"
+                                        />
+                                        <FormControlLabel
+                                            disabled = {dormTrue}
+                                            control={
+                                            <Checkbox checked={petOwner} onChange={handleChangePersonal} name="petOwner" />
+                                            }
+                                            label="I am a pet owner"
+                                        />
+                                        <FormControlLabel
+                                            control={
+                                            <Checkbox checked={musician} onChange={handleChangePersonal} name="musician" />
+                                            }
+                                            label="I practice instruments"
+                                        />
+                                        <Grid item xs = {10} md = {12} style={{height:'100%'}} sx = {{pl: 4}}>
+                                        <Typography id = "cleaning-slider" gutterBottom>Instrument Practice Frequency:</Typography>
                                         
                                         <Grid item xs = {12} p = {1}>
                                             
@@ -676,12 +717,63 @@ const Form = ({ setDisplayPage }) => {
                                             
                                             
                                             </Grid>
+
                                         </Grid>
+                                        <FormControlLabel
+                                            control={
+                                            <Checkbox checked={partnerOver} onChange={handleChangePersonal} name="partnerOver" />
+                                            }
+                                            label="I have my partner over often"
+                                        />
+                                        <Grid item xs = {10} md = {12} style={{height:'100%'}} sx = {{pl: 4}}>
+                                        <Typography id = "partner-slider" gutterBottom>Partner Over Frequency:</Typography>
                                         
+                                        <Slider
+                                        disabled = {!partnerOver}
+                                        aria-label="Custom marks"
+                                        defaultValue={0}
+                                        aria-labelledby="partner-slider"
+                                        // getAriaValueText={valuetext}
+                                        step={null}
+                                        valueLabelDisplay="off"
+                                        marks={dailyMarks}
+                                        onChange={handleChangePersonal} 
+                                        />
+                                        </Grid>
+                                        <FormControlLabel
+                                            control={
+                                            <Checkbox checked={guestsOver} onChange={handleChangePersonal} name="guestsOver" />
+                                            }
+                                            label="I have guests over often"
+                                        />
+                                        <Grid item xs = {10} md = {12} style={{height:'100%'}} sx = {{pl: 4}}>
+                                        <Typography id = "partner-slider" gutterBottom>Partner Over Frequency:</Typography>
                                         
+                                        <Slider
+                                        disabled = {!guestsOver}
+                                        aria-label="Custom marks"
+                                        defaultValue={0}
+                                        aria-labelledby="partner-slider"
+                                        // getAriaValueText={valuetext}
+                                        step={null}
+                                        valueLabelDisplay="off"
+                                        marks={dailyMarks}
+                                        onChange={handleChangePersonal} 
+                                        />
+                                        </Grid>
+                                        </FormGroup>
+                                        <FormHelperText>This information will remain private.</FormHelperText>
+                                    </FormControl>
+                                    
+                                    
                                     </Grid>
-                                </Paper>
+                                </Grid>
+                                
+                                
+                            </Grid>
+                        </Paper>
                     </Grid>
+                    
                     <Grid item xs = {10} md = {12} style={{height:'100%'}}>
                                 <Paper variant="outlined" >
                                     <Grid
@@ -715,67 +807,7 @@ const Form = ({ setDisplayPage }) => {
                                            
                                             <Grid item xs = {12} w={1} pb = {2} md = {4}>
                                             <FormControl sx={{ m: 3, pb: 10}} component="fieldset" variant="standard">
-                                                <FormLabel component="legend">Please check all that apply: <b>I will NOT</b> </FormLabel>
                                                 
-                                                <FormGroup>
-                                                <FormControlLabel
-                                                    control={
-                                                    <Checkbox checked={isSmoker} onChange={handleChange} name="isSmoker" />
-                                                    }
-                                                    label="live with someone who smokes"
-                                                />
-                                                <Typography id = "cleaning-slider" gutterBottom>Cleaning Importance</Typography>
-                                                <Slider
-                                                aria-label="Custom marks"
-                                                defaultValue={0}
-                                                aria-labelledby="cleaning-slider"
-                                                // getAriaValueText={valuetext}
-                                                step={null}
-                                                valueLabelDisplay="off"
-                                                marks={importanceMarks}
-                                                onChange={handleCleaningLevel}
-                                                />
-                                                 <Typography id = "cleaning-slider" gutterBottom>Cleaning Frequency</Typography>
-                                                <Slider
-                                                disabled = {cleaningLevel}
-                                                aria-label="Custom marks"
-                                                defaultValue={0}
-                                                aria-labelledby="cleaning-slider"
-                                                // getAriaValueText={valuetext}
-                                                step={null}
-                                                valueLabelDisplay="off"
-                                                marks={weeklyMarks}
-                                                />
-                                                <FormControlLabel
-                                                    control={
-                                                    <Checkbox checked={isDrinker} onChange={handleChange} name="isDrinker" />
-                                                    }
-                                                    label="live with someone who drinks"
-                                                />
-                                                <FormControlLabel
-                                                    control={
-                                                    <Checkbox checked={ownRoom} onChange={handleChange} name="ownRoom" />
-                                                    }
-                                                    label="live in a shared a bedroom"
-                                                />
-                                                <FormControlLabel
-                                                    control={
-                                                    <Checkbox checked={diffSexes} onChange={handleChange} name="diffSexes" />
-                                                    }
-                                                    label="live with roomates of a different sex"
-                                                />
-                                                <FormControlLabel
-                                                    control={
-                                                    <Checkbox checked={isPetOwner} onChange={handleChange} name="isPetOwner" />
-                                                    }
-                                                    label="live with a pet owner"
-                                                />
-                                                <FormControlLabel
-                                                    control={
-                                                    <Checkbox checked={isMusician} onChange={handleChange} name="isMusician" />
-                                                    }
-                                                    label="live with someone who plays an instrument"
-                                                />
                                                 <Typography id = "cleaning-slider" gutterBottom>Cleaning Frequency</Typography>
                                                 <Slider
                                                 disabled = {cleaningLevel}
@@ -787,98 +819,92 @@ const Form = ({ setDisplayPage }) => {
                                                 valueLabelDisplay="off"
                                                 marks={weeklyMarks}
                                                 />
+                        
+                                                <FormGroup>
+                                            
+                                                <Typography id = "cleaning-slider" gutterBottom>Ideally, My roomate and I are </Typography>
+                                                <InputLabel id="location-select-label">My roomate and I are </InputLabel>
+                                                <Select
+                                                labelId="location-select-label"
+                                                id="location-select"
+                                                value={loct}
+                                                label="I want to live"
+                                                onChange={handleChangeLocation}
+                                                >
+                                                    <MenuItem value={10}>Just Roomates</MenuItem>
+                                                    <MenuItem value={20}>Friends</MenuItem>
+                                                    <MenuItem value={30}>Close Friends</MenuItem>
+                                                </Select>
+                                            
+                                                <Typography id = "cleaning-slider" gutterBottom>Cleaning Frequency</Typography>
+                                                <FormHelperText>I would like our shared spaces to be cleaned ...</FormHelperText>
+                                                <Slider
+                                                disabled = {cleaningLevel}
+                                                aria-label="Custom marks"
+                                                defaultValue={0}
+                                                aria-labelledby="cleaning-slider"
+                                                // getAriaValueText={valuetext}
+                                                step={null}
+                                                valueLabelDisplay="off"
+                                                marks={weeklyMarks}
+                                                />
+                                                
+                                                <Typography id = "partner-slider" gutterBottom>Roomate's Partner Visiting Tolerance</Typography>
+                                                <FormHelperText>I am not okay OR very okay with my roomate having their partner over</FormHelperText>
+                                                <Slider
+                                                disabled = {cleaningLevel}
+                                                aria-label="Custom marks"
+                                                defaultValue={0}
+                                                aria-labelledby="partner-slider"
+                                                // getAriaValueText={valuetext}
+                                                step={null}
+                                                valueLabelDisplay="off"
+                                                marks={toleranceMarks}
+                                                />
+                                                
+                                            
+                                                <Typography id = "partner-slider" gutterBottom>Roomate's Guests Visiting Tolerance</Typography>
+                                                <FormHelperText>I am not okay OR very okay with my roomate having guests over</FormHelperText>
+                                                <Slider
+                                                disabled = {cleaningLevel}
+                                                aria-label="Custom marks"
+                                                defaultValue={0}
+                                                aria-labelledby="partner-slider"
+                                                // getAriaValueText={valuetext}
+                                                step={null}
+                                                valueLabelDisplay="off"
+                                                marks={toleranceMarks}
+                                                />
+                                                </FormGroup>
                                                 
 
-                                                <Typography id = "partner-slider" gutterBottom>Roomates' Partner Visiting Tolerance</Typography>
-                                                <Slider
-                                                disabled = {cleaningLevel}
-                                                aria-label="Custom marks"
-                                                defaultValue={0}
-                                                aria-labelledby="partner-slider"
-                                                // getAriaValueText={valuetext}
-                                                step={null}
-                                                valueLabelDisplay="off"
-                                                marks={toleranceMarks}
-                                                />
-
-                                            
-                                                <Typography id = "partner-slider" gutterBottom>Roomates' Guests Visiting Tolerance</Typography>
-                                                <Slider
-                                                disabled = {cleaningLevel}
-                                                aria-label="Custom marks"
-                                                defaultValue={0}
-                                                aria-labelledby="partner-slider"
-                                                // getAriaValueText={valuetext}
-                                                step={null}
-                                                valueLabelDisplay="off"
-                                                marks={toleranceMarks}
-                                                />
-
-
-                                                </FormGroup>
                                                 <FormHelperText>This information will remain private.</FormHelperText>
                                             </FormControl>
                                             </Grid>
                                             <Grid item xs = {12} w={1} md = {4}>
                                             <FormControl sx={{ m: 10}} component="fieldset" variant="standard">
-                                                <FormLabel component="legend">Please check all that apply: <b>I expect</b> </FormLabel>
+                                                <FormLabel component="legend">Dealbreakers. Please check all that apply: <b>I will NOT</b> </FormLabel>
                                                 
                                                 <FormGroup>
                                                 <FormControlLabel
                                                     control={
-                                                    <Checkbox checked={weeklyCleanRoom} onChange={handleChangeExpectations} name="weeklyCleanRoom" />
+                                                    <Checkbox checked={isSmoker} onChange={handleChange} name="isSmoker" />
                                                     }
-                                                    label="to clean the room weekly"
+                                                    label="live with someone who smokes"
                                                 />
                                                 <FormControlLabel
                                                     control={
-                                                    <Checkbox checked={biweeklyCleanRoom} onChange={handleChangeExpectations} name="biweeklyCleanRoom" />
+                                                    <Checkbox checked={isDrinker} onChange={handleChange} name="isDrinker" />
                                                     }
-                                                    label="to clean the room biweekly"
+                                                    label="live with someone who drinks"
                                                 />
                                                 <FormControlLabel
                                                     control={
-                                                    <Checkbox checked={monthlyCleanRoom} onChange={handleChangeExpectations} name="monthlyCleanRoom" />
+                                                    <Checkbox checked={isPetOwner} onChange={handleChange} name="isPetOwner" />
                                                     }
-                                                    label="to clean the room monthly"
-                                                />
-                                                <FormControlLabel
-                                                    control={
-                                                    <Checkbox checked={noisyBackground} onChange={handleChangeExpectations} name="noisyBackground" />
-                                                    }
-                                                    label="to have background noise/music when working"
-                                                />
-                                                <FormControlLabel
-                                                    control={
-                                                    <Checkbox checked={quietBackground} onChange={handleChangeExpectations} name="quietBackground" />
-                                                    }
-                                                    label="the room to be quiet when working"
-                                                />
-                                                <FormControlLabel
-                                                    control={
-                                                    <Checkbox checked={warmRoom} onChange={handleChangeExpectations} name="warmRoom" />
-                                                    }
-                                                    label="the room to be on the warm side"
-                                                />
-                                                <FormControlLabel
-                                                    control={
-                                                    <Checkbox checked={coldRoom} onChange={handleChangeExpectations} name="coldRoom" />
-                                                    }
-                                                    label="the room to be on the cool side"
+                                                    label="live with a pet owner"
                                                 />
                                                 </FormGroup>
-                                                <FormControlLabel
-                                                    control={
-                                                    <Checkbox checked={friendRoommate} onChange={handleChangeExpectations} name="friendRoommate" />
-                                                    }
-                                                    label="to be friends with my roommate"
-                                                />
-                                                <FormControlLabel
-                                                    control={
-                                                    <Checkbox checked={strangerRoommate} onChange={handleChangeExpectations} name="strangerRoommate" />
-                                                    }
-                                                    label="to never hang out with my roommate"
-                                                />
                                                 <FormHelperText>This information will remain private.</FormHelperText>
                                             </FormControl>        
                                             </Grid>
