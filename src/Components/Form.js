@@ -465,6 +465,7 @@ const Form = ({ setDisplayPage }) => {
                                         <Grid item xs = {6}>
                                             <TextField fullWidth id="lName" label="Last Name" value={lname} onChange={handleChangelName} variant="outlined" />
                                         </Grid>
+                                        
 
                                         <Grid item xs = {12} w={1}>
                                             <TextField 
@@ -540,7 +541,7 @@ const Form = ({ setDisplayPage }) => {
                                                     <MenuItem value={10}>Suite on Campus</MenuItem>
                                                     <MenuItem value={20}>Dorm on Campus</MenuItem>
                                                     <MenuItem value={30}>Apartment off Campus</MenuItem>
-                                                    <MenuItem value={40}>House off Campus</MenuItem>
+                                                    {/* <MenuItem value={40}>House off Campus</MenuItem> */}
 
                                                 </Select>
                                             <FormHelperText>Housing Type</FormHelperText>
@@ -575,7 +576,7 @@ const Form = ({ setDisplayPage }) => {
                                                     fontWeight: "lighter",
                                                 }}
                                                 >   
-                                                {"More About Me"}
+                                                {"About Me"}
                                             </div>
                                         </Grid>
                                         
@@ -617,7 +618,9 @@ const Form = ({ setDisplayPage }) => {
                                                     }
                                                     label="I practice instruments"
                                                 />
-                                                <Typography id = "cleaning-slider" gutterBottom>Instrument Practice Frequency</Typography>
+                                                <Grid item xs = {10} md = {12} style={{height:'100%'}}>
+                                                <Typography id = "cleaning-slider" gutterBottom>Instrument Practice Frequency:</Typography>
+                                                
                                                 <Slider
                                                 disabled = {instrumentPracticeLevel}
                                                 aria-label="Custom marks"
@@ -629,6 +632,7 @@ const Form = ({ setDisplayPage }) => {
                                                 marks={dailyMarks}
                                                 onChange={handleChangePersonal}
                                                 />
+                                                </Grid>
                                                 <FormControlLabel
                                                     control={
                                                     <Checkbox checked={partnerOver} onChange={handleChangePersonal} name="partnerOver" />
@@ -672,7 +676,7 @@ const Form = ({ setDisplayPage }) => {
                                                     fontWeight: "lighter",
                                                 }}
                                                 >   
-                                                {"More About Me"}
+                                                {"Rooming Preferences"}
                                             </div>
                                         </Grid>
                                         
