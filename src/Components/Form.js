@@ -34,6 +34,9 @@ import Divider from '@mui/material/Divider';
 import { Stack } from '@mui/material';
 import Slider from '@mui/material/Slider';
 import Typography from '@mui/material/Typography';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -396,6 +399,9 @@ const Form = ({ setDisplayPage }) => {
     const uploadData = () => {
         setUpload(!upload)
     };
+
+    const [wakeUpTime, setWakeUpTime] = React.useState(null);
+    const [bedTime, setBedTime] = React.useState(null);
 
     useEffect(() => {
         const userData = {};
@@ -786,6 +792,33 @@ const Form = ({ setDisplayPage }) => {
                                                 onChange={handleChangePersonal} 
                                                 />
                                                 </Grid>
+
+                                                <Grid item xs = {10} md = {4} style={{height:'100%'}} sx = {{pl: 0}} padding={3}>
+                                                    <LocalizationProvider dateAdapter={AdapterDateFns}>
+                                                        <TimePicker
+                                                            label="I wake up around"
+                                                            value={wakeUpTime}
+                                                            onChange={(newValue) => {
+                                                            setWakeUpTime(newValue);
+                                                            }}
+                                                            renderInput={(params) => <TextField {...params} />}
+                                                        />
+                                                    </LocalizationProvider>
+                                                </Grid>
+
+                                                <Grid item xs = {10} md = {8} style={{height:'100%'}} sx = {{pl: 0}} padding={3}>
+                                                    <LocalizationProvider dateAdapter={AdapterDateFns}>
+                                                        <TimePicker
+                                                            label="I go to bed around"
+                                                            value={bedTime}
+                                                            onChange={(newValue) => {
+                                                            setBedTime(newValue);
+                                                            }}
+                                                            renderInput={(params) => <TextField {...params} />}
+                                                        />
+                                                    </LocalizationProvider>
+                                                </Grid>
+
                                                 </FormGroup>
                                                 <FormHelperText>This information will remain private.</FormHelperText>
                                             </FormControl>                                
