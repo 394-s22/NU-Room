@@ -175,6 +175,22 @@ const weeklyMarks = [
         label: 'Monthly',
     },
   ];
+
+const toleranceMarks = [
+    {
+        value: 0,
+        label: "S"
+    },
+    { 
+        value: 50,
+        label: "M"
+    },
+    {
+        value: 100,
+        label: "L"
+    },
+
+];
   
 function valuetext(value) {
     return `${value}°C`;
@@ -224,12 +240,21 @@ const Form = ({ setDisplayPage }) => {
     const [dormTrue, setDormTrue] = React.useState(false);
     const [cleaningLevel, setCleaningLevel] = React.useState(true);
     const [instrumentPracticeLevel, setInstrumentPracticeLevel] = React.useState(true);
+    const [partnerOften, setPartnerOften] = React.useState(false);
 
     const handleCleaningLevel = (event) => {
         if (event.target.value != 0) {
             setCleaningLevel(false);
         } else {
             setCleaningLevel(true);
+        }
+    }
+
+    const handleChangePartnerOften = (event) => {
+        if (event.target.value != 0) {
+            setPartnerOften(false);
+        } else {
+            setPartnerOften(true);
         }
     }
 
@@ -555,16 +580,11 @@ const Form = ({ setDisplayPage }) => {
                                         </Grid>
                                         
                                         <Grid item xs = {12} p = {1}>
-                                            <Grid w={1} pb = {2}
-                                            container
-                                            direction="row"
-                                            justifyContent="space-between"
-                                            alignItems="center"
-                                            >
-                                            <Grid item xs = {12} w={1} pb = {2} md = {4}>
+                                            
+                                            <Grid item xs = {12} w={1} pb = {2} md = {8}>
                                             <FormControl sx={{ m: 3, pb: 10 }} component="fieldset" variant="standard">
                                                 <FormLabel component="legend">Please check all that apply: </FormLabel>
-                                                <FormGroup>
+                                                <FormGroup row='true'>
                                                 <FormControlLabel
                                                     control={
                                                     <Checkbox checked={smoker} onChange={handleChangePersonal} name="smoker" />
@@ -624,7 +644,46 @@ const Form = ({ setDisplayPage }) => {
                                                 </FormGroup>
                                                 <FormHelperText>This information will remain private.</FormHelperText>
                                             </FormControl>
+                                            
+                                            
                                             </Grid>
+                                        </Grid>
+                                        
+                                        
+                                    </Grid>
+                                </Paper>
+                    </Grid>
+                    <Grid item xs = {10} md = {12} style={{height:'100%'}}>
+                                <Paper variant="outlined" >
+                                    <Grid
+                                        container
+                                        direction="row"
+                                        justifyContent="space-between"
+                                        alignItems="center"
+                                        spacing={3}
+                                        padding={3}
+                                    >
+                                        <Grid 
+                                        item xs = {12} w={1} pb = {2}>
+                                            <div
+                                                style={{
+                                                    fontSize: 35,
+                                                    textAlign: "left",
+                                                    fontWeight: "lighter",
+                                                }}
+                                                >   
+                                                {"More About Me"}
+                                            </div>
+                                        </Grid>
+                                        
+                                        <Grid item xs = {12} p = {1}>
+                                            <Grid w={1} pb = {2}
+                                            container
+                                            direction="row"
+                                            justifyContent="space-between"
+                                            alignItems="center"
+                                            >
+                                           
                                             <Grid item xs = {12} w={1} pb = {2} md = {4}>
                                             <FormControl sx={{ m: 3, pb: 10}} component="fieldset" variant="standard">
                                                 <FormLabel component="legend">Please check all that apply: <b>I will NOT</b> </FormLabel>
@@ -699,18 +758,34 @@ const Form = ({ setDisplayPage }) => {
                                                 valueLabelDisplay="off"
                                                 marks={weeklyMarks}
                                                 />
-                                                <FormControlLabel
-                                                    control={
-                                                    <Checkbox checked={hasPartnerOver} onChange={handleChange} name="hasPartnerOver" />
-                                                    }
-                                                    label="live with somene who has their partner over often"
+                                                
+
+                                                <Typography id = "partner-slider" gutterBottom>Roomates' Partner Visiting Tolerance</Typography>
+                                                <Slider
+                                                disabled = {cleaningLevel}
+                                                aria-label="Custom marks"
+                                                defaultValue={0}
+                                                aria-labelledby="partner-slider"
+                                                // getAriaValueText={valuetext}
+                                                step={null}
+                                                valueLabelDisplay="off"
+                                                marks={toleranceMarks}
                                                 />
-                                                <FormControlLabel
-                                                    control={
-                                                    <Checkbox checked={hasGuestsOver} onChange={handleChange} name="hasGuestsOver" />
-                                                    }
-                                                    label="live with somene who has guests over often"
+
+                                            
+                                                <Typography id = "partner-slider" gutterBottom>Roomates' Guests Visiting Tolerance</Typography>
+                                                <Slider
+                                                disabled = {cleaningLevel}
+                                                aria-label="Custom marks"
+                                                defaultValue={0}
+                                                aria-labelledby="partner-slider"
+                                                // getAriaValueText={valuetext}
+                                                step={null}
+                                                valueLabelDisplay="off"
+                                                marks={toleranceMarks}
                                                 />
+
+
                                                 </FormGroup>
                                                 <FormHelperText>This information will remain private.</FormHelperText>
                                             </FormControl>
