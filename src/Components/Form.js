@@ -614,49 +614,7 @@ const Form = ({ setDisplayPage }) => {
                                             label="I practice instruments"
                                         />
                                         <Grid item xs = {10} md = {12} style={{height:'100%'}} sx = {{pl: 4}}>
-                                        <Typography id = "cleaning-slider" gutterBottom>Instrument Practice Frequency:</Typography>
-                                        
-                                        <Grid item xs = {12} p = {1}>
-                                            
-                                            <Grid item xs = {12} w={1} pb = {2} md = {8}>
-                                            <FormControl sx={{ m: 3, pb: 10 }} component="fieldset" variant="standard">
-                                                <FormLabel component="legend">Please check all that apply: </FormLabel>
-                                                <FormGroup row='true'>
-                                                <FormControlLabel
-                                                    control={
-                                                    <Checkbox checked={smoker} onChange={handleChangePersonal} name="smoker" />
-                                                    }
-                                                    label="I am a smoker"
-                                                />
-                                                <FormControlLabel
-                                                    control={
-                                                    <Checkbox checked={drinker} onChange={handleChangePersonal} name="drinker" />
-                                                    }
-                                                    label="I am a drinker (alcohol)"
-                                                />
-                                                <FormControlLabel
-                                                    disabled = {dormTrue}
-                                                    control={
-                                                    <Checkbox checked={sharedRoom} onChange={handleChangePersonal} name="sharedRoom" />
-                                                    }
-                                                    label="I want to share a bedroom"
-                                                />
-                                                <FormControlLabel
-                                                    disabled = {dormTrue}
-                                                    control={
-                                                    <Checkbox checked={petOwner} onChange={handleChangePersonal} name="petOwner" />
-                                                    }
-                                                    label="I am a pet owner"
-                                                />
-                                                <FormControlLabel
-                                                    control={
-                                                    <Checkbox checked={musician} onChange={handleChangePersonal} name="musician" />
-                                                    }
-                                                    label="I practice instruments"
-                                                />
-                                                <Grid item xs = {10} md = {12} style={{height:'100%'}} sx = {{pl: 4}}>
-                                                <Typography id = "cleaning-slider" gutterBottom>Instrument Practice Frequency:</Typography>
-                                                
+                                        <Typography id = "cleaning-slider" gutterBottom>Instrument Practice Frequency:</Typography>                            
                                                 <Slider
                                                 disabled = {!musician}
                                                 aria-label="Custom marks"
@@ -713,59 +671,7 @@ const Form = ({ setDisplayPage }) => {
                                                 </Grid>
                                                 </FormGroup>
                                                 <FormHelperText>This information will remain private.</FormHelperText>
-                                            </FormControl>
-                                            
-                                            
-                                            </Grid>
-
-                                        </Grid>
-                                        <FormControlLabel
-                                            control={
-                                            <Checkbox checked={partnerOver} onChange={handleChangePersonal} name="partnerOver" />
-                                            }
-                                            label="I have my partner over often"
-                                        />
-                                        <Grid item xs = {10} md = {12} style={{height:'100%'}} sx = {{pl: 4}}>
-                                        <Typography id = "partner-slider" gutterBottom>Partner Over Frequency:</Typography>
-                                        
-                                        <Slider
-                                        disabled = {!partnerOver}
-                                        aria-label="Custom marks"
-                                        defaultValue={0}
-                                        aria-labelledby="partner-slider"
-                                        // getAriaValueText={valuetext}
-                                        step={null}
-                                        valueLabelDisplay="off"
-                                        marks={dailyMarks}
-                                        onChange={handleChangePersonal} 
-                                        />
-                                        </Grid>
-                                        <FormControlLabel
-                                            control={
-                                            <Checkbox checked={guestsOver} onChange={handleChangePersonal} name="guestsOver" />
-                                            }
-                                            label="I have guests over often"
-                                        />
-                                        <Grid item xs = {10} md = {12} style={{height:'100%'}} sx = {{pl: 4}}>
-                                        <Typography id = "partner-slider" gutterBottom>Partner Over Frequency:</Typography>
-                                        
-                                        <Slider
-                                        disabled = {!guestsOver}
-                                        aria-label="Custom marks"
-                                        defaultValue={0}
-                                        aria-labelledby="partner-slider"
-                                        // getAriaValueText={valuetext}
-                                        step={null}
-                                        valueLabelDisplay="off"
-                                        marks={dailyMarks}
-                                        onChange={handleChangePersonal} 
-                                        />
-                                        </Grid>
-                                        </FormGroup>
-                                        <FormHelperText>This information will remain private.</FormHelperText>
-                                    </FormControl>
-                                    
-                                    
+                                            </FormControl>                                
                                     </Grid>
                                 </Grid>
                                 
