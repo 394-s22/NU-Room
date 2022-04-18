@@ -88,16 +88,14 @@ const hobbiesList = [
 ];
 
 const personalityList = [
-    'shy',
-    'outgoing',
+    'Introverted',
+    'Extrovered',
+    'I like my alone time',
     'I like to try new things',
     'I don\'t like change',
     'I like to have everything planned',
     'I like to live without a schedule',
-    'I care how others think about me',
     'I am not intrested in people I don\'t know',
-    'I\'m always stressed',
-    'I deal with stress well'
 ];
 
 const housingList = [
