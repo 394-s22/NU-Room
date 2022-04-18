@@ -179,15 +179,15 @@ const weeklyMarks = [
 const toleranceMarks = [
     {
         value: 0,
-        label: "S"
+        label: "Low"
     },
     { 
         value: 50,
-        label: "M"
+        label: "Medium"
     },
     {
         value: 100,
-        label: "L"
+        label: "High"
     },
 
 ];
