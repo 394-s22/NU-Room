@@ -207,7 +207,7 @@ const Form = ({ setDisplayPage }) => {
     const [gender, setGender] = React.useState('');
     const handleChangeGender = (event) => {
         setGender(event.target.value);
-    }
+    };   
 
     const [pronouns, setPronouns] = React.useState('');
     const handleChangePronouns = (event) => {
@@ -323,6 +323,8 @@ const Form = ({ setDisplayPage }) => {
     const [fname, setfName] = React.useState("");
     const [lname, setlName] = React.useState("");
     const [email, setEmail] = React.useState("");
+
+    
 
     const handleChangefName= (event: React.ChangeEvent<HTMLInputElement>) => {
         setfName(event.target.value);
@@ -465,7 +467,42 @@ const Form = ({ setDisplayPage }) => {
                                         <Grid item xs = {6}>
                                             <TextField fullWidth id="lName" label="Last Name" value={lname} onChange={handleChangelName} variant="outlined" />
                                         </Grid>
+
+                                    <Grid item xs = {12} md={6} w={1}>
+                                        <FormControl sx={{width : 1}}>
+                                            <InputLabel id="gender-select-label">Gender</InputLabel>
+                                                <Select
+                                                labelId="gender-select-label"
+                                                id="gender-select"
+                                                value={gender}
+                                                label="I identify as:"
+                                                onChange={handleChangeGender}
+                                                >
+                                                    <MenuItem value={10}>Male</MenuItem>
+                                                    <MenuItem value={20}>Female</MenuItem>
+                                                    <MenuItem value={30}>Non-binary</MenuItem>
+                                                    <MenuItem value={40}>Other</MenuItem>
+                                                </Select>
+                                        </FormControl>
+                                    </Grid>
                                         
+                                    <Grid item xs = {12} md={6} w={1}>
+                                        <FormControl sx={{width : 1}}>
+                                            <InputLabel id="pronouns-select-label">My pronouns</InputLabel>
+                                                <Select
+                                                labelId="pronouns-select-label"
+                                                id="pronoun-select"
+                                                value={pronouns}
+                                                label="My pronouns"
+                                                onChange={handleChangePronouns}
+                                                >
+                                                    <MenuItem value={10}>He/him</MenuItem>
+                                                    <MenuItem value={20}>She/her</MenuItem>
+                                                    <MenuItem value={30}>They/them</MenuItem>
+                                                    <MenuItem value={40}>Other</MenuItem>
+                                                </Select>
+                                        </FormControl>
+                                    </Grid>
 
                                         <Grid item xs = {12} w={1}>
                                             <TextField 
