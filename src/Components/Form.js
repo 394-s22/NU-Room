@@ -901,7 +901,7 @@ const Form = ({ setDisplayPage }) => {
                                     </Grid>
                                 </Paper>
                     </Grid>
-                    <Grid item xs = {10} md = {12} style={{height:'100%'}}>
+                    <Grid justifyContent="center" item xs = {10} md = {12} style={{height:'100%'}}>
                                 <Paper variant="outlined" >
                                     <Grid
                                         container
@@ -923,41 +923,9 @@ const Form = ({ setDisplayPage }) => {
                                             </div>
                                         </Grid>
                                         
-                                        <Grid item xs = {12} md={4} w={1}>
-                                            <FormControl sx={{width: 1 }}>
-                                                <InputLabel id="room-perfers-chip-label">I am</InputLabel>
-                                                <Select
-                                                labelId="room-perfers-chip-label"
-                                                id="room-perfer-chip"
-                                                multiple
-                                                value={perfer}
-                                                onChange={handleChangePerfers}
-                                                input={<OutlinedInput id="select-room-perfers-chip" label="I am" />}
-                                                renderValue={(selected) => (
-                                                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-                                                    {selected.map((value) => (
-                                                        <Chip key={value} label={value} />
-                                                    ))}
-                                                    </Box>
-                                                )}
-                                                MenuProps={MenuProps}
-                                                >
-                                                {attributes.map((name) => (
-                                                    <MenuItem
-                                                    key={name}
-                                                    value={name}
-                                                    style={getStyles(name, attributes, theme)}
-                                                    >
-                                                    {name}
-                                                    </MenuItem>
-                                                ))}
-                                                </Select>
-                                                <FormHelperText>Please check all that apply</FormHelperText>
-                                            </FormControl>
-                                        </Grid>
 
 
-                                        <Grid item xs = {12} md={4} w={1}>
+                                        <Grid item xs = {12} md={6} w={1}>
                                             <FormControl sx={{width: 1 }}>
                                                 <InputLabel id="hobbie-chip-label">My hobbies</InputLabel>
                                                 <Select
@@ -991,7 +959,7 @@ const Form = ({ setDisplayPage }) => {
                                             </FormControl>
                                         </Grid>
 
-                                        <Grid item xs = {12} md={4} w={1}>
+                                        <Grid item xs = {12} md={6} w={1}>
                                             <FormControl sx={{width: 1 }}>
                                                 <InputLabel id="personality-chip-label" label="My personality can be described as">My personality can be described as</InputLabel>
                                                 <Select
@@ -1025,7 +993,7 @@ const Form = ({ setDisplayPage }) => {
                                                 <FormHelperText>Please check all that apply</FormHelperText>
                                             </FormControl>
                                         </Grid>           
-                                        <Grid item xs = {12} md={4} w={1}>
+                                        <Grid item xs = {12} md={6} w={1}>
                                             <GeoLocation
                                                 locationTitle="Country"
                                                 isCountry
@@ -1033,34 +1001,32 @@ const Form = ({ setDisplayPage }) => {
                                                 
                                             />
                                         </Grid>
-                                        <Grid item xs = {12} md={4} w={1}>
+                                        <Grid item xs = {12} md={6} w={1}>
                                             <GeoLocation
                                                 locationTitle="State"
                                                 onChange={setState}
                                                 geoId={country}
                                             />
                                             </Grid>
-                                        <Grid item xs = {12} md={4} w={1}>
-                                            <GeoLocation
-                                                locationTitle="County"
-                                                onChange={setCity}
-                                                geoId={state}
-                                            />
-                                        </Grid>
                                         
-
-                                        
-
+                                            <Grid
+                                            container
+                                            spacing={0}
+                                            direction="column"
+                                            alignItems="center"
+                                            justifyContent="center"
+                                            style={{ paddingTop: 15 }}
+                                            >
                                         <Grid item xs = {2} w={2} md = {6}> 
                                             <TextField  
                                             multiline
                                             id="outlined-basic" 
                                             label="What are you looking for?" 
                                             rows={5}
-                                            sx={{width : {xs: 280, md: 500}}}
+                                            sx={{width : {xs: 280, md: 700}}}
                                             maxRows={10}
                                             variant="outlined" />
-                                            
+                                            </Grid>
                                         </Grid>
 
                                        
