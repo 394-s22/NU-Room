@@ -87,6 +87,13 @@ const hobbiesList = [
     'Writing'
 ];
 
+const pronounsList = [
+    'He/him',
+    'She/her',
+    'They/them',
+    'Other'
+]
+
 const personalityList = [
     'shy',
     'outgoing',
@@ -209,10 +216,10 @@ const Form = ({ setDisplayPage }) => {
         setGender(event.target.value);
     };   
 
-    const [pronouns, setPronouns] = React.useState('');
-    const handleChangePronouns = (event) => {
-        setPronouns(event.target.value);
-    }
+    const [sameSexRooming, setSameSexRooming] = React.useState('');
+    const handleChangeSameSexRooming = (event) => {
+        setSameSexRooming(event.target.value);
+    }; 
 
     const [perfer, setPerfers] = React.useState([]);
     const handleChangePerfers = (event) => {
@@ -274,6 +281,17 @@ const Form = ({ setDisplayPage }) => {
         );
     };
 
+    const [pronouns, setPronouns] = React.useState([]);
+    const handleChangePronouns = (event) => {
+        const {
+        target: { value },
+        } = event;
+        setPronouns(
+        // On autofill we get a stringified value.
+        typeof value === 'string' ? value.split(',') : value,
+        );
+    };
+
     const [personality, setPersonality] = React.useState([]);
     const handleChangePersonality = (event) => {
         const {
@@ -320,11 +338,16 @@ const Form = ({ setDisplayPage }) => {
         strangerRoommate: false
     });
 
+    const [shareRoom, setShareRoom] = React.useState(false);
+    const handleChangeShareRoom = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setShareRoom(event.target.checked);
+        console.log(event.target.checked)
+        
+    };
+
     const [fname, setfName] = React.useState("");
     const [lname, setlName] = React.useState("");
-    const [email, setEmail] = React.useState("");
-
-    
+    const [email, setEmail] = React.useState("");    
 
     const handleChangefName= (event: React.ChangeEvent<HTMLInputElement>) => {
         setfName(event.target.value);
@@ -485,22 +508,58 @@ const Form = ({ setDisplayPage }) => {
                                                 </Select>
                                         </FormControl>
                                     </Grid>
-                                        
+
+                                    <Grid item xs = {12} md={6} w={1}>
+                                            <FormControl sx={{width: 1 }}>
+                                                <InputLabel id="hobbie-chip-label">My pronouns</InputLabel>
+                                                <Select
+                                                labelId="pronouns-chip-label"
+                                                label="My pronouns"
+                                                id="pronouns-chip"
+                                                multiple
+                                                value={pronouns}
+                                                onChange={handleChangePronouns}
+                                                input={<OutlinedInput id="select-pronouns-chip" label="My pronouns" />}
+                                                renderValue={(selected) => (
+                                                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                                                    {selected.map((value) => (
+                                                        <Chip key={value} label={value} />
+                                                    ))}
+                                                    </Box>
+                                                )}
+                                                MenuProps={MenuProps}
+                                                >
+                                                {pronounsList.map((name) => (
+                                                    <MenuItem
+                                                    key={name}
+                                                    value={name}
+                                                    style={getStyles(name, pronounsList, theme)}
+                                                    >
+                                                    {name}
+                                                    </MenuItem>
+                                                ))}
+                                                </Select>
+                                                <FormHelperText>Please check all that apply</FormHelperText>
+                                            </FormControl>
+                                        </Grid>
+
                                     <Grid item xs = {12} md={6} w={1}>
                                         <FormControl sx={{width : 1}}>
-                                            <InputLabel id="pronouns-select-label">My pronouns</InputLabel>
+                                            <InputLabel id="year-select-label">Next Year Grade</InputLabel>
                                                 <Select
-                                                labelId="pronouns-select-label"
-                                                id="pronoun-select"
-                                                value={pronouns}
-                                                label="My pronouns"
-                                                onChange={handleChangePronouns}
+                                                labelId="year-select-label"
+                                                id="year-select"
+                                                value={year}
+                                                label="I identify as:"
+                                                onChange={handleChangeYear}
                                                 >
-                                                    <MenuItem value={10}>He/him</MenuItem>
-                                                    <MenuItem value={20}>She/her</MenuItem>
-                                                    <MenuItem value={30}>They/them</MenuItem>
-                                                    <MenuItem value={40}>Other</MenuItem>
+                                                    <MenuItem value={10}>First Year</MenuItem>
+                                                    <MenuItem value={20}>Second Year</MenuItem>
+                                                    <MenuItem value={30}>Third Year</MenuItem>
+                                                    <MenuItem value={40}>Fourth Year</MenuItem>
+                                                    <MenuItem value={40}>Grad/PhD</MenuItem>
                                                 </Select>
+                                                <FormHelperText>What year will you be next year?</FormHelperText>
                                         </FormControl>
                                     </Grid>
 
@@ -557,7 +616,7 @@ const Form = ({ setDisplayPage }) => {
                                                 >
                                                     <MenuItem value={10}>North</MenuItem>
                                                     <MenuItem value={20}>South</MenuItem>
-                                                    <MenuItem value={30}>Somewhere in Between</MenuItem>
+                                                    <MenuItem value={30}>No preference</MenuItem>
                                                 </Select>
                                             <FormHelperText>Location Preferences</FormHelperText>
                                         </FormControl>
@@ -586,11 +645,34 @@ const Form = ({ setDisplayPage }) => {
 
 
                                     </Grid>
+                                    <Grid item xs = {12} md={6} w={1}>
+                                        <FormControl sx={{width : 1}}>
+                                            <InputLabel id="same-sex-rooming-select-label">Same sex or Mixed</InputLabel>
+                                                <Select
+                                                labelId="same-sex-rooming-select-label"
+                                                id="same-sex-rooming-select"
+                                                value={sameSexRooming}
+                                                label="I identify as:"
+                                                onChange={handleChangeSameSexRooming}
+                                                >
+                                                    <MenuItem value={10}>Same Sex</MenuItem>
+                                                    <MenuItem value={20}>Mixed Gender</MenuItem>
+                                                </Select>
+                                                <FormHelperText>Who do you want to live with?</FormHelperText>
+                                        </FormControl>
+
+                                    </Grid>
+                                    <Grid item xs = {12} md={12} w={1}>
+                                    <FormControlLabel
+                                                    control={
+                                                    <Checkbox checked={shareRoom} onChange={handleChangeShareRoom} name="shareRoom" />
+                                                    }
+                                                    label="I want to share a room with my roommate"
+                                                />
+                                                </Grid>
+
 
                                 </Grid>
-
-                                
-                                
 
                             </Paper>
                     </Grid>
