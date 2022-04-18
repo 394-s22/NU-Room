@@ -349,11 +349,6 @@ const Form = ({ setDisplayPage }) => {
         [event.target.name]: event.target.checked,
         });
         console.log(event.target.checked)
-        if (event.target.checked == true || event.target.checked == undefined) {
-            setInstrumentPracticeLevel(false);
-        } else {
-            setInstrumentPracticeLevel(true);
-        }
     };
 
     const handleChangeExpectations = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -618,11 +613,11 @@ const Form = ({ setDisplayPage }) => {
                                                     }
                                                     label="I practice instruments"
                                                 />
-                                                <Grid item xs = {10} md = {12} style={{height:'100%'}}>
+                                                <Grid item xs = {10} md = {12} style={{height:'100%'}} sx = {{pl: 4}}>
                                                 <Typography id = "cleaning-slider" gutterBottom>Instrument Practice Frequency:</Typography>
                                                 
                                                 <Slider
-                                                disabled = {instrumentPracticeLevel}
+                                                disabled = {!musician}
                                                 aria-label="Custom marks"
                                                 defaultValue={0}
                                                 aria-labelledby="cleaning-slider"
@@ -630,7 +625,7 @@ const Form = ({ setDisplayPage }) => {
                                                 step={null}
                                                 valueLabelDisplay="off"
                                                 marks={dailyMarks}
-                                                onChange={handleChangePersonal}
+                                                onChange={handleChangePersonal} 
                                                 />
                                                 </Grid>
                                                 <FormControlLabel
@@ -639,12 +634,42 @@ const Form = ({ setDisplayPage }) => {
                                                     }
                                                     label="I have my partner over often"
                                                 />
+                                                <Grid item xs = {10} md = {12} style={{height:'100%'}} sx = {{pl: 4}}>
+                                                <Typography id = "partner-slider" gutterBottom>Partner Over Frequency:</Typography>
+                                                
+                                                <Slider
+                                                disabled = {!partnerOver}
+                                                aria-label="Custom marks"
+                                                defaultValue={0}
+                                                aria-labelledby="partner-slider"
+                                                // getAriaValueText={valuetext}
+                                                step={null}
+                                                valueLabelDisplay="off"
+                                                marks={dailyMarks}
+                                                onChange={handleChangePersonal} 
+                                                />
+                                                </Grid>
                                                 <FormControlLabel
                                                     control={
                                                     <Checkbox checked={guestsOver} onChange={handleChangePersonal} name="guestsOver" />
                                                     }
                                                     label="I have guests over often"
                                                 />
+                                                <Grid item xs = {10} md = {12} style={{height:'100%'}} sx = {{pl: 4}}>
+                                                <Typography id = "partner-slider" gutterBottom>Partner Over Frequency:</Typography>
+                                                
+                                                <Slider
+                                                disabled = {!guestsOver}
+                                                aria-label="Custom marks"
+                                                defaultValue={0}
+                                                aria-labelledby="partner-slider"
+                                                // getAriaValueText={valuetext}
+                                                step={null}
+                                                valueLabelDisplay="off"
+                                                marks={dailyMarks}
+                                                onChange={handleChangePersonal} 
+                                                />
+                                                </Grid>
                                                 </FormGroup>
                                                 <FormHelperText>This information will remain private.</FormHelperText>
                                             </FormControl>
