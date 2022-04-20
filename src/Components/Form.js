@@ -556,7 +556,7 @@ const Form = ({ setDisplayPage }) => {
                                                     <MenuItem value={20}>Second Year</MenuItem>
                                                     <MenuItem value={30}>Third Year</MenuItem>
                                                     <MenuItem value={40}>Fourth Year</MenuItem>
-                                                    <MenuItem value={40}>Grad/PhD</MenuItem>
+                                                    <MenuItem value={50}>Grad/PhD</MenuItem>
                                                 </Select>
                                                 <FormHelperText>What year will you be next year?</FormHelperText>
                                         </FormControl>
