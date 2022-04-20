@@ -37,6 +37,7 @@ import Typography from '@mui/material/Typography';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
+import { setData } from "../utilities/firebase";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -307,24 +308,38 @@ const Form = ({ setDisplayPage }) => {
     const [dealBreakers, setDealBreakers] = React.useState({
         isSmoker: false, 
         isDrinker: false,
-        ownRoom: false,
-        diffSexes: false,
         isPetOwner: false,
-        isMusician: false,
-        hasPartnerOver: false,
-        hasGuestsOver: false,
-        hasExcessivePossessions: false
     });
 
     const [personal, setPersonal] = React.useState({
         smoker: false, 
         drinker: false,
-        sharedRoom: false,
         petOwner: false,
+    });
+
+
+    const [personalCheckBoxes, setPersonalCheckBoxes] = React.useState({
         musician: false,
         partnerOver: false,
         guestsOver: false,
-        excessivePossessions: false
+    });
+
+    const [prefCheckBoxes, setPrefCheckBoxes] = React.useState({
+        isMusician: false,
+        hasPartnerOver: false,
+        hasGuestsOver: false,
+    });
+
+    const [personalSliders, setPersonalSliders] = React.useState({
+        musicianValue: 0,
+        partnerOverValue: 0,
+        guestsOverValue: 0,
+    });
+
+    const [prefSliders, setPrefSliders] = React.useState({
+        isMusicianValue: false,
+        hasPartnerOverValue: false,
+        hasGuestsOverValue: false,
     });
 
     const [expectations, setExpectations] = React.useState({
@@ -362,7 +377,7 @@ const Form = ({ setDisplayPage }) => {
         setEmail(event.target.value);
     };
       
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChangeDealbreakers = (event: React.ChangeEvent<HTMLInputElement>) => {
         setDealBreakers({
         ...dealBreakers,
         [event.target.name]: event.target.checked,
@@ -374,9 +389,36 @@ const Form = ({ setDisplayPage }) => {
         ...personal,
         [event.target.name]: event.target.checked,
         });
-        console.log(event.target.checked)
     };
 
+    const handleChangePersonalCheckBoxes = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setPersonalCheckBoxes({
+        ...personalCheckBoxes,
+        [event.target.name]: event.target.checked,
+        });
+        console.log(personalCheckBoxes);
+    };
+    const handleChangePersonalSliders = (event: React.ChangeEvent<HTMLInputElement>) => {
+        console.log(event.target);
+        setPersonalSliders({
+        ...personalSliders,
+        [event.target.name]: event.target.value,
+        });
+    };
+    const handleChangePrefCheckBoxes = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setPrefCheckBoxes({
+        ...prefCheckBoxes,
+        [event.target.name]: event.target.checked,
+        });
+        console.log(prefCheckBoxes);
+    };
+    const handleChangePrefSliders = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setPrefSliders({
+        ...prefSliders,
+        [event.target.name]: event.target.checked,
+        });
+        console.log(prefSliders);
+    };
     const handleChangeExpectations = (event: React.ChangeEvent<HTMLInputElement>) => {
         setExpectations({
         ...expectations,
@@ -384,8 +426,12 @@ const Form = ({ setDisplayPage }) => {
         });
     };
     
-    const { smoker, drinker, sharedRoom, petOwner, musician, partnerOver, guestsOver, excessivePossessions } = personal;
-    const { isSmoker, isDrinker, ownRoom, diffSexes, isPetOwner, isMusician, hasPartnerOver, hasGuestsOver, hasExcessivePossessions } = dealBreakers;
+    const { smoker, drinker, petOwner } = personal;
+    const { isSmoker, isDrinker, isPetOwner} = dealBreakers;
+    const { musician, partnerOver, guestsOver } = personalCheckBoxes;
+    const { isMusician, hasPartnerOver, hasGuestsOver } = prefCheckBoxes;
+    const { musicianValue, partnerOverValue, guestsOverValue } = personalSliders;
+    const { isMusicianValue, hasPartnerOverValue, hasGuestsOverValue } = prefSliders;
     const { weeklyCleanRoom, biweeklyCleanRoom, monthlyCleanRoom, noisyBackground, quietBackground, warmRoom, coldRoom, friendRoommate, strangerRoommate} = expectations;
 
     const [country, setCountry] = React.useState("");
@@ -412,26 +458,68 @@ const Form = ({ setDisplayPage }) => {
         userData["basicInfo"] = {
             fname: fname,
             lname: lname,
-            email: email
+            email: email,
+            gender: gender,
+            pronouns: pronouns,
+            nextYearGrade: year
         }
 
         userData["housingPrefs"] = {
             location: loct,
-            accomodation: accomodation
+            accomodation: accomodation,
+            sameSexOrMixed: sameSexRooming,
+            shareRoom: shareRoom
         };
+
+        userData["personal"] = {
+            ...personal
+        };
+
+        userData["dealBreakers"] = {
+            ...dealBreakers
+        };
+
+        userData["personalCheckBoxes"] = {
+            ...personalCheckBoxes
+        };
+
+        userData["prefCheckBoxes"] = {
+            ...prefCheckBoxes
+        };
+
+        userData["personalSliders"] = {
+            ...personalSliders
+        };
+
+        userData["prefSliders"] = {
+            ...prefSliders
+        };
+     
+        userData["expectations"] = {
+            ...expectations
+        };
+
+        userData["ID"] = Math.floor(Math.random() * 1000000);
 
         // Uploads Image
         if(image == null) {
-            userData["profileImage"] = "DefaultProfilePicture";
+            userData["profileImage"] = "DefaultProfilePicture.jpg";
         } else {
-            const imageName = fname + lname + Math.floor(Math.random() * 1000000);
+            
+            const imageTag = "." + image.name.split(".")[1];
+            const imageName = fname + lname + userData["ID"] + imageTag;
             uploadBytes(ref(storage, `/images/${imageName}`), image).then((snapshot) => {
                 console.log("Image uploaded!")
             });
             userData["profileImage"] = imageName;
         }
+
+        //upload to firebase
+        setData("/profiles" + userData["ID"], userData);
+
+        console.log("User data uploaded!");
+        //setDisplayPage('Matches');
         
-        // setDisplayPage('Matches');
     }, [upload]);
 
     // https://stackoverflow.com/questions/28822054/firebase-how-to-generate-a-unique-numeric-id-for-key
@@ -500,10 +588,10 @@ const Form = ({ setDisplayPage }) => {
                                                 label="I identify as:"
                                                 onChange={handleChangeGender}
                                                 >
-                                                    <MenuItem value={10}>Male</MenuItem>
-                                                    <MenuItem value={20}>Female</MenuItem>
-                                                    <MenuItem value={30}>Non-binary</MenuItem>
-                                                    <MenuItem value={40}>Other</MenuItem>
+                                                    <MenuItem value={0}>Male</MenuItem>
+                                                    <MenuItem value={10}>Female</MenuItem>
+                                                    <MenuItem value={20}>Non-binary</MenuItem>
+                                                    <MenuItem value={30}>Other</MenuItem>
                                                 </Select>
                                         </FormControl>
                                     </Grid>
@@ -552,11 +640,11 @@ const Form = ({ setDisplayPage }) => {
                                                 label="I identify as:"
                                                 onChange={handleChangeYear}
                                                 >
-                                                    <MenuItem value={10}>First Year</MenuItem>
-                                                    <MenuItem value={20}>Second Year</MenuItem>
-                                                    <MenuItem value={30}>Third Year</MenuItem>
-                                                    <MenuItem value={40}>Fourth Year</MenuItem>
-                                                    <MenuItem value={50}>Grad/PhD</MenuItem>
+                                                    <MenuItem value={0}>First Year</MenuItem>
+                                                    <MenuItem value={10}>Second Year</MenuItem>
+                                                    <MenuItem value={20}>Third Year</MenuItem>
+                                                    <MenuItem value={30}>Fourth Year</MenuItem>
+                                                    <MenuItem value={40}>Grad/PhD</MenuItem>
                                                 </Select>
                                                 <FormHelperText>What year will you be next year?</FormHelperText>
                                         </FormControl>
@@ -613,9 +701,9 @@ const Form = ({ setDisplayPage }) => {
                                                 label="I want to live"
                                                 onChange={handleChangeLocation}
                                                 >
-                                                    <MenuItem value={10}>North</MenuItem>
-                                                    <MenuItem value={20}>South</MenuItem>
-                                                    <MenuItem value={30}>No preference</MenuItem>
+                                                    <MenuItem value={0}>North</MenuItem>
+                                                    <MenuItem value={10}>South</MenuItem>
+                                                    <MenuItem value={20}>No preference</MenuItem>
                                                 </Select>
                                             <FormHelperText>Location Preferences</FormHelperText>
                                         </FormControl>
@@ -633,9 +721,9 @@ const Form = ({ setDisplayPage }) => {
                                                 onChange={handleChangeAccomodation}
                                                 >
 
-                                                    <MenuItem value={10}>Suite on Campus</MenuItem>
-                                                    <MenuItem value={20}>Dorm on Campus</MenuItem>
-                                                    <MenuItem value={30}>Apartment off Campus</MenuItem>
+                                                    <MenuItem value={0}>Suite on Campus</MenuItem>
+                                                    <MenuItem value={10}>Dorm on Campus</MenuItem>
+                                                    <MenuItem value={20}>Apartment off Campus</MenuItem>
                                                     {/* <MenuItem value={40}>House off Campus</MenuItem> */}
 
                                                 </Select>
@@ -654,8 +742,8 @@ const Form = ({ setDisplayPage }) => {
                                                 label="I identify as:"
                                                 onChange={handleChangeSameSexRooming}
                                                 >
-                                                    <MenuItem value={10}>Same Sex</MenuItem>
-                                                    <MenuItem value={20}>Mixed Gender</MenuItem>
+                                                    <MenuItem value={0}>Same Sex</MenuItem>
+                                                    <MenuItem value={10}>Mixed Gender</MenuItem>
                                                 </Select>
                                                 <FormHelperText>Who do you want to live with?</FormHelperText>
                                         </FormControl>
@@ -719,20 +807,13 @@ const Form = ({ setDisplayPage }) => {
                                         <FormControlLabel
                                             disabled = {dormTrue}
                                             control={
-                                            <Checkbox checked={sharedRoom} onChange={handleChangePersonal} name="sharedRoom" />
-                                            }
-                                            label="I want to share a bedroom"
-                                        />
-                                        <FormControlLabel
-                                            disabled = {dormTrue}
-                                            control={
                                             <Checkbox checked={petOwner} onChange={handleChangePersonal} name="petOwner" />
                                             }
                                             label="I am a pet owner"
                                         />
                                         <FormControlLabel
                                             control={
-                                            <Checkbox checked={musician} onChange={handleChangePersonal} name="musician" />
+                                            <Checkbox checked={musician} onChange={handleChangePersonalCheckBoxes} name="musician" />
                                             }
                                             label="I practice instruments"
                                         />
@@ -747,12 +828,13 @@ const Form = ({ setDisplayPage }) => {
                                                 step={null}
                                                 valueLabelDisplay="off"
                                                 marks={dailyMarks}
-                                                onChange={handleChangePersonal} 
+                                                onChange={handleChangePersonalSliders} 
+                                                name="musicianValue"
                                                 />
                                                 </Grid>
                                                 <FormControlLabel
                                                     control={
-                                                    <Checkbox checked={partnerOver} onChange={handleChangePersonal} name="partnerOver" />
+                                                    <Checkbox checked={partnerOver} onChange={handleChangePersonalCheckBoxes} name="partnerOver" />
                                                     }
                                                     label="I have my partner over often"
                                                 />
@@ -768,12 +850,13 @@ const Form = ({ setDisplayPage }) => {
                                                 step={null}
                                                 valueLabelDisplay="off"
                                                 marks={dailyMarks}
-                                                onChange={handleChangePersonal} 
+                                                name="partnerOverValue"
+                                                onChange={handleChangePersonalSliders} 
                                                 />
                                                 </Grid>
                                                 <FormControlLabel
                                                     control={
-                                                    <Checkbox checked={guestsOver} onChange={handleChangePersonal} name="guestsOver" />
+                                                    <Checkbox checked={guestsOver} onChange={handleChangePersonalCheckBoxes} name="guestsOver" />
                                                     }
                                                     label="I have guests over often"
                                                 />
@@ -784,12 +867,13 @@ const Form = ({ setDisplayPage }) => {
                                                 disabled = {!guestsOver}
                                                 aria-label="Custom marks"
                                                 defaultValue={0}
-                                                aria-labelledby="partner-slider"
+                                                aria-labelledby="guest-slider"
                                                 // getAriaValueText={valuetext}
                                                 step={null}
                                                 valueLabelDisplay="off"
                                                 marks={dailyMarks}
-                                                onChange={handleChangePersonal} 
+                                                name="guestsOverValue"
+                                                onChange={handleChangePersonalSliders} 
                                                 />
                                                 </Grid>
 
@@ -887,9 +971,9 @@ const Form = ({ setDisplayPage }) => {
                                                 label="I want to live"
                                                 onChange={handleChangeLocation}
                                                 >
-                                                    <MenuItem value={10}>Just Roomates</MenuItem>
-                                                    <MenuItem value={20}>Friends</MenuItem>
-                                                    <MenuItem value={30}>Close Friends</MenuItem>
+                                                    <MenuItem value={0}>Just Roomates</MenuItem>
+                                                    <MenuItem value={50}>Friends</MenuItem>
+                                                    <MenuItem value={100}>Close Friends</MenuItem>
                                                 </Select>
                                             
                                                 <Typography id = "cleaning-slider" gutterBottom>Cleaning Frequency</Typography>
@@ -944,19 +1028,19 @@ const Form = ({ setDisplayPage }) => {
                                                 <FormGroup>
                                                 <FormControlLabel
                                                     control={
-                                                    <Checkbox checked={isSmoker} onChange={handleChange} name="isSmoker" />
+                                                    <Checkbox checked={isSmoker} onChange={handleChangeDealbreakers} name="isSmoker" />
                                                     }
                                                     label="live with someone who smokes"
                                                 />
                                                 <FormControlLabel
                                                     control={
-                                                    <Checkbox checked={isDrinker} onChange={handleChange} name="isDrinker" />
+                                                    <Checkbox checked={isDrinker} onChange={handleChangeDealbreakers} name="isDrinker" />
                                                     }
                                                     label="live with someone who drinks"
                                                 />
                                                 <FormControlLabel
                                                     control={
-                                                    <Checkbox checked={isPetOwner} onChange={handleChange} name="isPetOwner" />
+                                                    <Checkbox checked={isPetOwner} onChange={handleChangeDealbreakers} name="isPetOwner" />
                                                     }
                                                     label="live with a pet owner"
                                                 />
