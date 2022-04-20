@@ -50,6 +50,7 @@ const MenuProps = {
 };
 
 // This is a test of Hugo's gitstats commit email
+// second test
 function getStyles(p, perfers, theme) {
     return {
       fontWeight:
