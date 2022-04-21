@@ -18,6 +18,7 @@ import PrimarySearchAppBar from './Components/Appbar';
 
 function App() {
   const [data, loadingData, errorData] = useData("/");
+  const [loading, setLoading] = useState(false);
   const [displayPage, setDisplayPage] = useState("Form");
   const [currentProfile, setCurrentProfile] = useState(null);
 
@@ -27,13 +28,13 @@ function App() {
   }, [data])
 
   if (errorData) return <h1>{errorData}</h1>
-  if (loadingData) return <h1>Loading the data...</h1>
+  if (loadingData || loading) return <h1>Loading...</h1>
   document.body.style = 'background: #f5f5f5'
 
   const renderSwitch = (displayPage) => {
     switch(displayPage) {
       case "Form":
-        return <Form setDisplayPage={setDisplayPage}></Form>; 
+        return <Form setDisplayPage={setDisplayPage} setLoading={setLoading}></Form>; 
       case "Matches":
         return <MatchesPage data={data} setCurrentProfile={setCurrentProfile} setDisplayPage={setDisplayPage}></MatchesPage>;
       case "FullProfile":
