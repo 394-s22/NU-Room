@@ -59,8 +59,8 @@ const FullProfile = ({ profile, setCurrentProfile, setDisplayPage }) => {
       alignItems="center"
 
     >
-      <Grid item xs={12} p={3}>
-        <Card sx={{ width: 1 }} >
+      <Grid item xs={12} md={6} p={3}>
+        <Card sx={{ width: 'auto' }} >
 
           {/* <CardHeader
             title={profile.name[0] + " " + profile.name[1]}
@@ -85,7 +85,7 @@ const FullProfile = ({ profile, setCurrentProfile, setDisplayPage }) => {
                 alignItems="flex-start"
                 spacing={1}
               >
-                <Box sx={{ minHeight: 100 }}>
+                <Box sx={{ minHeight: 80 }}>
                   <Avatar
                     alt="User Name"
                     src="https://picsum.photos/200/300"
@@ -116,9 +116,7 @@ const FullProfile = ({ profile, setCurrentProfile, setDisplayPage }) => {
 
 
               <Grid item md={12} xs={12}>
-                <Typography variant="body2" color="text.secondary" >
-                  {profile.bio}
-                </Typography>
+                
               </Grid>
             </Grid>
 
@@ -172,14 +170,16 @@ const FullProfile = ({ profile, setCurrentProfile, setDisplayPage }) => {
 
 
       </Grid>
-      <Grid item xs={12} md={6}>
+      <Grid item xs={12} md={6} p={3}>
         <Card sx={{ width: 1 }}>
           <CardHeader
             title={"About"}
           //   subheader="September 14, 2016"
           />
           <CardContent>
-
+          <Typography variant="body2" color="text.secondary" >
+                  {profile.bio}
+                </Typography>
           </CardContent>
         </Card>
       </Grid>
