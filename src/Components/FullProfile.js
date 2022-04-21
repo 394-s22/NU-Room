@@ -21,8 +21,14 @@ import "../CSS/profile.css";
 import SpeedDial from '@mui/material/SpeedDial';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Stack } from '@mui/material';
-
-
+import Divider from '@mui/material/Divider';
+import FacebookOutlinedIcon from '@mui/icons-material/FacebookOutlined';
+import TwitterIcon from '@mui/icons-material/Twitter';
+import InstagramIcon from '@mui/icons-material/Instagram';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import MailIcon from '@mui/icons-material/Mail';
+import PhoneIcon from '@mui/icons-material/Phone';
+import SchoolIcon from '@mui/icons-material/School';
 // import { setData, useData } from "../utilities/firebase";
 
 // const [data, loadingData, errorData] = useData("/");
@@ -52,136 +58,167 @@ const FullProfile = ({ profile, setCurrentProfile, setDisplayPage }) => {
   };
 
   return (
+
     <Grid
       container
       direction="column"
       justifyContent="center"
-      alignItems="center"
+      alignItems="stretch"
 
     >
-      <Grid item xs={12} md={6} p={3}>
-        <Card sx={{ width: 'auto' }} >
-
-          {/* <CardHeader
-            title={profile.name[0] + " " + profile.name[1]}
-          //   subheader="September 14, 2016"
-          /> */}
+      <Grid item md={6} paddingX={3} paddingY={2}>
+        <Card sx={{ borderRadius: 3, flexGrow: 1 }} >
           <CardMedia
             component="img"
             height="194"
-            image="https://picsum.photos/200/300"
-            alt="Roommate photo"
+            image="https://picsum.photos/200/400"
+            alt="Background"
           />
           <CardContent>
-            <Grid
-              container
+
+            <Stack
               direction="row"
               justifyContent="flex-start"
               alignItems="flex-start"
+              spacing={1}
             >
+              <Box sx={{ minHeight: 80 }}>
+                <Avatar
+                  alt="User Name"
+                  src="https://picsum.photos/200/300"
+                  sx={{ width: 100, height: 100, marginTop: -6 }}
+                  style={{
+                    border: '3px solid white'
+                  }}
+                />
+
+              </Box>
               <Stack
-                direction="row"
+                direction="column"
                 justifyContent="flex-start"
                 alignItems="flex-start"
-                spacing={1}
+                spacing={0}
+
               >
-                <Box sx={{ minHeight: 80 }}>
-                  <Avatar
-                    alt="User Name"
-                    src="https://picsum.photos/200/300"
-                    sx={{ width: 100, height: 100, marginTop: -6 }}
-                    style={{
-                      border: '3px solid white'
-                    }}
-                  />
-
-                </Box>
-                <Stack
-                  direction="column"
-                  justifyContent="flex-start"
-                  alignItems="flex-start"
-                  spacing={0}
-
-                >
-                  <Typography sx={{ fontWeight: 'bold' }}>
-                    {profile.name[0] + " " + profile.name[1]}
-                  </Typography>
-                  <Typography style={{ color: "grey" }}>
-                    {"Computer Science"}
-                  </Typography>
-
-                </Stack>
+                <Typography sx={{ fontWeight: 'bold' }}>
+                  {profile.name[0] + " " + profile.name[1]}
+                </Typography>
+                <Typography style={{ color: "grey" }}>
+                  {"Computer Science"}
+                </Typography>
 
               </Stack>
 
-
-              <Grid item md={12} xs={12}>
-                
-              </Grid>
-            </Grid>
+            </Stack>
 
           </CardContent>
-          {/* <CardActions disableSpacing>
-            <ExpandMore
-              expand={expanded}
-              onClick={handleExpandClick}
-              aria-expanded={expanded}
-              aria-label="show more"
-            >
-              <ExpandMoreIcon />
-            </ExpandMore>
-          </CardActions> */}
 
-          {/* <Box textAlign='center'
-            m={2}
-          >
-            <Button w={1} variant="contained" sx={{
-              width: 0.75,
-              minHeight: "48px",
-              fontWeight: 700,
-              fontSize: "16px",
-              whiteSpace: 'nowrap',
-              textAlign: 'center'
-            }}
-              onClick={() => {
-                setDisplayPage('Matches');
-                console.log("Hello");
-              }}
-            >Back to Matches</Button>
-          </Box> */}
-
-
-          {/* <Collapse in={expanded} timeout="auto" unmountOnExit>
-            <CardContent>
-              <Typography paragraph sx={{ fontWeight: 700 }}>Hobbies:</Typography>
-              <Typography paragraph>
-                {profile.hobbies[0]}
-              </Typography>
-              <Typography paragraph>
-                {profile.hobbies[1]}
-              </Typography>
-              <Typography paragraph sx={{ fontWeight: 700 }}>Personality:</Typography>
-              <Typography paragraph>
-                {profile.personality[0]}
-              </Typography>
-            </CardContent>
-          </Collapse> */}
         </Card>
-
-
       </Grid>
-      <Grid item xs={12} md={6} p={3}>
-        <Card sx={{ width: 1 }}>
-          <CardHeader
-            title={"About"}
-          //   subheader="September 14, 2016"
-          />
+
+      <Grid item xs={12} md={6} paddingX={3}>
+
+        <Card sx={{ flexGrow: 1, borderRadius: 3 }}>
+          {/* <CardHeader
+              title={"About"}
+            //   subheader="September 14, 2016"
+            /> */}
+          <Stack
+            direction="row"
+            justifyContent="space-evenly"
+            alignItems="center"
+            spacing={0}
+            paddingTop={2}
+          >
+
+            <IconButton
+
+              href="https://facebook.com"
+              fontSize={80}
+            >
+              <FacebookOutlinedIcon sx={{ color: '#4267B2', fontSize: "80px" }} />
+            </IconButton>
+            <IconButton
+
+              href="https://twitter.com"
+            >
+              <TwitterIcon sx={{ color: '#1DA1F2' }} />
+            </IconButton>
+            <IconButton
+
+              href="https://instagram.com"
+            >
+              <InstagramIcon sx={{ color: '#E1306C' }} />
+            </IconButton>
+          </Stack>
+
           <CardContent>
-          <Typography variant="body2" color="text.secondary" >
-                  {profile.bio}
-                </Typography>
+            <Divider />
+            <Typography variant="body2" color="text.secondary" paddingTop={2} sx={{ fontSize: 20, color: 'black' }}>
+              {"About"}
+            </Typography>
+            <br />
+            <Typography variant="body2" color="text.secondary" >
+              {profile.bio}
+            </Typography>
+            <br />
+            <Stack
+              direction="row"
+              justifyContent="flex-start"
+              alignItems="center"
+              spacing={0.5}
+              paddingY={1}
+            >
+              <LocationOnIcon />
+
+              <Typography variant="body2" color="black" >
+                {"Lives in"} <span style={{fontWeight: 'bold'}}>{"Chicago"}</span>
+              </Typography>
+            </Stack>
+            <Stack
+              direction="row"
+              justifyContent="flex-start"
+              alignItems="center"
+              spacing={0.5}
+              paddingY={1}
+            >
+              <MailIcon />
+              <Typography variant="body2" color="black" >
+                {"tonystark@u.northwestern.edu"}
+              </Typography>
+            </Stack>
+            <Stack
+              direction="row"
+              justifyContent="flex-start"
+              alignItems="center"
+              spacing={0.5}
+              paddingY={1}
+            >
+              <PhoneIcon />
+              <Typography variant="body2" color="black" >
+                {"224-688-3129"}
+              </Typography>
+            </Stack>
+            <Stack
+              direction="row"
+              justifyContent="flex-start"
+              alignItems="center"
+              spacing={0.5}
+              paddingY={1}
+            >
+              <SchoolIcon />
+              <Typography variant="body2" color="black" >
+                {"Senior"}
+              </Typography>
+            </Stack>
+
+
+
+
           </CardContent>
         </Card>
+
+
       </Grid>
 
 
