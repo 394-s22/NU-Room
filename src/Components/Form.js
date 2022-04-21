@@ -205,7 +205,7 @@ function valuetext(value) {
     return `${value}°C`;
 }
 
-const Form = ({ setDisplayPage }) => {
+const Form = ({ setDisplayPage, setLoading }) => {
     const theme = useTheme();
     const [year, setYear] = React.useState('');
     const handleChangeYear = (event) => {
@@ -361,9 +361,14 @@ const Form = ({ setDisplayPage }) => {
         
     };
 
+    const [lookingFor, setLookingFor] = React.useState("");
     const [fname, setfName] = React.useState("");
     const [lname, setlName] = React.useState("");
     const [email, setEmail] = React.useState("");    
+
+    const handleChangeLookingFor = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setLookingFor(event.target.value);
+    };
 
     const handleChangefName= (event: React.ChangeEvent<HTMLInputElement>) => {
         setfName(event.target.value);
@@ -443,83 +448,99 @@ const Form = ({ setDisplayPage }) => {
     const [upload , setUpload] = useState(false);
 
     const uploadData = () => {
-        setUpload(!upload)
+        if (upload === false) {
+            setUpload(!upload);
+        }
     };
 
     const [wakeUpTime, setWakeUpTime] = React.useState(null);
     const [bedTime, setBedTime] = React.useState(null);
 
-    useEffect(() => {
-        const userData = {};
+    useEffect(async () => {
+        if (upload === true) {
 
-        // TODO: Display error message if REQUIRED Fields 
-        // are left blank
+            setLoading(true);
 
-        userData["basicInfo"] = {
-            fname: fname,
-            lname: lname,
-            email: email,
-            gender: gender,
-            pronouns: pronouns,
-            nextYearGrade: year
-        }
-
-        userData["housingPrefs"] = {
-            location: loct,
-            accomodation: accomodation,
-            sameSexOrMixed: sameSexRooming,
-            shareRoom: shareRoom
-        };
-
-        userData["personal"] = {
-            ...personal
-        };
-
-        userData["dealBreakers"] = {
-            ...dealBreakers
-        };
-
-        userData["personalCheckBoxes"] = {
-            ...personalCheckBoxes
-        };
-
-        userData["prefCheckBoxes"] = {
-            ...prefCheckBoxes
-        };
-
-        userData["personalSliders"] = {
-            ...personalSliders
-        };
-
-        userData["prefSliders"] = {
-            ...prefSliders
-        };
-     
-        userData["expectations"] = {
-            ...expectations
-        };
-
-        userData["ID"] = Math.floor(Math.random() * 1000000);
-
-        // Uploads Image
-        if(image == null) {
-            userData["profileImage"] = "DefaultProfilePicture.jpg";
-        } else {
-            
-            const imageTag = "." + image.name.split(".")[1];
-            const imageName = fname + lname + userData["ID"] + imageTag;
-            uploadBytes(ref(storage, `/images/${imageName}`), image).then((snapshot) => {
-                console.log("Image uploaded!")
-            });
-            userData["profileImage"] = imageName;
-        }
-
-        //upload to firebase
-        setData("/profiles" + userData["ID"], userData);
-
-        console.log("User data uploaded!");
-        //setDisplayPage('Matches');
+            const userData = {};
         
+            // TODO: Display error message if REQUIRED Fields 
+            // are left blank
+
+            userData["basicInfo"] = {
+                fname: fname,
+                lname: lname,
+                email: email,
+                gender: gender,
+                pronouns: pronouns,
+                nextYearGrade: year
+            }
+
+            userData["housingPrefs"] = {
+                location: loct,
+                accomodation: accomodation,
+                sameSexRooming: sameSexRooming,
+                shareRoom: shareRoom
+            };
+
+            userData["aboutMe"] = {
+                personal: {...personal},
+                personalCheckBoxes: {...personalCheckBoxes},
+                personalSliders: {...personalSliders}
+            };
+
+            userData["roomingPrefs"] = {
+                dealBreakers: {...dealBreakers},
+                prefCheckBoxes: {...prefCheckBoxes},
+                prefSliders: {...prefSliders}
+            };
+        
+            userData["expectations"] = {
+                ...expectations
+            };
+
+            userData["moreAboutMe"] = {
+                hobbies: hobbies,
+                personality: personality,
+                country: country,
+                state: state,
+                city: city,
+                lookingFor: lookingFor
+            };
+
+            // Feel free to change to a better system
+            userData["ID"] = Math.floor(Math.random() * 1000000);
+
+            const tryUpload = async () => {
+                try {
+                    // Upload Image
+                    if(image == null) {
+                        userData["profileImage"] = "DefaultProfilePicture.jpg";
+                    } else {
+                        const imageTag = "." + image.name.split(".")[1];
+                        const imageName = fname + lname + userData["ID"] + imageTag;
+                        uploadBytes(ref(storage, `/images/${imageName}`), image).then((snapshot) => {
+                            console.log("Image uploaded!")
+                        });
+                        userData["profileImage"] = imageName;
+                    }
+        
+                    //upload to firebase
+                    setData("/profile/" + userData["ID"], userData);
+        
+                    //report progress
+                    console.log(userData);
+                    console.log("User data uploaded!");
+
+                    // setDisplayPage('Matches');
+                } catch {
+                    alert("Upload failed. Please try again.");
+                }
+            };
+            
+            tryUpload();
+
+            setLoading(false);
+        }
     }, [upload]);
 
     // https://stackoverflow.com/questions/28822054/firebase-how-to-generate-a-unique-numeric-id-for-key
@@ -588,10 +609,10 @@ const Form = ({ setDisplayPage }) => {
                                                 label="I identify as:"
                                                 onChange={handleChangeGender}
                                                 >
-                                                    <MenuItem value={0}>Male</MenuItem>
-                                                    <MenuItem value={10}>Female</MenuItem>
-                                                    <MenuItem value={20}>Non-binary</MenuItem>
-                                                    <MenuItem value={30}>Other</MenuItem>
+                                                    <MenuItem value={"Male"}>Male</MenuItem>
+                                                    <MenuItem value={"Female"}>Female</MenuItem>
+                                                    <MenuItem value={"Non-binary"}>Non-binary</MenuItem>
+                                                    <MenuItem value={"Other"}>Other</MenuItem>
                                                 </Select>
                                         </FormControl>
                                     </Grid>
@@ -640,11 +661,11 @@ const Form = ({ setDisplayPage }) => {
                                                 label="I identify as:"
                                                 onChange={handleChangeYear}
                                                 >
-                                                    <MenuItem value={0}>First Year</MenuItem>
-                                                    <MenuItem value={10}>Second Year</MenuItem>
-                                                    <MenuItem value={20}>Third Year</MenuItem>
-                                                    <MenuItem value={30}>Fourth Year</MenuItem>
-                                                    <MenuItem value={40}>Grad/PhD</MenuItem>
+                                                    <MenuItem value={"First Year"}>First Year</MenuItem>
+                                                    <MenuItem value={"Second Year"}>Second Year</MenuItem>
+                                                    <MenuItem value={"Third Year"}>Third Year</MenuItem>
+                                                    <MenuItem value={"Fourth Year"}>Fourth Year</MenuItem>
+                                                    <MenuItem value={"Grad/PhD"}>Grad/PhD</MenuItem>
                                                 </Select>
                                                 <FormHelperText>What year will you be next year?</FormHelperText>
                                         </FormControl>
@@ -701,9 +722,9 @@ const Form = ({ setDisplayPage }) => {
                                                 label="I want to live"
                                                 onChange={handleChangeLocation}
                                                 >
-                                                    <MenuItem value={0}>North</MenuItem>
-                                                    <MenuItem value={10}>South</MenuItem>
-                                                    <MenuItem value={20}>No preference</MenuItem>
+                                                    <MenuItem value={"North"}>North</MenuItem>
+                                                    <MenuItem value={"South"}>South</MenuItem>
+                                                    <MenuItem value={"No preference"}>No preference</MenuItem>
                                                 </Select>
                                             <FormHelperText>Location Preferences</FormHelperText>
                                         </FormControl>
@@ -721,9 +742,9 @@ const Form = ({ setDisplayPage }) => {
                                                 onChange={handleChangeAccomodation}
                                                 >
 
-                                                    <MenuItem value={0}>Suite on Campus</MenuItem>
-                                                    <MenuItem value={10}>Dorm on Campus</MenuItem>
-                                                    <MenuItem value={20}>Apartment off Campus</MenuItem>
+                                                    <MenuItem value={"Suite on Campus"}>Suite on Campus</MenuItem>
+                                                    <MenuItem value={"Dorm on Campus"}>Dorm on Campus</MenuItem>
+                                                    <MenuItem value={"Apartment off Campus"}>Apartment off Campus</MenuItem>
                                                     {/* <MenuItem value={40}>House off Campus</MenuItem> */}
 
                                                 </Select>
@@ -742,8 +763,8 @@ const Form = ({ setDisplayPage }) => {
                                                 label="I identify as:"
                                                 onChange={handleChangeSameSexRooming}
                                                 >
-                                                    <MenuItem value={0}>Same Sex</MenuItem>
-                                                    <MenuItem value={10}>Mixed Gender</MenuItem>
+                                                    <MenuItem value={true}>Same Sex</MenuItem>
+                                                    <MenuItem value={false}>Mixed Gender</MenuItem>
                                                 </Select>
                                                 <FormHelperText>Who do you want to live with?</FormHelperText>
                                         </FormControl>
@@ -1176,6 +1197,7 @@ const Form = ({ setDisplayPage }) => {
                                             multiline
                                             id="outlined-basic" 
                                             label="What are you looking for?" 
+                                            onChange={handleChangeLookingFor}
                                             rows={5}
                                             sx={{width : {xs: 280, md: 700}}}
                                             maxRows={10}
