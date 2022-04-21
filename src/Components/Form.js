@@ -32,7 +32,7 @@ import AddIcon from "@mui/icons-material/AddAPhoto";
 import GeoLocation from "./GeoLocation";
 import Divider from '@mui/material/Divider';
 import { Stack } from '@mui/material';
-import Slider from '@mui/material/Slider';
+import Slider from "@mui/material/Slider";
 import Typography from '@mui/material/Typography';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -49,6 +49,24 @@ const MenuProps = {
     },
   },
 };
+
+const FrequencySlider = styled(Slider)({
+    '& .MuiSlider-markLabel[data-index="0"]': {
+      transform: "translateX(0%)"
+    },
+    '& .MuiSlider-markLabel[data-index="4"]': {
+      transform: "translateX(-100%)"
+    }
+  });
+
+  const ToleranceSlider = styled(Slider)({
+    '& .MuiSlider-markLabel[data-index="0"]': {
+      transform: "translateX(0%)"
+    },
+    '& .MuiSlider-markLabel[data-index="2"]': {
+      transform: "translateX(-100%)"
+    }
+  });
 
 function getStyles(p, perfers, theme) {
     return {
@@ -115,6 +133,12 @@ const housingList = [
     'Apartment',
     'House off Campus'
 ]
+
+// const roommateTypeLabels = [
+//     'Just Roommates',
+//     'Friends',
+//     'Close Friends',
+// ]
 
 const importanceMarks = [
     {
@@ -221,6 +245,11 @@ const Form = ({ setDisplayPage, setLoading }) => {
     const [sameSexRooming, setSameSexRooming] = React.useState('');
     const handleChangeSameSexRooming = (event) => {
         setSameSexRooming(event.target.value);
+    }; 
+
+    const [roommateType, setRoommateType] = React.useState('');
+    const handleChangeRoommateType = (event) => {
+        setRoommateType(event.target.value);
     }; 
 
     const [perfer, setPerfers] = React.useState([]);
@@ -549,7 +578,7 @@ const Form = ({ setDisplayPage, setLoading }) => {
     return (
         <div id="formContainer">
             <p id="formNote">
-                <b>Note:</b> Roomate matches will be created based on your responses to this form. It is important that all information is accurate and honest.
+                <b>Note:</b> Roommate matches will be created based on your responses to this form. It is important that all information is accurate and honest.
             </p>
             <Grid 
                 container 
@@ -607,7 +636,7 @@ const Form = ({ setDisplayPage, setLoading }) => {
                                                 labelId="gender-select-label"
                                                 id="gender-select"
                                                 value={gender}
-                                                label="I identify as:"
+                                                label="Gender"
                                                 onChange={handleChangeGender}
                                                 >
                                                     <MenuItem value={"Male"}>Male</MenuItem>
@@ -648,7 +677,7 @@ const Form = ({ setDisplayPage, setLoading }) => {
                                                     </MenuItem>
                                                 ))}
                                                 </Select>
-                                                <FormHelperText>Please check all that apply</FormHelperText>
+                                                {/* <FormHelperText>Please check all that apply</FormHelperText> */}
                                             </FormControl>
                                         </Grid>
 
@@ -659,7 +688,7 @@ const Form = ({ setDisplayPage, setLoading }) => {
                                                 labelId="year-select-label"
                                                 id="year-select"
                                                 value={year}
-                                                label="I identify as:"
+                                                label="Next Year Grade:"
                                                 onChange={handleChangeYear}
                                                 >
                                                     <MenuItem value={"First Year"}>First Year</MenuItem>
@@ -669,6 +698,7 @@ const Form = ({ setDisplayPage, setLoading }) => {
                                                     <MenuItem value={"Grad/PhD"}>Grad/PhD</MenuItem>
                                                 </Select>
                                                 <FormHelperText>What year will you be next year?</FormHelperText>
+
                                         </FormControl>
                                     </Grid>
 
@@ -756,21 +786,41 @@ const Form = ({ setDisplayPage, setLoading }) => {
                                     </Grid>
                                     <Grid item xs = {12} md={6} w={1}>
                                         <FormControl sx={{width : 1}}>
-                                            <InputLabel id="same-sex-rooming-select-label">Same sex or Mixed</InputLabel>
+                                            <InputLabel id="same-sex-rooming-select-label">Same-sex or Mixed Gender</InputLabel>
                                                 <Select
                                                 labelId="same-sex-rooming-select-label"
                                                 id="same-sex-rooming-select"
                                                 value={sameSexRooming}
-                                                label="I identify as:"
+                                                label="Same-sex or Mixed Gender"
                                                 onChange={handleChangeSameSexRooming}
                                                 >
-                                                    <MenuItem value={true}>Same Sex</MenuItem>
+                                                    <MenuItem value={true}>Same-sex</MenuItem>
                                                     <MenuItem value={false}>Mixed Gender</MenuItem>
                                                 </Select>
                                                 <FormHelperText>Who do you want to live with?</FormHelperText>
                                         </FormControl>
 
                                     </Grid>
+                                    <Grid item xs = {12} md={6} w={1}>
+                                                
+                                        <FormControl sx={{width : 1}}>
+
+                                                <InputLabel id="roommate-types-select-label">Ideally, my roommate and I are</InputLabel>
+                                                <Select
+                                                labelId="roommate-types-select-label"
+                                                id="roommate-types-select"
+                                                value={roommateType}
+                                                label="Ideally, my roommate and I are"
+                                                onChange={handleChangeRoommateType}
+                                                >
+                                                    <MenuItem value={"Just Roommates"}>Just Roommates</MenuItem>
+                                                    <MenuItem value={"Friends"}>Friends</MenuItem>
+                                                    <MenuItem value={"Close Friends"}>Close Friends</MenuItem>
+                                                </Select>
+                                                <FormHelperText>Who do you want to live with?</FormHelperText>
+                                        </FormControl>
+                                                
+                                        </Grid>      
                                     <Grid item xs = {12} md={12} w={1}>
                                     <FormControlLabel
                                                     control={
@@ -782,6 +832,7 @@ const Form = ({ setDisplayPage, setLoading }) => {
 
 
                                 </Grid>
+                                
 
                             </Paper>
                     </Grid>
@@ -796,7 +847,7 @@ const Form = ({ setDisplayPage, setLoading }) => {
                                 padding={3}
                             >
                                 <Grid 
-                                item xs = {12} w={1} pb = {2}>
+                                item xs = {12} w={1}>
                                     <div
                                         style={{
                                             fontSize: 35,
@@ -807,13 +858,13 @@ const Form = ({ setDisplayPage, setLoading }) => {
                                         {"About Me"}
                                     </div>
                                 </Grid>
-                                
-                                <Grid item xs = {12} p = {1}>
+                                <Grid item xs = {12} p = {1} container alignItems="center" w={1} spacing={3}>
+                                    <Grid item xs={3}>
+                                    <FormLabel component="legend">Please check all that apply: </FormLabel>
+
+                                    </Grid>
                                     
-                                    <Grid item xs = {12} w={1} pb = {2} md = {8}>
-                                    <FormControl sx={{ m: 3, pb: 10 }} component="fieldset" variant="standard">
-                                        <FormLabel component="legend">Please check all that apply: </FormLabel>
-                                        <FormGroup row='true'>
+                                    <Grid item xs>
                                         <FormControlLabel
                                             control={
                                             <Checkbox checked={smoker} onChange={handleChangePersonal} name="smoker" />
@@ -833,106 +884,90 @@ const Form = ({ setDisplayPage, setLoading }) => {
                                             }
                                             label="I am a pet owner"
                                         />
+                                    </Grid>
+                                </Grid>
+                                <Grid item xs = {12} px = {1} container alignItems="center" w={1} spacing={3}>
+                                    <Grid item xs={3}>
                                         <FormControlLabel
                                             control={
                                             <Checkbox checked={musician} onChange={handleChangePersonalCheckBoxes} name="musician" />
                                             }
                                             label="I practice instruments"
                                         />
-                                        <Grid item xs = {10} md = {12} style={{height:'100%'}} sx = {{pl: 4}}>
-                                        <Typography id = "cleaning-slider" gutterBottom>Instrument Practice Frequency:</Typography>                            
-                                                <Slider
-                                                disabled = {!musician}
-                                                aria-label="Custom marks"
-                                                defaultValue={0}
-                                                aria-labelledby="cleaning-slider"
-                                                // getAriaValueText={valuetext}
-                                                step={null}
-                                                valueLabelDisplay="off"
-                                                marks={dailyMarks}
-                                                onChange={handleChangePersonalSliders} 
-                                                name="musicianValue"
-                                                />
-                                                </Grid>
-                                                <FormControlLabel
-                                                    control={
-                                                    <Checkbox checked={partnerOver} onChange={handleChangePersonalCheckBoxes} name="partnerOver" />
-                                                    }
-                                                    label="I have my partner over often"
-                                                />
-                                                <Grid item xs = {10} md = {12} style={{height:'100%'}} sx = {{pl: 4}}>
-                                                <Typography id = "partner-slider" gutterBottom>Partner Over Frequency:</Typography>
-                                                
-                                                <Slider
-                                                disabled = {!partnerOver}
-                                                aria-label="Custom marks"
-                                                defaultValue={0}
-                                                aria-labelledby="partner-slider"
-                                                // getAriaValueText={valuetext}
-                                                step={null}
-                                                valueLabelDisplay="off"
-                                                marks={dailyMarks}
-                                                name="partnerOverValue"
-                                                onChange={handleChangePersonalSliders} 
-                                                />
-                                                </Grid>
-                                                <FormControlLabel
-                                                    control={
-                                                    <Checkbox checked={guestsOver} onChange={handleChangePersonalCheckBoxes} name="guestsOver" />
-                                                    }
-                                                    label="I have guests over often"
-                                                />
-                                                <Grid item xs = {10} md = {12} style={{height:'100%'}} sx = {{pl: 4}}>
-                                                <Typography id = "partner-slider" gutterBottom>Partner Over Frequency:</Typography>
-                                                
-                                                <Slider
-                                                disabled = {!guestsOver}
-                                                aria-label="Custom marks"
-                                                defaultValue={0}
-                                                aria-labelledby="guest-slider"
-                                                // getAriaValueText={valuetext}
-                                                step={null}
-                                                valueLabelDisplay="off"
-                                                marks={dailyMarks}
-                                                name="guestsOverValue"
-                                                onChange={handleChangePersonalSliders} 
-                                                />
-                                                </Grid>
-
-                                                <Grid item xs = {10} md = {4} style={{height:'100%'}} sx = {{pl: 0}} padding={3}>
-                                                    <LocalizationProvider dateAdapter={AdapterDateFns}>
-                                                        <TimePicker
-                                                            label="I wake up around"
-                                                            value={wakeUpTime}
-                                                            onChange={(newValue) => {
-                                                            setWakeUpTime(newValue);
-                                                            }}
-                                                            renderInput={(params) => <TextField {...params} />}
-                                                        />
-                                                    </LocalizationProvider>
-                                                </Grid>
-
-                                                <Grid item xs = {10} md = {8} style={{height:'100%'}} sx = {{pl: 0}} padding={3}>
-                                                    <LocalizationProvider dateAdapter={AdapterDateFns}>
-                                                        <TimePicker
-                                                            label="I go to bed around"
-                                                            value={bedTime}
-                                                            onChange={(newValue) => {
-                                                            setBedTime(newValue);
-                                                            }}
-                                                            renderInput={(params) => <TextField {...params} />}
-                                                        />
-                                                    </LocalizationProvider>
-                                                </Grid>
-
-                                                </FormGroup>
-                                                <FormHelperText>This information will remain private.</FormHelperText>
-                                            </FormControl>                                
+                                    </Grid>
+                                    
+                                    <Grid item xs>
+                                    <FormHelperText id = "cleaning-slider" gutterBottom>Practice Frequency:</FormHelperText>                            
+                                            <FrequencySlider
+                                            disabled = {!musician}
+                                            aria-label="Custom marks"
+                                            defaultValue={0}
+                                            aria-labelledby="cleaning-slider"
+                                            // getAriaValueText={valuetext}
+                                            step={null}
+                                            valueLabelDisplay="off"
+                                            marks={dailyMarks}
+                                            onChange={handleChangePersonalSliders} 
+                                            name="musicianValue"
+                                            />
                                     </Grid>
                                 </Grid>
-                                
+                                <Grid item xs = {12} px = {1} container alignItems="center" w={1} spacing={3}>
+                                    <Grid item xs={3}>
+                                        <FormControlLabel
+                                            control={
+                                            <Checkbox checked={partnerOver} onChange={handleChangePersonalCheckBoxes} name="partnerOver" />
+                                            }
+                                            label="I have my partner over often"
+                                        />
+                                    </Grid>
+                                    <Grid item xs>
+                                        <FormHelperText id = "partner-slider" gutterBottom>Partner Frequency:</FormHelperText>                    
+                                        <FrequencySlider
+                                            disabled = {!partnerOver}
+                                            aria-label="Custom marks"
+                                            defaultValue={0}
+                                            aria-labelledby="partner-slider"
+                                            // getAriaValueText={valuetext}
+                                            step={null}
+                                            valueLabelDisplay="off"
+                                            marks={dailyMarks}
+                                            name="partnerOverValue"
+                                            onChange={handleChangePersonalSliders} 
+                                            />
+                                    </Grid>
+                                </Grid>
+                                <Grid item xs = {12} px = {1} container alignItems="center" w={1} spacing={3}>
+                                    <Grid item xs={3}>
+                                        <FormControlLabel
+                                            control={
+                                            <Checkbox checked={guestsOver} onChange={handleChangePersonalCheckBoxes} name="guestsOver" />
+                                            }
+                                            label="I have guests over often"
+                                        />
+                                    </Grid>
+                                    <Grid item xs>
+                                        <FormHelperText id = "partner-slider" gutterBottom>Guest Frequency:</FormHelperText> 
+                                        <FrequencySlider
+                                            disabled = {!guestsOver}
+                                            aria-label="Custom marks"
+                                            defaultValue={0}
+                                            aria-labelledby="guest-slider"
+                                            // getAriaValueText={valuetext}
+                                            step={null}
+                                            valueLabelDisplay="off"
+                                            marks={dailyMarks}
+                                            name="guestsOverValue"
+                                            onChange={handleChangePersonalSliders} 
+                                            />
+                                    </Grid>
+                                </Grid>
+                                <Grid item xs = {12} mt={2} container direction="row" alignItems="flex-end" justifyContent="center">
+                                    <FormHelperText>This information will remain private.</FormHelperText>
+                                </Grid>
                                 
                             </Grid>
+                            
                         </Paper>
                     </Grid>
                     
@@ -947,7 +982,7 @@ const Form = ({ setDisplayPage, setLoading }) => {
                                         padding={3}
                                     >
                                         <Grid 
-                                        item xs = {12} w={1} pb = {2}>
+                                        item xs = {12} w={1}>
                                             <div
                                                 style={{
                                                     fontSize: 35,
@@ -958,122 +993,95 @@ const Form = ({ setDisplayPage, setLoading }) => {
                                                 {"Rooming Preferences"}
                                             </div>
                                         </Grid>
-                                        
-                                        <Grid item xs = {12} p = {1}>
-                                            <Grid w={1} pb = {2}
-                                            container
-                                            direction="row"
-                                            justifyContent="space-between"
-                                            alignItems="center"
-                                            >
-                                           
-                                            <Grid item xs = {12} w={1} pb = {2} md = {4}>
-                                            <FormControl sx={{ m: 3, pb: 10}} component="fieldset" variant="standard">
-                                                
-                                                <Typography id = "cleaning-slider" gutterBottom>Cleaning Frequency</Typography>
-                                                <Slider
-                                                disabled = {cleaningLevel}
-                                                aria-label="Custom marks"
-                                                defaultValue={0}
-                                                aria-labelledby="cleaning-slider"
-                                                // getAriaValueText={valuetext}
-                                                step={null}
-                                                valueLabelDisplay="off"
-                                                marks={weeklyMarks}
-                                                />
-                        
-                                                <FormGroup>
-                                            
-                                                <Typography id = "cleaning-slider" gutterBottom>Ideally, My roomate and I are </Typography>
-                                                <InputLabel id="location-select-label">My roomate and I are </InputLabel>
-                                                <Select
-                                                labelId="location-select-label"
-                                                id="location-select"
-                                                value={loct}
-                                                label="I want to live"
-                                                onChange={handleChangeLocation}
-                                                >
-                                                    <MenuItem value={0}>Just Roomates</MenuItem>
-                                                    <MenuItem value={50}>Friends</MenuItem>
-                                                    <MenuItem value={100}>Close Friends</MenuItem>
-                                                </Select>
-                                            
-                                                <Typography id = "cleaning-slider" gutterBottom>Cleaning Frequency</Typography>
-                                                <FormHelperText>I would like our shared spaces to be cleaned ...</FormHelperText>
-                                                <Slider
-                                                disabled = {cleaningLevel}
-                                                aria-label="Custom marks"
-                                                defaultValue={0}
-                                                aria-labelledby="cleaning-slider"
-                                                // getAriaValueText={valuetext}
-                                                step={null}
-                                                valueLabelDisplay="off"
-                                                marks={weeklyMarks}
-                                                />
-                                                
-                                                <Typography id = "partner-slider" gutterBottom>Roomate's Partner Visiting Tolerance</Typography>
-                                                <FormHelperText>I am not okay OR very okay with my roomate having their partner over</FormHelperText>
-                                                <Slider
-                                                disabled = {cleaningLevel}
-                                                aria-label="Custom marks"
-                                                defaultValue={0}
-                                                aria-labelledby="partner-slider"
-                                                // getAriaValueText={valuetext}
-                                                step={null}
-                                                valueLabelDisplay="off"
-                                                marks={toleranceMarks}
-                                                />
-                                                
-                                            
-                                                <Typography id = "partner-slider" gutterBottom>Roomate's Guests Visiting Tolerance</Typography>
-                                                <FormHelperText>I am not okay OR very okay with my roomate having guests over</FormHelperText>
-                                                <Slider
-                                                disabled = {cleaningLevel}
-                                                aria-label="Custom marks"
-                                                defaultValue={0}
-                                                aria-labelledby="partner-slider"
-                                                // getAriaValueText={valuetext}
-                                                step={null}
-                                                valueLabelDisplay="off"
-                                                marks={toleranceMarks}
-                                                />
-                                                </FormGroup>
-                                                
 
-                                                <FormHelperText>This information will remain private.</FormHelperText>
-                                            </FormControl>
+                                        <Grid item xs = {12} p = {1} container alignItems="center" w={1} spacing={3}>
+                                            <Grid item xs={3}>
+                                                <FormLabel component="legend">Please check all dealbreakers that apply:</FormLabel>
+                                                {/* <FormHelperText>This information will remain private.</FormHelperText> */}
+
                                             </Grid>
-                                            <Grid item xs = {12} w={1} md = {4}>
-                                            <FormControl sx={{ m: 10}} component="fieldset" variant="standard">
-                                                <FormLabel component="legend">Dealbreakers. Please check all that apply: <b>I will NOT</b> </FormLabel>
-                                                
-                                                <FormGroup>
+                                            
+                                            <Grid item xs>
                                                 <FormControlLabel
                                                     control={
                                                     <Checkbox checked={isSmoker} onChange={handleChangeDealbreakers} name="isSmoker" />
                                                     }
-                                                    label="live with someone who smokes"
+                                                    label="I will NOT live with a smoker"
                                                 />
                                                 <FormControlLabel
                                                     control={
                                                     <Checkbox checked={isDrinker} onChange={handleChangeDealbreakers} name="isDrinker" />
                                                     }
-                                                    label="live with someone who drinks"
+                                                    label="I will NOT live with a drinker (alcohol)"
                                                 />
                                                 <FormControlLabel
                                                     control={
                                                     <Checkbox checked={isPetOwner} onChange={handleChangeDealbreakers} name="isPetOwner" />
                                                     }
-                                                    label="live with a pet owner"
+                                                    label="I will NOT live with a pet owner"
                                                 />
-                                                </FormGroup>
-                                                <FormHelperText>This information will remain private.</FormHelperText>
-                                            </FormControl>        
-                                            </Grid>
                                             </Grid>
                                         </Grid>
-                                        
-                                        
+                                        <Grid item xs = {12} px = {1} container alignItems="center" w={1} spacing={3}>
+                                            <Grid item xs={3}>
+                                                <Typography id = "cleaning-slider" gutterBottom>I would like shared spaces to be cleaned:</Typography>
+
+                                            </Grid>
+                                            <Grid item xs>
+                                            <FormHelperText>Cleaning Frequency</FormHelperText>
+                                                <FrequencySlider
+                                                aria-label="Custom marks"
+                                                defaultValue={0}
+                                                aria-labelledby="cleaning-slider"
+                                                // getAriaValueText={valuetext}
+                                                step={null}
+                                                valueLabelDisplay="off"
+                                                marks={weeklyMarks}
+                                                />
+                                            </Grid>
+                                        </Grid>
+                                        <Grid item xs = {12} px = {1} container alignItems="center" w={1} spacing={3}>
+                                            <Grid item xs={3}>
+                                            <Typography id = "partner-slider" gutterBottom>Roomate's Partner Visiting Tolerance</Typography>
+
+                                            </Grid>
+                                            <Grid item xs>
+                                            <FormHelperText>I am not okay OR very okay with my roomate having their partner over</FormHelperText>
+                                                <ToleranceSlider
+                                                aria-label="Custom marks"
+                                                defaultValue={0}
+                                                aria-labelledby="partner-slider"
+                                                // getAriaValueText={valuetext}
+                                                step={null}
+                                                valueLabelDisplay="off"
+                                                marks={toleranceMarks}
+                                                />
+                                            </Grid>
+                                        </Grid>
+                                        <Grid item xs = {12} px = {1} container alignItems="center" w={1} spacing={3}>
+                                            <Grid item xs={3}>
+                                            <Typography id = "partner-slider" gutterBottom>Roomate's Guests Visiting Tolerance</Typography>
+
+
+                                            </Grid>
+                                            <Grid item xs>
+                                            <FormHelperText>I am not okay OR very okay with my roomate having guests over</FormHelperText>
+
+                                                <ToleranceSlider
+                                                aria-label="Custom marks"
+                                                defaultValue={0}
+                                                aria-labelledby="partner-slider"
+                                                // getAriaValueText={valuetext}
+                                                step={null}
+                                                valueLabelDisplay="off"
+                                                marks={toleranceMarks}
+                                                />
+                                            </Grid>
+                                        </Grid>
+                                        <Grid item xs = {12} mt={2} container direction="row" alignItems="flex-end" justifyContent="center">
+                                            <FormHelperText>This information will remain private.</FormHelperText>
+                                        </Grid>      
+                                                                   
                                     </Grid>
                                 </Paper>
                     </Grid>
@@ -1168,7 +1176,35 @@ const Form = ({ setDisplayPage, setLoading }) => {
                                                 </Select>
                                                 <FormHelperText>Please check all that apply</FormHelperText>
                                             </FormControl>
-                                        </Grid>           
+                                        </Grid> 
+                                        <Grid item xs = {12} md = {6} w = {1}>
+                                            <FormControl sx={{width: 1 }}>
+                                                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                                                    <TimePicker
+                                                        label="I wake up around"
+                                                        value={wakeUpTime}
+                                                        onChange={(newValue) => {
+                                                        setWakeUpTime(newValue);
+                                                        }}
+                                                        renderInput={(params) => <TextField {...params} />}
+                                                    />
+                                                </LocalizationProvider>
+                                            </FormControl>
+                                        </Grid>     
+                                        <Grid item xs = {12} md = {6} w = {1}>
+                                            <FormControl sx={{width: 1 }}>
+                                                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                                                    <TimePicker
+                                                        label="I go to bed around"
+                                                        value={bedTime}
+                                                        onChange={(newValue) => {
+                                                        setBedTime(newValue);
+                                                        }}
+                                                        renderInput={(params) => <TextField {...params} />}
+                                                    />
+                                                </LocalizationProvider>
+                                            </FormControl>
+                                        </Grid> 
                                         <Grid item xs = {12} md={6} w={1}>
                                             <GeoLocation
                                                 locationTitle="Country"
@@ -1177,6 +1213,7 @@ const Form = ({ setDisplayPage, setLoading }) => {
                                                 
                                             />
                                         </Grid>
+                                        
                                         <Grid item xs = {12} md={6} w={1}>
                                             <GeoLocation
                                                 locationTitle="State"
