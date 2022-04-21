@@ -501,9 +501,11 @@ const Form = ({ setDisplayPage, setLoading }) => {
             userData["moreAboutMe"] = {
                 hobbies: hobbies,
                 personality: personality,
-                country: country,
-                state: state,
-                city: city,
+                background: {
+                    country: country,
+                    state: state,
+                    city: city,
+                },
                 lookingFor: lookingFor
             };
 
@@ -528,18 +530,17 @@ const Form = ({ setDisplayPage, setLoading }) => {
                     setData("/profile/" + userData["ID"], userData);
         
                     //report progress
-                    console.log(userData);
                     console.log("User data uploaded!");
-
-                    // setDisplayPage('Matches');
+                    
+                    setLoading(false);
+                    setDisplayPage('Matches');
                 } catch {
                     alert("Upload failed. Please try again.");
+                    setLoading(false);
                 }
             };
             
             tryUpload();
-
-            setLoading(false);
         }
     }, [upload]);
 
