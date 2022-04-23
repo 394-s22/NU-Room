@@ -38,6 +38,8 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import { setData } from "../utilities/firebase";
+import { AiFillFileExcel } from "react-icons/ai";
+import { BsFillFileEarmarkCheckFill } from "react-icons/bs";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -126,13 +128,6 @@ const personalityList = [
     'I like to live without a schedule',
     'I am not intrested in people I don\'t know',
 ];
-
-const housingList = [
-    'Suite on Campus',
-    'Dorm on Campus',
-    'Apartment',
-    'House off Campus'
-]
 
 // const roommateTypeLabels = [
 //     'Just Roommates',
@@ -273,8 +268,6 @@ const Form = ({ setDisplayPage, setLoading }) => {
         }
     }
 
-    
-
     const [dormTrue, setDormTrue] = React.useState(false);
     const [cleaningLevel, setCleaningLevel] = React.useState(true);
     const [instrumentPracticeLevel, setInstrumentPracticeLevel] = React.useState(true);
@@ -346,17 +339,10 @@ const Form = ({ setDisplayPage, setLoading }) => {
         petOwner: false,
     });
 
-
     const [personalCheckBoxes, setPersonalCheckBoxes] = React.useState({
         musician: false,
         partnerOver: false,
         guestsOver: false,
-    });
-
-    const [prefCheckBoxes, setPrefCheckBoxes] = React.useState({
-        isMusician: false,
-        hasPartnerOver: false,
-        hasGuestsOver: false,
     });
 
     const [personalSliders, setPersonalSliders] = React.useState({
@@ -366,21 +352,9 @@ const Form = ({ setDisplayPage, setLoading }) => {
     });
 
     const [prefSliders, setPrefSliders] = React.useState({
-        isMusicianValue: false,
+        cleaningValue: false,
         hasPartnerOverValue: false,
         hasGuestsOverValue: false,
-    });
-
-    const [expectations, setExpectations] = React.useState({
-        weeklyCleanRoom: false,
-        biweeklyCleanRoom: false,
-        monthlyCleanRoom: false, 
-        noisyBackground: false, 
-        quietBackground: false,
-        warmRoom: false,
-        coldRoom: false,
-        friendRoommate: false,
-        strangerRoommate: false
     });
 
     const [shareRoom, setShareRoom] = React.useState(false);
@@ -439,34 +413,19 @@ const Form = ({ setDisplayPage, setLoading }) => {
         [event.target.name]: event.target.value,
         });
     };
-    const handleChangePrefCheckBoxes = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setPrefCheckBoxes({
-        ...prefCheckBoxes,
-        [event.target.name]: event.target.checked,
-        });
-        console.log(prefCheckBoxes);
-    };
     const handleChangePrefSliders = (event: React.ChangeEvent<HTMLInputElement>) => {
         setPrefSliders({
         ...prefSliders,
-        [event.target.name]: event.target.checked,
+        [event.target.name]: event.target.value,
         });
         console.log(prefSliders);
-    };
-    const handleChangeExpectations = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setExpectations({
-        ...expectations,
-        [event.target.name]: event.target.checked,
-        });
     };
     
     const { smoker, drinker, petOwner } = personal;
     const { isSmoker, isDrinker, isPetOwner} = dealBreakers;
     const { musician, partnerOver, guestsOver } = personalCheckBoxes;
-    const { isMusician, hasPartnerOver, hasGuestsOver } = prefCheckBoxes;
     const { musicianValue, partnerOverValue, guestsOverValue } = personalSliders;
-    const { isMusicianValue, hasPartnerOverValue, hasGuestsOverValue } = prefSliders;
-    const { weeklyCleanRoom, biweeklyCleanRoom, monthlyCleanRoom, noisyBackground, quietBackground, warmRoom, coldRoom, friendRoommate, strangerRoommate} = expectations;
+    const { cleaningValue, hasPartnerOverValue, hasGuestsOverValue } = prefSliders;
 
     const [country, setCountry] = React.useState("");
     const [state, setState] = React.useState("");
@@ -508,23 +467,19 @@ const Form = ({ setDisplayPage, setLoading }) => {
                 location: loct,
                 accomodation: accomodation,
                 sameSexRooming: sameSexRooming,
+                roommateType: roommateType,
                 shareRoom: shareRoom
             };
 
             userData["aboutMe"] = {
-                personal: {...personal},
-                personalCheckBoxes: {...personalCheckBoxes},
-                personalSliders: {...personalSliders}
+                personalTraits: {...personal},
+                personalTraitsCont: {...personalCheckBoxes},
+                personalTraitsValues: {...personalSliders}
             };
 
             userData["roomingPrefs"] = {
                 dealBreakers: {...dealBreakers},
-                prefCheckBoxes: {...prefCheckBoxes},
-                prefSliders: {...prefSliders}
-            };
-        
-            userData["expectations"] = {
-                ...expectations
+                prefValues: {...prefSliders}
             };
 
             userData["moreAboutMe"] = {
@@ -566,6 +521,7 @@ const Form = ({ setDisplayPage, setLoading }) => {
                 } catch {
                     alert("Upload failed. Please try again.");
                     setLoading(false);
+                    setUpload(false);
                 }
             };
             
@@ -897,7 +853,7 @@ const Form = ({ setDisplayPage, setLoading }) => {
                                     </Grid>
                                     
                                     <Grid item xs>
-                                    <FormHelperText id = "cleaning-slider" gutterBottom>Practice Frequency:</FormHelperText>                            
+                                    <FormHelperText id = "instrument-slider" gutterBottom>Practice Frequency:</FormHelperText>                            
                                             <FrequencySlider
                                             disabled = {!musician}
                                             aria-label="Custom marks"
@@ -1036,7 +992,9 @@ const Form = ({ setDisplayPage, setLoading }) => {
                                                 // getAriaValueText={valuetext}
                                                 step={null}
                                                 valueLabelDisplay="off"
-                                                marks={weeklyMarks}
+                                                marks={weeklyMarks}            
+                                                name="cleaningValue"
+                                                onChange={handleChangePrefSliders}
                                                 />
                                             </Grid>
                                         </Grid>
@@ -1055,6 +1013,8 @@ const Form = ({ setDisplayPage, setLoading }) => {
                                                 step={null}
                                                 valueLabelDisplay="off"
                                                 marks={toleranceMarks}
+                                                name="hasPartnerOverValue"
+                                                onChange={handleChangePrefSliders}
                                                 />
                                             </Grid>
                                         </Grid>
@@ -1075,6 +1035,8 @@ const Form = ({ setDisplayPage, setLoading }) => {
                                                 step={null}
                                                 valueLabelDisplay="off"
                                                 marks={toleranceMarks}
+                                                name="hasGuestsOverValue"
+                                                onChange={handleChangePrefSliders}
                                                 />
                                             </Grid>
                                         </Grid>
@@ -1263,17 +1225,21 @@ const Form = ({ setDisplayPage, setLoading }) => {
                     >
                         
                         <label for="profile-image">
-                            <Button 
-                                variant="contained" 
-                                component="label" 
-                                color="primary"
-                                sx={{
-                                    textAlign: 'center'
-                                }}>
-                                {" "}
-                                <AddIcon />  Upload profile image
-                                <input accept="image/*" type="file" hidden onChange={(e)=>{setImage(e.target.files[0])}}/>
-                            </Button>   
+                            <div className="uploadImageContainer">
+                                <Button 
+                                    variant="contained" 
+                                    component="label" 
+                                    color="primary"
+                                    sx={{
+                                        textAlign: 'center'
+                                    }}>
+                                    {" "}
+                                    <AddIcon /> &nbsp; Upload profile image
+                                    <input accept="image/*" type="file" hidden onChange={(e)=>{setImage(e.target.files[0])}}/>
+                                </Button> &nbsp;
+                                {image === null ? <AiFillFileExcel style={{ color: "red", fontSize: "30px" }} />
+                                : <BsFillFileEarmarkCheckFill style={{ color: "green", fontSize: "26px" }} />}
+                            </div>
                         </label>
                         
                         
