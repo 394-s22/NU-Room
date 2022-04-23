@@ -493,6 +493,11 @@ const Form = ({ setDisplayPage, setLoading }) => {
                 lookingFor: lookingFor
             };
 
+            userData["savedMatches"] = {
+                matches: [],
+                favorites: []
+            };
+
             // Feel free to change to a better system
             userData["ID"] = Math.floor(Math.random() * 1000000);
 
@@ -1241,9 +1246,6 @@ const Form = ({ setDisplayPage, setLoading }) => {
                                 : <BsFillFileEarmarkCheckFill style={{ color: "green", fontSize: "26px" }} />}
                             </div>
                         </label>
-                        
-                        
-                        
                     
                     <Divider variant="middle" />
                     
@@ -1259,8 +1261,6 @@ const Form = ({ setDisplayPage, setLoading }) => {
                         onClick={() => {
                             uploadData();
                         }}>Match Me!</Button>
-                    <img id="myimg"></img>
-                    
 
                     </Stack>                                       
                 </Grid>
