@@ -1,12 +1,4 @@
-// export the function
-// look through each to filter on conditions
-// create match score out of what's left
-// assign 
-
-const results = {};
-// hash id : [(profile id, match score, commonalities)], ]
-
-
+// converts dictionaries into list of values
 const convertDictToList = (dict) => {
     let arr = [];
     for (var key in dict) {
@@ -17,12 +9,74 @@ const convertDictToList = (dict) => {
     return arr;
 }
 
-// userProfiles: dictionary of profiles
-// profiles: array of profiles
-// user: user dictionary
-// compareAll: loop through profiles and run algo on each
+// profile: individual profile (dictionary) to compare to user
+const min_distance = (user, profile) => {
+    let min_dist = 0
+    let match_score = 0
+
+    let commonTraitsReport = []
+
+    //About Me sliders
+    let cleaningTolerance = Math.abs((user.roomingPrefs.prefValues.cleaningValue/100) - (profile.roomingPrefs.prefValues.cleaningValue/100));
+    min_dist += cleaningTolerance
+
+    if (cleaningTolerance < 0.5) {
+        commonTraitsReport.push("You both feel similarly about cleaning frequency.")
+    }
+    
+    min_dist += Math.abs((user.aboutMe.personalTraitsValues.partnerOverValue/100) - (profile.aboutMe.personalTraitsValues.partnerOverValue/100));
+
+    let guestTolerance = Math.abs((user.aboutMe.personalTraitsValues.guestsOverValue/100) - (profile.aboutMe.personalTraitsValues.guestsOverValue/100));
+    min_dist += guestTolerance
+
+    if (guestTolerance <= 0.5) {
+        commonTraitsReport.push("You both feel similarly about having guests over.")
+    }
+
+    if (user.basicInfo.nextYearGrade === profile.basicInfo.nextYearGrade){
+        min_dist -= 0.5;
+    }
+    if (user.housingPrefs.accomodation === profile.housingPrefs.accomodation) {
+        min_dist -= 1;
+        commonTraitsReport.push("You both prefer to live " + user.housingPrefs.accomodation + "!")
+    }
+    if (user.housingPrefs.location === "No preference") {
+        min_dist -= 0.5;
+    } else if (profile.housingPrefs.location === "No preference") {
+        min_dist -= 0.5;
+    } else if (user.housingPrefs.location === profile.housingPrefs.location){
+        min_dist -= 1;
+        commonTraitsReport.push("You both prefer to live " + user.housingPrefs.location + "!")
+    }
+    
+    const commonHobbies = user.moreAboutMe.hobbies.filter(hobby => profile.moreAboutMe.hobbies.indexOf(hobby) != -1);
+    const hobby_count = commonHobbies.length;
+
+    const commonPersonalityTraits = user.moreAboutMe.personality.filter(trait => profile.moreAboutMe.personality.indexOf(trait) != -1);
+    const personalityTrait_count = commonPersonalityTraits.length;
+
+    if (hobby_count >= 2) {
+        min_dist -= 1;
+        for (let sharedhobby in commonHobbies) {
+            commonTraitsReport.push("You both like " + sharedhobby + "!")
+        }
+    }
+    
+    if (personalityTrait_count >= 2) {
+        min_dist -= 1;
+        for (let sharedpersonalitytrait in commonPersonalityTraits) {
+            commonTraitsReport.push('"You both selected "' + sharedpersonalitytrait + '"!')
+        }
+    }
+    
+    return [min_dist, match_score, commonTraitsReport];
+}
+
+// compareAll : user, userProfiles => matchData
+//  user: user dictionary
+//  userProfiles: dictionary of (userID -> user dictionary)
 const compareAll = (user, userProfiles) => {
-    // convert into list
+    // convert dict into list
     let profiles = convertDictToList(userProfiles);
 
     // Part I: Filter
@@ -61,102 +115,7 @@ const compareAll = (user, userProfiles) => {
     const matchData = {};
     profiles.map(profile => matchData[profile["ID"]] = min_distance(user, profile));
 
-
-
+    return matchData;
 }
-
-// profile: individual profile (dictionary) to compare to user
-const min_distance = (user, profile) => {
-    let min_dist = 0
-    let match_score = 0
-    
-    if (user.aboutMe.personalTraitsCont.musician) {
-        min_dist += Math.abs(user.aboutMe.personalTraitsValues.musicianValue - profile.aboutMe.personalTraitsValues.musicianValue);
-    }
-    
-    if (user.aboutMe.personalTraitsCont.partnerOver) {
-        min_dist += Math.abs(user.aboutMe.personalTraitsValues.partnerOverValue - profile.aboutMe.personalTraitsValues.partnerOverValue);
-    }
-
-    if (user.aboutMe.personalTraitsCont.guestsOver) {
-        min_dist += Math.abs(user.aboutMe.personalTraitsValues.guestsOverValue - profile.aboutMe.personalTraitsValues.guestsOverValue);
-    }
-    
-    return [min_dist, match_score];
-}
-
 
 export default compareAll;
-
-// "144630": {
-//     "ID": 144630,
-//     "aboutMe": {
-//       "personalTraits": {
-//         "drinker": true,
-//         "petOwner": true,
-//         "smoker": true
-//       },
-//       "personalTraitsCont": {
-//         "guestsOver": true,
-//         "musician": true,
-//         "partnerOver": false
-//       },
-//       "personalTraitsValues": {
-//         "guestsOverValue": 25,
-//         "musicianValue": 50,
-//         "partnerOverValue": 0
-//       }
-//     },
-//     "basicInfo": {
-//       "email": "nataliebrewster2023@u.northwestern.edu",
-//       "fname": "Jane",
-//       "gender": "Female",
-//       "lname": "Austin",
-//       "nextYearGrade": "Third Year",
-//       "pronouns": [
-//         "She/her"
-//       ],
-//       "whereYouFrom": "California"
-//     },
-//     "housingPrefs": {
-//       "accomodation": "Off Campus",
-//       "location": "No preference",
-//       "roommateType": "Close Friends",
-//       "sameSexRooming": false,
-//       "shareRoom": false
-//     },
-//     "moreAboutMe": {
-//       "background": {
-//         "city": "",
-//         "country": "",
-//         "state": ""
-//       },
-//       "hobbies": [
-//         "Arts and Crats",
-//         "Music",
-//         "Socializing",
-//         "Reading",
-//         "Travel",
-//         "Technology"
-//       ],
-//       "lookingFor": "Looking for someone who is interested subletting my room for fall quarter 2022. Room is nice and the apartment is clean and close to campus!",
-//       "personality": [
-//         "I like to try new things",
-//         "Extrovered",
-//         "I like to have everything planned"
-//       ]
-//     },
-//     "profileImage": "JaneAustin144630.jpg",
-//     "roomingPrefs": {
-//       "dealBreakers": {
-//         "isDrinker": false,
-//         "isPetOwner": false,
-//         "isSmoker": false
-//       },
-//       "prefValues": {
-//         "cleaningValue": 50,
-//         "hasGuestsOverValue": 100,
-//         "hasPartnerOverValue": 100
-//       }
-//     }
-//   },
