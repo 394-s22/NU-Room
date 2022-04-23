@@ -92,7 +92,7 @@ const attributes = [
 ];
 
 const hobbiesList = [
-    'Arts and Crats',
+    'Arts and Crafts',
     'Cooking',
     'Dancing ',
     'Food',
@@ -137,11 +137,11 @@ const personalityList = [
 
 const importanceMarks = [
     {
-      value: 0,
+      value: 100,
       label: "Not At All",
     },
     {
-      value: 25,
+      value: 75,
       label: 'Not Very',
     },
     {
@@ -149,58 +149,58 @@ const importanceMarks = [
       label: 'Somewhat',
     },
     {
-      value: 75,
+      value: 25,
       label: 'Very',
     },
     {
-        value: 100,
+        value: 0,
         label: 'Extremely',
     },
   ];
 
   const dailyMarks = [
     {
-      value: 0,
-      label: "Every Day",
-    },
-    {
-      value: 25,
-      label: 'Few Times A Week',
-    },
-    {
-      value: 50,
-      label: 'On Weekends',
-    },
-    {
-      value: 75,
-      label: 'Once A Week',
-    },
-    {
-        value: 100,
+        value: 0,
         label: 'Every Other Week',
     },
+    {
+    value: 25,
+    label: 'Once A Week',
+    },
+    {
+    value: 50,
+    label: 'On Weekends',
+    },
+    {
+    value: 75,
+    label: 'Few Times A Week',
+    },
+    {
+    value: 100,
+    label: "Every Day",
+    }
   ];
 
 const weeklyMarks = [
     {
       value: 0,
-      label: "Never",
-    },
-    {
-      value: 25,
       label: 'Daily',
     },
     {
-      value: 50,
+      value: 25,
       label: 'Weekly',
     },
     {
-      value: 75,
+      value: 50,
       label: 'BiWeekly',
     },
     {
-        value: 100,
+        value: 75,
         label: 'Monthly',
+    },
+    {
+        value: 100,
+        label: "Never",
     },
   ];
 
@@ -1007,11 +1007,11 @@ const Form = ({ setDisplayPage, setLoading }) => {
                                         </Grid>
                                         <Grid item xs = {12} px = {1} container alignItems="center" w={1} spacing={3}>
                                             <Grid item xs={3}>
-                                            <Typography id = "partner-slider" gutterBottom>Roomate's Partner Visiting Tolerance</Typography>
+                                            <Typography id = "partner-slider" gutterBottom>Roommate's Partner Visiting Tolerance</Typography>
 
                                             </Grid>
                                             <Grid item xs>
-                                            <FormHelperText>I am not okay OR very okay with my roomate having their partner over</FormHelperText>
+                                            <FormHelperText>I am not okay OR very okay with my roommate having their partner over</FormHelperText>
                                                 <ToleranceSlider
                                                 aria-label="Custom marks"
                                                 defaultValue={0}
@@ -1027,12 +1027,12 @@ const Form = ({ setDisplayPage, setLoading }) => {
                                         </Grid>
                                         <Grid item xs = {12} px = {1} container alignItems="center" w={1} spacing={3}>
                                             <Grid item xs={3}>
-                                            <Typography id = "partner-slider" gutterBottom>Roomate's Guests Visiting Tolerance</Typography>
+                                            <Typography id = "partner-slider" gutterBottom>Roommate's Guests Visiting Tolerance</Typography>
 
 
                                             </Grid>
                                             <Grid item xs>
-                                            <FormHelperText>I am not okay OR very okay with my roomate having guests over</FormHelperText>
+                                            <FormHelperText>I am not okay OR very okay with my roommate having guests over</FormHelperText>
 
                                                 <ToleranceSlider
                                                 aria-label="Custom marks"
