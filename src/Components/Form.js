@@ -40,6 +40,8 @@ import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import { setData } from "../utilities/firebase";
 import { AiFillFileExcel } from "react-icons/ai";
 import { BsFillFileEarmarkCheckFill } from "react-icons/bs";
+import { compareAll } from "../utilities/matchAlgo";
+import { SettingsCellRounded } from '@mui/icons-material';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -224,7 +226,7 @@ function valuetext(value) {
     return `${value}°C`;
 }
 
-const Form = ({ setDisplayPage, setLoading }) => {
+const Form = ({ profile, setDisplayPage, setLoading, setCurrentMatches }) => {
     const theme = useTheme();
     const [year, setYear] = React.useState('');
     const handleChangeYear = (event) => {
@@ -513,15 +515,24 @@ const Form = ({ setDisplayPage, setLoading }) => {
                         });
                         userData["profileImage"] = imageName;
                     }
-        
+                    
+                    setLoading(false);
+
+                    let matches = compareAll(userData, profile);
+
+                    console.log(matches);
+                    matches = matches.map(item => {return matches[3];});
+
+                    setCurrentMatches(matches);
+
                     //upload to firebase
                     setData("/profile/" + userData["ID"], userData);
         
                     //report progress
                     console.log("User data uploaded!");
-                    
-                    setLoading(false);
+
                     setDisplayPage('Matches');
+
                 } catch {
                     alert("Upload failed. Please try again.");
                     setLoading(false);
@@ -1247,6 +1258,7 @@ const Form = ({ setDisplayPage, setLoading }) => {
                         }}
                         onClick={() => {
                             uploadData();
+                            
                         }}>Match Me!</Button>
 
                     </Stack>                                       

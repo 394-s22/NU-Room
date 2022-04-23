@@ -9,9 +9,14 @@ import Masonry from '@mui/lab/Masonry';
 import Box from '@mui/material/Box';
 import { getStorage, ref, getDownloadURL} from "firebase/storage";
 
-const MatchesPage = ({ data, setCurrentProfile, setDisplayPage}) => {
-    const profiles = data.profiles;
-    console.log(profiles);
+const MatchesPage = ({ data, currentMatches, setCurrentProfile, setDisplayPage}) => {
+    const profiles = currentMatches === null || currentMatches === undefined ? data.profiles : currentMatches;
+    console.log('profiles:',profiles);
+
+    if (currentMatches != null) {
+        console.log(currentMatches);
+        return <div>Check the console</div>
+    }
 
     // **** DO NOT DELETE THE FOLLOWING COMMENT
     // **** THIS FUNCTION WILL PULL PROFILE IMAGES FROM
@@ -55,6 +60,8 @@ const MatchesPage = ({ data, setCurrentProfile, setDisplayPage}) => {
     //           }
     //     });
     // }, []);
+
+
 
     return (
         <div>

@@ -21,6 +21,7 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [displayPage, setDisplayPage] = useState("Form");
   const [currentProfile, setCurrentProfile] = useState(null);
+  const [currentMatches, setCurrentMatches] = useState(null);
 
   useEffect(() => {
     if (data === undefined) return;
@@ -34,9 +35,10 @@ function App() {
   const renderSwitch = (displayPage) => {
     switch(displayPage) {
       case "Form":
-        return <Form setDisplayPage={setDisplayPage} setLoading={setLoading}></Form>; 
+        return <Form profile={data.profile} setDisplayPage={setDisplayPage} setLoading={setLoading} setCurrentMatches={setCurrentMatches}></Form>; 
       case "Matches":
-        return <MatchesPage data={data} setCurrentProfile={setCurrentProfile} setDisplayPage={setDisplayPage}></MatchesPage>;
+        // return <MatchesPage data={data} setCurrentProfile={setCurrentProfile} setDisplayPage={setDisplayPage}></MatchesPage>;
+        return <MatchesPage data={data} currentMatches={currentMatches} setCurrentProfile={setCurrentProfile} setDisplayPage={setDisplayPage}></MatchesPage>;
       case "FullProfile":
         return <FullProfile profile={currentProfile} setDisplayPage={setDisplayPage}></FullProfile>;
       default:

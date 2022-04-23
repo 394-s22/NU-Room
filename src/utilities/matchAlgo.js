@@ -3,7 +3,7 @@ const convertDictToList = (dict) => {
     let arr = [];
     for (var key in dict) {
         if (dict.hasOwnProperty(key)) {
-            profiles.push( dict[key] );
+            arr.push( dict[key] );
         }
     }
     return arr;
@@ -49,10 +49,10 @@ const min_distance = (user, profile) => {
         commonTraitsReport.push("You both prefer to live " + user.housingPrefs.location + "!")
     }
     
-    const commonHobbies = user.moreAboutMe.hobbies.filter(hobby => profile.moreAboutMe.hobbies.indexOf(hobby) != -1);
+    const commonHobbies = user.moreAboutMe.hobbies.filter(hobby => profile.moreAboutMe.hobbies.indexOf(hobby) !== -1);
     const hobby_count = commonHobbies.length;
 
-    const commonPersonalityTraits = user.moreAboutMe.personality.filter(trait => profile.moreAboutMe.personality.indexOf(trait) != -1);
+    const commonPersonalityTraits = user.moreAboutMe.personality.filter(trait => profile.moreAboutMe.personality.indexOf(trait) !== -1);
     const personalityTrait_count = commonPersonalityTraits.length;
 
     if (hobby_count >= 2) {
@@ -71,13 +71,13 @@ const min_distance = (user, profile) => {
 
     match_score = min_dist / 7.5;
     
-    return [min_dist, match_score, commonTraitsReport];
+    return [min_dist, match_score, commonTraitsReport, profile];
 }
 
 // compareAll : user, userProfiles => matchData
 //  user: user dictionary
 //  userProfiles: dictionary of (userID -> user dictionary)
-const compareAll = (user, userProfiles) => {
+export const compareAll = (user, userProfiles) => {
     // convert dict into list
     let profiles = convertDictToList(userProfiles);
 
@@ -114,10 +114,12 @@ const compareAll = (user, userProfiles) => {
     }
 
     // Part II: Minimized Distance Score
-    const matchData = {};
-    profiles.map(profile => matchData[profile["ID"]] = min_distance(user, profile));
+    const matchData = [];
+    profiles.map(profile => matchData.push(min_distance(user, profile)));
+
+    // sorts
+    // matchData = matchData.sort((a,b) => a[0] - b[0]);
+    console.log(matchData);
 
     return matchData;
 }
-
-export default compareAll;
