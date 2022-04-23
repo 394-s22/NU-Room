@@ -487,7 +487,9 @@ const Form = ({ setDisplayPage, setLoading }) => {
             userData["moreAboutMe"] = {
                 hobbies: hobbies,
                 personality: personality,
-                lookingFor: lookingFor
+                lookingFor: lookingFor,
+                wakeUpTime: wakeUpTime,
+                bedTime: bedTime
             };
 
             userData["savedMatches"] = {
