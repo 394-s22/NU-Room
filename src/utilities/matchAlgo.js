@@ -6,21 +6,26 @@
 const results = {};
 // hash id : [(profile id, match score, commonalities)], ]
 
+
+const convertDictToList = (dict) => {
+    let arr = [];
+    for (var key in dict) {
+        if (dict.hasOwnProperty(key)) {
+            profiles.push( dict[key] );
+        }
+    }
+    return arr;
+}
+
 // userProfiles: dictionary of profiles
 // profiles: array of profiles
 // user: user dictionary
 // compareAll: loop through profiles and run algo on each
 const compareAll = (user, userProfiles) => {
     // convert into list
-    let profiles = [];
-    for (var key in userProfiles) {
-        if (userProfiles.hasOwnProperty(key)) {
-            profiles.push( userProfiles[key] );
-        }
-    }
+    let profiles = convertDictToList(userProfiles);
 
     // Part I: Filter
-
     // Basic Information
     if (user.nextYearGrade === "First Year") {
         profiles = profiles.filter(profile => profile.nextYearGrade === "First Year");
@@ -42,24 +47,42 @@ const compareAll = (user, userProfiles) => {
     }
     
     // About Me
+    if (user.roomingPrefs.dealBreakers.isSmoker) {
+        profiles = profiles.filter(profile => !profile.aboutMe.personalTraits.smoker);
+    }
+    if (user.roomingPrefs.dealBreakers.isDrinker) {
+        profiles = profiles.filter(profile => !profile.aboutMe.personalTraits.drinker);
+    }
+    if (user.roomingPrefs.dealBreakers.isPetOwner ) {
+        profiles = profiles.filter(profile => !profile.aboutMe.personalTraits.petOwner);
+    }
 
-
-
-
-
-
-
-
-
+    // Part II: Minimized Distance Score
+    const matchData = {};
+    profiles.map(profile => matchData[profile["ID"]] = min_distance(user, profile));
 
 
 
 }
 
-// profile: individual profile to compare to user
-const matchingAlgo = (user, profile) => {
-    // filter on hard No's
+// profile: individual profile (dictionary) to compare to user
+const min_distance = (user, profile) => {
+    let min_dist = 0
+    let match_score = 0
     
+    if (user.aboutMe.personalTraitsCont.musician) {
+        min_dist += Math.abs(user.aboutMe.personalTraitsValues.musicianValue - profile.aboutMe.personalTraitsValues.musicianValue);
+    }
+    
+    if (user.aboutMe.personalTraitsCont.partnerOver) {
+        min_dist += Math.abs(user.aboutMe.personalTraitsValues.partnerOverValue - profile.aboutMe.personalTraitsValues.partnerOverValue);
+    }
+
+    if (user.aboutMe.personalTraitsCont.guestsOver) {
+        min_dist += Math.abs(user.aboutMe.personalTraitsValues.guestsOverValue - profile.aboutMe.personalTraitsValues.guestsOverValue);
+    }
+    
+    return [min_dist, match_score];
 }
 
 
