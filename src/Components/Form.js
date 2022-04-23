@@ -367,6 +367,7 @@ const Form = ({ setDisplayPage, setLoading }) => {
     const [lookingFor, setLookingFor] = React.useState("");
     const [fname, setfName] = React.useState("");
     const [lname, setlName] = React.useState("");
+    const [whereYouFrom, setWhereYouFrom] = React.useState("");
     const [email, setEmail] = React.useState("");    
 
     const handleChangeLookingFor = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -379,6 +380,10 @@ const Form = ({ setDisplayPage, setLoading }) => {
 
     const handleChangelName= (event: React.ChangeEvent<HTMLInputElement>) => {
         setlName(event.target.value);
+    };
+
+    const handleChangeWhereYouFrom= (event: React.ChangeEvent<HTMLInputElement>) => {
+        setWhereYouFrom(event.target.value);
     };
 
     const handleChangeEmail= (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -426,10 +431,6 @@ const Form = ({ setDisplayPage, setLoading }) => {
     const { musician, partnerOver, guestsOver } = personalCheckBoxes;
     const { musicianValue, partnerOverValue, guestsOverValue } = personalSliders;
     const { cleaningValue, hasPartnerOverValue, hasGuestsOverValue } = prefSliders;
-
-    const [country, setCountry] = React.useState("");
-    const [state, setState] = React.useState("");
-    const [city, setCity] = React.useState("");
     
 
     const [image , setImage] = useState(null);
@@ -460,6 +461,7 @@ const Form = ({ setDisplayPage, setLoading }) => {
                 email: email,
                 gender: gender,
                 pronouns: pronouns,
+                whereYouFrom: whereYouFrom,
                 nextYearGrade: year
             }
 
@@ -485,11 +487,6 @@ const Form = ({ setDisplayPage, setLoading }) => {
             userData["moreAboutMe"] = {
                 hobbies: hobbies,
                 personality: personality,
-                background: {
-                    country: country,
-                    state: state,
-                    city: city,
-                },
                 lookingFor: lookingFor
             };
 
@@ -664,7 +661,7 @@ const Form = ({ setDisplayPage, setLoading }) => {
                                     </Grid>
 
                                     <Grid item xs = {12} md={6} w={1}>
-                                            <TextField fullWidth id="location" label="Where are you from?" variant="outlined"  w={1}/>
+                                            <TextField fullWidth id="location" value={whereYouFrom} onChange={handleChangeWhereYouFrom} label="Where are you from?" variant="outlined"  w={1}/>
                                         </Grid>
 
                                         <Grid item xs = {12} w={1}>
