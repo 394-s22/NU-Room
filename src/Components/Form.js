@@ -663,6 +663,10 @@ const Form = ({ setDisplayPage, setLoading }) => {
                                         </FormControl>
                                     </Grid>
 
+                                    <Grid item xs = {12} md={6} w={1}>
+                                            <TextField fullWidth id="location" label="Where are you from?" variant="outlined"  w={1}/>
+                                        </Grid>
+
                                         <Grid item xs = {12} w={1}>
                                             <TextField 
                                                 fullWidth
@@ -734,9 +738,8 @@ const Form = ({ setDisplayPage, setLoading }) => {
                                                 onChange={handleChangeAccomodation}
                                                 >
 
-                                                    <MenuItem value={"Suite on Campus"}>Suite on Campus</MenuItem>
-                                                    <MenuItem value={"Dorm on Campus"}>Dorm on Campus</MenuItem>
-                                                    <MenuItem value={"Apartment off Campus"}>Apartment off Campus</MenuItem>
+                                                    <MenuItem value={"On Campus"}>On Campus</MenuItem>
+                                                    <MenuItem value={"Off Campus"}>Off Campus</MenuItem>
                                                     {/* <MenuItem value={40}>House off Campus</MenuItem> */}
 
                                                 </Select>
@@ -1172,22 +1175,7 @@ const Form = ({ setDisplayPage, setLoading }) => {
                                                 </LocalizationProvider>
                                             </FormControl>
                                         </Grid> 
-                                        <Grid item xs = {12} md={6} w={1}>
-                                            <GeoLocation
-                                                locationTitle="Country"
-                                                isCountry
-                                                onChange={setCountry}
-                                                
-                                            />
-                                        </Grid>
-                                        
-                                        <Grid item xs = {12} md={6} w={1}>
-                                            <GeoLocation
-                                                locationTitle="State"
-                                                onChange={setState}
-                                                geoId={country}
-                                            />
-                                            </Grid>
+
                                         
                                             <Grid
                                             container
@@ -1195,7 +1183,7 @@ const Form = ({ setDisplayPage, setLoading }) => {
                                             direction="column"
                                             alignItems="center"
                                             justifyContent="center"
-                                            style={{ paddingTop: 15 }}
+                                            style={{ paddingTop: 30 }}
                                             >
                                         <Grid item xs = {2} w={2} md = {6}> 
                                             <TextField  
