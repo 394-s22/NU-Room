@@ -68,6 +68,8 @@ const min_distance = (user, profile) => {
             commonTraitsReport.push('"You both selected "' + sharedpersonalitytrait + '"!')
         }
     }
+
+    match_score = min_dist / 7.5;
     
     return [min_dist, match_score, commonTraitsReport];
 }
