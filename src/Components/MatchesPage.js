@@ -8,13 +8,16 @@ import ImageListItem from "@mui/material/ImageListItem"
 import Masonry from '@mui/lab/Masonry';
 import Box from '@mui/material/Box';
 import { getStorage, ref, getDownloadURL} from "firebase/storage";
+import { convertDictToList } from '../utilities/matchAlgo';
 
 const MatchesPage = ({ data, currentMatches, setCurrentProfile, setDisplayPage}) => {
     const profiles = currentMatches === null || currentMatches === undefined ? data.profiles : currentMatches;
     console.log('profiles:',profiles);
 
+    // const profiles = convertDictToList(data.profile);
+
     if (currentMatches != null) {
-        console.log(currentMatches);
+        console.log('currentMatches:',currentMatches);
         return <div>Check the console</div>
     }
 

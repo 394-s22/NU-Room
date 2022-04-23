@@ -1,5 +1,5 @@
 // converts dictionaries into list of values
-const convertDictToList = (dict) => {
+export const convertDictToList = (dict) => {
     let arr = [];
     for (var key in dict) {
         if (dict.hasOwnProperty(key)) {
