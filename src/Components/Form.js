@@ -122,7 +122,7 @@ const pronounsList = [
 
 const personalityList = [
     'Introverted',
-    'Extrovered',
+    'Extroverted',
     'I like my alone time',
     'I like to try new things',
     'I don\'t like change',

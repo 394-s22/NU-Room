@@ -11,15 +11,16 @@ import { getStorage, ref, getDownloadURL} from "firebase/storage";
 import { convertDictToList } from '../utilities/matchAlgo';
 
 const MatchesPage = ({ data, currentMatches, setCurrentProfile, setDisplayPage}) => {
-    const profiles = currentMatches === null || currentMatches === undefined ? data.profiles : currentMatches;
-    console.log('profiles:',profiles);
+    /* let profiles = currentMatches === null || currentMatches === undefined ? data.profile : currentMatches;
+    profiles = convertDictToList(profiles)
+    console.log('profiles:',profiles); */
 
-    // const profiles = convertDictToList(data.profile);
+    const profiles = convertDictToList(data.profile);
 
-    if (currentMatches != null) {
+    /* if (currentMatches != null) {
         console.log('currentMatches:',currentMatches);
         return <div>Check the console</div>
-    }
+    } */
 
     // **** DO NOT DELETE THE FOLLOWING COMMENT
     // **** THIS FUNCTION WILL PULL PROFILE IMAGES FROM

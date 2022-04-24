@@ -45,7 +45,7 @@ const ExpandMore = styled((props) => {
 export default function Profile({ profile, setCurrentProfile, setDisplayPage }) {
   const [expanded, setExpanded] = React.useState(false);
   const [fullProfilePage, setFullProfilePage] = React.useState(false);
-  
+
   const showFullProfilePage = () => {
     setFullProfilePage(true);
     console.log('inside showFull', fullProfilePage)
@@ -58,11 +58,27 @@ export default function Profile({ profile, setCurrentProfile, setDisplayPage }) 
 
   const randomNumber = Math.floor(Math.random() * (500 - 10 + 1)) + 10;
   const link = `https://picsum.photos/200/${randomNumber}`;
+  console.log('profile:', profile)
+  //console.log('profile moreAboutMe:', profile.moreAboutMe.hobbies)
+
+  let hobbiesList = null;
+  if (profile.moreAboutMe.hobbies !== undefined) {
+    hobbiesList = profile.moreAboutMe.hobbies.map((hobby) =>
+      <li>{hobby}</li>
+    );
+  } 
+
+  let personalityList = null
+  if (profile.moreAboutMe.personality !== undefined) {
+     personalityList = profile.moreAboutMe.personality.map((personality) =>
+      <li>{personality}</li>
+    );
+  }
 
   return (
     <Card sx={{ width: 1 }}>
       <CardHeader
-        title={profile.name[0] + " " + profile.name[1]}
+        title={profile.basicInfo.fname + " " + profile.basicInfo.lname}
       //   subheader="September 14, 2016"
       />
       <CardMedia
@@ -73,7 +89,7 @@ export default function Profile({ profile, setCurrentProfile, setDisplayPage }) 
       />
       <CardContent>
         <Typography variant="body2" color="text.secondary">
-          {profile.bio} 
+          {profile.bio}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
@@ -98,14 +114,14 @@ export default function Profile({ profile, setCurrentProfile, setDisplayPage }) 
           whiteSpace: 'nowrap',
           textAlign: 'center'
         }}
-        onClick={() => {
-          setCurrentProfile(profile);
-          setDisplayPage('FullProfile');
-        }}>
+          onClick={() => {
+            setCurrentProfile(profile);
+            setDisplayPage('FullProfile');
+          }}>
           View Full Profile</Button>
       </Box>
 
-    {/* <Router>
+      {/* <Router>
       <Routes>
         <Route exact path="/FullProfile" 
             component={FullProfile}>
@@ -124,14 +140,16 @@ export default function Profile({ profile, setCurrentProfile, setDisplayPage }) 
         <CardContent>
           <Typography paragraph sx={{ fontWeight: 700 }}>Hobbies:</Typography>
           <Typography paragraph>
-            {profile.hobbies[0]}
+            {hobbiesList}
+            {/* {profile.hobbies[0]} */}
           </Typography>
-          <Typography paragraph>
+          {/* <Typography paragraph>
             {profile.hobbies[1]}
-          </Typography>
+          </Typography> */}
           <Typography paragraph sx={{ fontWeight: 700 }}>Personality:</Typography>
           <Typography paragraph>
-            {profile.personality[0]}
+            {/* {profile.personality[0]} */}
+            {personalityList}
           </Typography>
         </CardContent>
       </Collapse>
