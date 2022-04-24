@@ -128,7 +128,7 @@ const personalityList = [
     'I don\'t like change',
     'I like to have everything planned',
     'I like to live without a schedule',
-    'I am not intrested in people I don\'t know',
+    'I am not interested in people I don\'t know',
 ];
 
 // const roommateTypeLabels = [
@@ -495,8 +495,8 @@ const Form = ({ profile, setDisplayPage, setLoading, setCurrentMatches }) => {
             };
 
             userData["savedMatches"] = {
-                matches: [],
-                favorites: []
+                matches: false,
+                favorites: false
             };
 
             // Feel free to change to a better system
