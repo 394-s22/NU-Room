@@ -1,7 +1,9 @@
 import { initializeApp } from 'firebase/app';
 import { getDatabase, onValue, ref, set } from 'firebase/database';
-import { getStorage } from "firebase/storage";
 import { useState, useEffect } from "react";
+
+import { getStorage } from "firebase/storage";
+import { ref as sRef } from 'firebase/storage';
 import { getDownloadURL} from "firebase/storage";
 
 const firebaseConfig = {
@@ -46,17 +48,40 @@ export const useData = (path, transform) => {
     return [data, loading, error];
 };
 
-export const useImage = (user_id) => {
-    let image_url = "";
+export const GetFireBaseImage = (profilePhotoId) => {
+    let image_url = 'images/' + profilePhotoId;
 
     useEffect(() => {
-        getDownloadURL(ref(storage, 'images/20220409_184319.jpeg'))
+        getDownloadURL(sRef(storage, image_url))
         .then((url) => {
-            image_url = url;
-            return image_url;
+            const img = document.getElementById(image_url);
+            img.setAttribute('src', url);
+            console.log(url)
+            return url
         })
         .catch((error) => {
             // Handle any errors
+            switch (error.code) {
+                case 'storage/object-not-found':
+                  // File doesn't exist
+                  console.log("1")
+                  break;
+                case 'storage/unauthorized':
+                  // User doesn't have permission to access the object
+                  console.log("2")
+                  break;
+                case 'storage/canceled':
+                  // User canceled the upload
+                  console.log("3")
+                  break;
+          
+                // ...
+          
+                case 'storage/unknown':
+                  // Unknown error occurred, inspect the server response
+                  console.log("4");
+                  break;
+              }
         });
     }, []);
 
