@@ -22,6 +22,7 @@ function App() {
   const [displayPage, setDisplayPage] = useState("Form");
   const [currentProfile, setCurrentProfile] = useState(null);
   const [currentMatches, setCurrentMatches] = useState(null);
+  const userID = localStorage.getItem("userID");
 
   useEffect(() => {
     if (data === undefined) return;
@@ -30,7 +31,14 @@ function App() {
 
   if (errorData) return <h1>{errorData}</h1>
   if (loadingData || loading) return <h1>Loading...</h1>
-  document.body.style = 'background: #f5f5f5'
+  document.body.style = 'background: #f5f5f5';
+
+  if (userID !== null) {
+    const matchingIDs = data.profile[userID].savedMatches.matches;
+    const userMatches = matchingIDs.map(id => data.profile[id]);
+    setCurrentMatches(userMatches);
+    setDisplayPage("Matches");
+  }
 
   const renderSwitch = (displayPage) => {
     switch(displayPage) {
