@@ -26,7 +26,6 @@ function App() {
 
   useEffect(() => {
     if (data === undefined) return;
-    console.log("data", data);
   }, [data])
 
   if (errorData) return <h1>{errorData}</h1>

@@ -11,18 +11,18 @@ import { getStorage, ref, getDownloadURL} from "firebase/storage";
 import { convertDictToList } from '../utilities/matchAlgo';
 
 const MatchesPage = ({ data, currentMatches, setCurrentProfile, setDisplayPage}) => {
-    
-    
     /* let profiles = currentMatches === null || currentMatches === undefined ? data.profile : currentMatches;
     profiles = convertDictToList(profiles)
     console.log('profiles:',profiles); */
 
+    console.log("current matches", currentMatches);
     if (currentMatches === null) {
         // TODO: Style this
         return <div>Unfortunately, you are matchless</div>;
     }
 
-    const profiles = currentMatches;
+    // const profiles = currentMatches;
+    const profiles = convertDictToList(data.profile);
 
     /* if (currentMatches != null) {
         console.log('currentMatches:',currentMatches);
