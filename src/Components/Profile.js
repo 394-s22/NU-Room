@@ -20,6 +20,32 @@ import Box from '@mui/material/Box';
 import FullProfile from "./FullProfile";
 import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
 import "../CSS/profile.css";
+import { useState, useEffect } from "react";
+
+
+import { GetFireBaseImage } from "../utilities/firebase.js";
+import { initializeApp } from 'firebase/app';
+import { getDatabase, onValue, ref, set } from 'firebase/database';
+
+import { getStorage } from "firebase/storage";
+import { ref as sRef } from 'firebase/storage';
+import { getDownloadURL} from "firebase/storage";
+
+const firebaseConfig = {
+    apiKey: "AIzaSyAIe24tq4GELA23AwacArSKJh0h_Z5jJ64",
+    authDomain: "nu-room-92e71.firebaseapp.com",
+    databaseURL: "https://nu-room-92e71-default-rtdb.firebaseio.com",
+    projectId: "nu-room-92e71",
+    storageBucket: "nu-room-92e71.appspot.com",
+    messagingSenderId: "1023006719723",
+    appId: "1:1023006719723:web:6451d58949a624aad7c8ae"
+};
+
+const firebase = initializeApp(firebaseConfig);
+const database = getDatabase(firebase);
+const storage = getStorage(firebase);
+
+
 
 // import { setData, useData } from "../utilities/firebase";
 
@@ -45,6 +71,16 @@ const ExpandMore = styled((props) => {
 export default function Profile({ profile, setCurrentProfile, setDisplayPage }) {
   const [expanded, setExpanded] = React.useState(false);
   const [fullProfilePage, setFullProfilePage] = React.useState(false);
+  const [fireBaseImage, setFirebaseImage] = useState();
+
+  const randomNumber = Math.floor(Math.random() * (500 - 10 + 1)) + 10;
+  const databaseProfileImageName = profile.profileImage;
+
+  console.log(databaseProfileImageName)
+  //console.log("test: " + useImage(databaseProfileImageName))
+
+  const link = `https://picsum.photos/200/${randomNumber}`;
+
 
   const showFullProfilePage = () => {
     setFullProfilePage(true);
@@ -59,6 +95,44 @@ export default function Profile({ profile, setCurrentProfile, setDisplayPage }) 
   const randomNumber = Math.floor(Math.random() * (500 - 10 + 1)) + 10;
   const link = `https://picsum.photos/200/${randomNumber}`;
   // console.log('profile:', profile)
+  useEffect(async () => {
+    getDownloadURL(sRef(storage, "images/" + databaseProfileImageName))
+        .then((url) => {
+          document.getElementById(profile.basicInfo.fname + profile.basicInfo.lname + "PhotoID").setAttribute('src', url);
+          
+          console.log(url);
+        })
+        .catch((error) => {
+            // Handle any errors
+            switch (error.code) {
+                case 'storage/object-not-found':
+                  // File doesn't exist
+                  console.log("1")
+                  break;
+                case 'storage/unauthorized':
+                  // User doesn't have permission to access the object
+                  console.log("2")
+                  break;
+                case 'storage/canceled':
+                  // User canceled the upload
+                  console.log("3")
+                  break;
+          
+                // ...
+          
+                case 'storage/unknown':
+                  // Unknown error occurred, inspect the server response
+                  console.log("4");
+                  break;
+              }
+        });
+  }, []);
+
+
+  
+  
+  
+  console.log('profile:', profile)
   //console.log('profile moreAboutMe:', profile.moreAboutMe.hobbies)
 
   let hobbiesList = null;
@@ -84,8 +158,9 @@ export default function Profile({ profile, setCurrentProfile, setDisplayPage }) 
       <CardMedia
         component="img"
         height="194"
-        image={link}
+        // image={fireBaseImage}
         alt="Roommate photo"
+        id = {profile.basicInfo.fname + profile.basicInfo.lname + "PhotoID"}
       />
       <CardContent>
         <Typography variant="body2" color="text.secondary">
