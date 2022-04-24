@@ -58,7 +58,7 @@ export default function Profile({ profile, setCurrentProfile, setDisplayPage }) 
 
   const randomNumber = Math.floor(Math.random() * (500 - 10 + 1)) + 10;
   const link = `https://picsum.photos/200/${randomNumber}`;
-  console.log('profile:', profile)
+  // console.log('profile:', profile)
   //console.log('profile moreAboutMe:', profile.moreAboutMe.hobbies)
 
   let hobbiesList = null;
