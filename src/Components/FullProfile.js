@@ -52,6 +52,7 @@ const ExpandMore = styled((props) => {
 
 const FullProfile = ({ profile, setCurrentProfile, setDisplayPage }) => {
   const [expanded, setExpanded] = React.useState(false);
+  console.log('full profile:',profile)
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -101,7 +102,7 @@ const FullProfile = ({ profile, setCurrentProfile, setDisplayPage }) => {
 
               >
                 <Typography sx={{ fontWeight: 'bold' }}>
-                  {profile.name[0] + " " + profile.name[1]}
+                  {profile.basicInfo.fname + " " + profile.basicInfo.lname}
                 </Typography>
                 <Typography style={{ color: "grey" }}>
                   {"Computer Science"}
@@ -172,7 +173,7 @@ const FullProfile = ({ profile, setCurrentProfile, setDisplayPage }) => {
               <LocationOnIcon />
 
               <Typography variant="body2" color="black" >
-                {"Lives in"} <span style={{fontWeight: 'bold'}}>{"Chicago"}</span>
+                {"Lives in"} <span style={{fontWeight: 'bold'}}>{profile.basicInfo.whereYouFrom}</span>
               </Typography>
             </Stack>
             <Stack
@@ -184,7 +185,7 @@ const FullProfile = ({ profile, setCurrentProfile, setDisplayPage }) => {
             >
               <MailIcon />
               <Typography variant="body2" color="black" >
-                {"tonystark@u.northwestern.edu"}
+                {profile.basicInfo.email}
               </Typography>
             </Stack>
             <Stack
@@ -208,7 +209,7 @@ const FullProfile = ({ profile, setCurrentProfile, setDisplayPage }) => {
             >
               <SchoolIcon />
               <Typography variant="body2" color="black" >
-                {"Senior"}
+              {"Next Year Grade: "} <span style={{fontWeight: 'bold'}}>{profile.basicInfo.nextYearGrade}</span>
               </Typography>
             </Stack>
 
