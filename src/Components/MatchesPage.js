@@ -15,11 +15,11 @@ const MatchesPage = ({ data, currentMatches, setCurrentProfile, setDisplayPage})
     profiles = convertDictToList(profiles)
     console.log('profiles:',profiles); */
 
-    console.log("current matches", currentMatches);
-    if (currentMatches === null) {
-        // TODO: Style this
-        return <div>Unfortunately, you are matchless</div>;
-    }
+    // console.log("current matches", currentMatches);
+    // if (currentMatches === null) {
+    //     // TODO: Style this
+    //     return <div>Unfortunately, you are matchless</div>;
+    // }
 
     // const profiles = currentMatches;
     const profiles = convertDictToList(data.profile);
@@ -86,7 +86,7 @@ const MatchesPage = ({ data, currentMatches, setCurrentProfile, setDisplayPage})
                     alignItems="center"
                     sx={{m: 5}}
                 >
-                    <Grid item xs = {10} md = {8} lg = {8} sx = {{ marginTop:"24px"}}>
+                    <Grid item xs = {10} md = {10} lg = {10} sx = {{ marginTop:"24px"}}>
                         <div
                             style={{
                                 textAlign: "left",
@@ -102,7 +102,7 @@ const MatchesPage = ({ data, currentMatches, setCurrentProfile, setDisplayPage})
                                 </h2>
                         </div>
                     </Grid>
-                    <Grid item xs = {10} md = {8} lg = {8} sx={{ml: 3}}>
+                    <Grid item xs = {12} md = {12} lg = {12} sx={{ml: 3}}>
                         
                         <Masonry columns={{ xs: 1, sm: 2, md: 3 }} spacing={2}>
 
