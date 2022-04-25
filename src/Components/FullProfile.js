@@ -130,20 +130,20 @@ const FullProfile = ({ profile, setCurrentProfile, setDisplayPage, commonalities
 
     >
       <Grid item md={6} paddingX={3} paddingY={2}>
-        <Card sx={{ borderRadius: 3, flexGrow: 1 }} >
-          <CardMedia
+        <Card sx={{ borderRadius: 3, flexGrow: 1, marginTop: 2 }} >
+          {/* <CardMedia
             component="img"
             height="250"
             image="https://picsum.photos/200/400"
             alt="Background"
-          />
-          <CardContent>
+          /> */}
+          <CardContent sx={{ marginTop: 5 }}>
 
             <Stack
               direction="row"
               justifyContent="flex-start"
               alignItems="flex-start"
-              spacing={1}
+              spacing={2}
             >
               <Box sx={{ minHeight: 80 }}>
                 <Avatar
@@ -152,7 +152,7 @@ const FullProfile = ({ profile, setCurrentProfile, setDisplayPage, commonalities
                   src="https://firebasestorage.googleapis.com/v0/b/nu-room-92e71.appspot.com/o/images%2FDefaultProfilePicture.jpg?alt=media&token=ab7f0ea9-7387-48de-8fb7-5553103601fb"
                   sx={{ width: 100, height: 100, marginTop: -6 }}
                   style={{
-                    border: '3px solid white'
+                    border: '3px solid white',
                   }}
                 />
 
@@ -183,38 +183,7 @@ const FullProfile = ({ profile, setCurrentProfile, setDisplayPage, commonalities
       <Grid item xs={12} md={6} paddingX={3}>
 
         <Card sx={{ flexGrow: 1, borderRadius: 3 }}>
-          {/* <CardHeader
-              title={"About"}
-            //   subheader="September 14, 2016"
-            /> */}
-          <Stack
-            direction="row"
-            justifyContent="space-evenly"
-            alignItems="center"
-            spacing={0}
-            paddingTop={2}
-          >
-
-            <IconButton
-
-              href="https://facebook.com"
-              fontSize={80}
-            >
-              <FacebookOutlinedIcon sx={{ color: '#4267B2', fontSize: "40px" }} />
-            </IconButton>
-            <IconButton
-
-              href="https://twitter.com"
-            >
-              <TwitterIcon sx={{ color: '#1DA1F2', fontSize: "40px" }} />
-            </IconButton>
-            <IconButton
-
-              href="https://instagram.com"
-            >
-              <InstagramIcon sx={{ color: '#E1306C', fontSize: "40px" }} />
-            </IconButton>
-          </Stack>
+        
 
           <CardContent>
             <Divider />
@@ -233,70 +202,7 @@ const FullProfile = ({ profile, setCurrentProfile, setDisplayPage, commonalities
               alignItems="flex-start"
             >
               <Grid item md={8} xs={12}>
-                <Stack
-                  direction="row"
-                  justifyContent="flex-start"
-                  alignItems="center"
-                  spacing={0.5}
-                  paddingY={1}
-                >
-                  <LocationOnIcon />
-
-                  <Typography variant="body2" color="black" >
-                    {"Lives in"} <span style={{ fontWeight: 'bold' }}>{profile.basicInfo.whereYouFrom}</span>
-                  </Typography>
-                </Stack>
-                <Stack
-                  direction="row"
-                  justifyContent="flex-start"
-                  alignItems="center"
-                  spacing={0.5}
-                  paddingY={1}
-                >
-                  <MailIcon />
-                  <Typography variant="body2" color="black" >
-                    {profile.basicInfo.email}
-                  </Typography>
-                </Stack>
-                <Stack
-                  direction="row"
-                  justifyContent="flex-start"
-                  alignItems="center"
-                  spacing={0.5}
-                  paddingY={1}
-                >
-                  <PhoneIcon />
-                  <Typography variant="body2" color="black" >
-                    {"224-688-3129"}
-                  </Typography>
-                </Stack>
-                <Stack
-                  direction="row"
-                  justifyContent="flex-start"
-                  alignItems="center"
-                  spacing={0.5}
-                  paddingY={1}
-                >
-                  <SchoolIcon />
-                  <Typography variant="body2" color="black" >
-                    {"Next Year Grade: "} <span style={{ fontWeight: 'bold' }}>{profile.basicInfo.nextYearGrade}</span>
-                  </Typography>
-                </Stack>
-                <Stack
-                  direction="row"
-                  justifyContent="flex-start"
-                  alignItems="center"
-                  spacing={0.5}
-                  paddingY={1}
-                >
-                  <Typography variant="body2" color="black" >
-                  {commonalities}
-                  </Typography>
-                </Stack>
-
-              </Grid>
-              <Grid item md={4} xs={12}>
-                <Stack
+              <Stack
                   direction="row"
                   justifyContent="flex-start"
                   alignItems="center"
@@ -329,6 +235,58 @@ const FullProfile = ({ profile, setCurrentProfile, setDisplayPage, commonalities
                   spacing={0.5}
                   paddingY={1}
                 >
+                  <LocationOnIcon />
+
+                  <Typography variant="body2" color="black" >
+                    {"Lives in"} <span style={{ fontWeight: 'bold' }}>{profile.basicInfo.whereYouFrom}</span>
+                  </Typography>
+                </Stack>
+                <Stack
+                  direction="row"
+                  justifyContent="flex-start"
+                  alignItems="center"
+                  spacing={0.5}
+                  paddingY={1}
+                >
+                  <MailIcon />
+                  <Typography variant="body2" color="black" >
+                    {profile.basicInfo.email}
+                  </Typography>
+                </Stack>
+                <Stack
+                  direction="row"
+                  justifyContent="flex-start"
+                  alignItems="center"
+                  spacing={0.5}
+                  paddingY={1}
+                >
+                  <SchoolIcon />
+                  <Typography variant="body2" color="black" >
+                    {"Next Year Grade: "} <span style={{ fontWeight: 'bold' }}>{profile.basicInfo.nextYearGrade}</span>
+                  </Typography>
+                </Stack>
+                <Stack
+                  direction="row"
+                  justifyContent="flex-start"
+                  alignItems="center"
+                  spacing={0.5}
+                  paddingY={1}
+                >
+                  <Typography variant="body2" color="black" >
+                  {commonalities}
+                  </Typography>
+                </Stack>
+                
+
+              </Grid>
+              <Grid item md={4} xs={12}>
+                <Stack
+                  direction="row"
+                  justifyContent="flex-start"
+                  alignItems="center"
+                  spacing={0.5}
+                  paddingY={1}
+                >
 
                   <Typography variant="body2" color="black" >
                     {"Looking for: " + profile.moreAboutMe.lookingFor}
@@ -338,6 +296,7 @@ const FullProfile = ({ profile, setCurrentProfile, setDisplayPage, commonalities
                 </Stack>
                 <Stack direction="row"
                   justifyContent="flex-start"
+                  flexWrap = "wrap"
                   alignItems="center"
                   spacing={1}
                   paddingY={1}>
@@ -352,6 +311,7 @@ const FullProfile = ({ profile, setCurrentProfile, setDisplayPage, commonalities
                 <Stack direction="row"
                   justifyContent="flex-start"
                   alignItems="center"
+                  flexWrap = "wrap"
                   spacing={1}
                   paddingY={1}>
                   {"Personalities: "}

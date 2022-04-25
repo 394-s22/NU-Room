@@ -33,6 +33,8 @@ import { getDatabase, onValue, ref, set } from 'firebase/database';
 import { getStorage } from "firebase/storage";
 import { ref as sRef } from 'firebase/storage';
 import { getDownloadURL} from "firebase/storage";
+import StarIcon from '@mui/icons-material/Star';
+import StarBorderIcon from '@mui/icons-material/StarBorder';
 
 const firebaseConfig = {
     apiKey: "AIzaSyAIe24tq4GELA23AwacArSKJh0h_Z5jJ64",
@@ -165,11 +167,22 @@ console.log(matchCommonalities)
   console.log("Profile matchScore")
   console.log(matchScore)
   return (
-    <Card sx={{ width: 1 }}>
-      <CardHeader
-        title={profile.basicInfo.fname + " " + profile.basicInfo.lname}
-      //   subheader="September 14, 2016"
-      />
+    <Card sx={{ width: 1}}>
+      <Grid container direction="row" alignItems="center" justifyContent="space-between" sx={{ paddingRight: '10px'}}>
+        <Grid item>
+            <CardHeader
+            title={profile.basicInfo.fname + " " + profile.basicInfo.lname}
+          //   subheader="September 14, 2016"
+          />
+        </Grid>
+        <Grid item>
+          <button>
+            <StarIcon></StarIcon>
+          </button>
+        </Grid>
+      </Grid>
+      
+      
       <CardMedia
         component="img"
         height="250"
