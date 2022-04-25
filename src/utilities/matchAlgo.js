@@ -10,11 +10,7 @@ export const convertDictToList = (dict) => {
 }
 
 const compare = (a, b) =>  {
-    if (a[0] < b[0]) {
-        return a[0];
-    } else {
-        return b[0];
-    }
+    return a[0] - b[0];
 }
 
 // profile: individual profile (dictionary) to compare to user
@@ -126,10 +122,7 @@ export const compareAll = (user, userProfiles) => {
     profiles.map(profile => matchData.push(min_distance(user, profile)));
 
     // Sort based on min distance
-    console.log("before", matchData);
-    // function compareAB(a,b) {a[0] > b[0]}
-    matchData.sort(function(a, b){return a - b});
-    console.log("after", matchData);
+    matchData.sort(compare);
 
     return matchData;
 }

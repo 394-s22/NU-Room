@@ -12,6 +12,7 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { Grid } from '@mui/material';
+import FullProfile from './FullProfile';
 
 const pages = ["Preferences", "Matches"];
 const settings = ['Profile', 'Logout'];
@@ -30,10 +31,15 @@ const ResponsiveAppBar = ({displayPage, setDisplayPage}) => {
   const handleCloseNavMenu = (event) => {
     console.log('event.target:',event.target)
     console.log('event.target.textContent:',event.target.textContent)
-    if (event.target.textContent == "Preferences") {
-      setDisplayPage("Form")
+    if (event.target.textContent == "Preferences" && localStorage.getItem("userID") === null) {
+      // if (localStorage.getItem("userID") === null) {
+      //   setDisplayPage('FullProfile');
+      // } else {
+      //   setDisplayPage("Form");
+      // }
+      setDisplayPage("Form");
     } else if (event.target.textContent == "Matches") {
-      setDisplayPage("Matches")
+      setDisplayPage("Matches");
     }
     setAnchorElNav(null);
   };

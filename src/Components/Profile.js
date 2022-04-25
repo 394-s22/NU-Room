@@ -49,7 +49,6 @@ const database = getDatabase(firebase);
 const storage = getStorage(firebase);
 
 
-
 // import { setData, useData } from "../utilities/firebase";
 
 // const [data, loadingData, errorData] = useData("/");
