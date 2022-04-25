@@ -42,7 +42,7 @@ function App() {
   const renderSwitch = (displayPage) => {
     switch(displayPage) {
       case "Form":
-        return <Form profile={data.profile} setDisplayPage={setDisplayPage} setLoading={setLoading} setCurrentMatches={setCurrentMatches}></Form>; 
+        return <Form data={data} profile={data.profile} setDisplayPage={setDisplayPage} setLoading={setLoading} setCurrentMatches={setCurrentMatches}></Form>; 
       case "Matches":
         // return <MatchesPage data={data} setCurrentProfile={setCurrentProfile} setDisplayPage={setDisplayPage}></MatchesPage>;
         return <MatchesPage data={data} currentMatches={currentMatches} setCurrentProfile={setCurrentProfile} setDisplayPage={setDisplayPage}></MatchesPage>;

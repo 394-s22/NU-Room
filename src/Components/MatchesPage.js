@@ -21,8 +21,8 @@ const MatchesPage = ({ data, currentMatches, setCurrentProfile, setDisplayPage})
         return <div>Unfortunately, you are matchless</div>;
     }
 
-    // const profiles = currentMatches;
-    const profiles = convertDictToList(data.profile);
+    const profiles = currentMatches;
+    // const profiles = convertDictToList(data.profile);
 
     /* if (currentMatches != null) {
         console.log('currentMatches:',currentMatches);

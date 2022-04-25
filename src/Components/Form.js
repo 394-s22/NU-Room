@@ -226,7 +226,7 @@ function valuetext(value) {
     return `${value}°C`;
 }
 
-const Form = ({ profile, setDisplayPage, setLoading, setCurrentMatches }) => {
+const Form = ({ data, profile, setDisplayPage, setLoading, setCurrentMatches }) => {
     const theme = useTheme();
     const [year, setYear] = React.useState('');
     const handleChangeYear = (event) => {
@@ -518,12 +518,17 @@ const Form = ({ profile, setDisplayPage, setLoading, setCurrentMatches }) => {
                     
                     setLoading(false);
 
+
                     let matches = compareAll(userData, profile);
 
                     console.log(matches);
-                    matches = matches.map(item => {return matches[3];});
+                    
+                    //index 3 is profileID
+                    matches = matches.map(matchInfo => {return data.profile[matchInfo[3]];});
 
-                    setCurrentMatches(matches);
+                    //save matches
+                    userData["savedMatches"]["matches"] = matches;
+                    localStorage.setItem("matches", matches);
 
                     //upload to firebase
                     setData("/profile/" + userData["ID"], userData);
@@ -531,6 +536,7 @@ const Form = ({ profile, setDisplayPage, setLoading, setCurrentMatches }) => {
                     //report progress
                     console.log("User data uploaded!");
 
+                    setCurrentMatches(matches);
                     setDisplayPage('Matches');
 
                 } catch {

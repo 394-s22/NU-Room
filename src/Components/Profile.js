@@ -46,7 +46,6 @@ const database = getDatabase(firebase);
 const storage = getStorage(firebase);
 
 
-
 // import { setData, useData } from "../utilities/firebase";
 
 // const [data, loadingData, errorData] = useData("/");
@@ -92,8 +91,6 @@ export default function Profile({ profile, setCurrentProfile, setDisplayPage }) 
     setExpanded(!expanded);
   };
 
-  const randomNumber = Math.floor(Math.random() * (500 - 10 + 1)) + 10;
-  const link = `https://picsum.photos/200/${randomNumber}`;
   // console.log('profile:', profile)
   useEffect(async () => {
     getDownloadURL(sRef(storage, "images/" + databaseProfileImageName))
