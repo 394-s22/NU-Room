@@ -29,6 +29,7 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import MailIcon from '@mui/icons-material/Mail';
 import PhoneIcon from '@mui/icons-material/Phone';
 import SchoolIcon from '@mui/icons-material/School';
+import Chip from '@mui/material/Chip';
 // import { setData, useData } from "../utilities/firebase";
 
 // const [data, loadingData, errorData] = useData("/");
@@ -38,6 +39,30 @@ import SchoolIcon from '@mui/icons-material/School';
 //   console.log("data", data);
 // }, [data])
 
+
+import { initializeApp } from 'firebase/app';
+import { getDatabase, onValue, ref, set } from 'firebase/database';
+import { useState, useEffect } from "react";
+
+import { getStorage } from "firebase/storage";
+import { ref as sRef } from 'firebase/storage';
+import { getDownloadURL } from "firebase/storage";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAIe24tq4GELA23AwacArSKJh0h_Z5jJ64",
+  authDomain: "nu-room-92e71.firebaseapp.com",
+  databaseURL: "https://nu-room-92e71-default-rtdb.firebaseio.com",
+  projectId: "nu-room-92e71",
+  storageBucket: "nu-room-92e71.appspot.com",
+  messagingSenderId: "1023006719723",
+  appId: "1:1023006719723:web:6451d58949a624aad7c8ae"
+};
+
+const firebase = initializeApp(firebaseConfig);
+const database = getDatabase(firebase);
+const storage = getStorage(firebase);
+
+console.log(database);
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -50,13 +75,50 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
+
 const FullProfile = ({ profile, setCurrentProfile, setDisplayPage }) => {
   const [expanded, setExpanded] = React.useState(false);
-  console.log('full profile:',profile)
+  console.log('full profile:', profile)
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+
+  const databaseProfileImageName = profile.profileImage;
+
+  // console.log('profile:', profile)
+  useEffect(async () => {
+    getDownloadURL(sRef(storage, "images/" + databaseProfileImageName))
+      .then((url) => {
+        document.getElementById(profile.basicInfo.fname + profile.basicInfo.lname + "FullProfilePhotoID").childNodes[0].setAttribute('src', url);
+
+        console.log(url);
+      })
+      .catch((error) => {
+        // Handle any errors
+        switch (error.code) {
+          case 'storage/object-not-found':
+            // File doesn't exist
+            console.log("1")
+            break;
+          case 'storage/unauthorized':
+            // User doesn't have permission to access the object
+            console.log("2")
+            break;
+          case 'storage/canceled':
+            // User canceled the upload
+            console.log("3")
+            break;
+
+          // ...
+
+          case 'storage/unknown':
+            // Unknown error occurred, inspect the server response
+            console.log("4");
+            break;
+        }
+      });
+  }, []);
 
   return (
 
@@ -71,7 +133,7 @@ const FullProfile = ({ profile, setCurrentProfile, setDisplayPage }) => {
         <Card sx={{ borderRadius: 3, flexGrow: 1 }} >
           <CardMedia
             component="img"
-            height="194"
+            height="250"
             image="https://picsum.photos/200/400"
             alt="Background"
           />
@@ -86,7 +148,8 @@ const FullProfile = ({ profile, setCurrentProfile, setDisplayPage }) => {
               <Box sx={{ minHeight: 80 }}>
                 <Avatar
                   alt="User Name"
-                  src="https://picsum.photos/200/300"
+                  id={profile.basicInfo.fname + profile.basicInfo.lname + "FullProfilePhotoID"}
+                  src="https://firebasestorage.googleapis.com/v0/b/nu-room-92e71.appspot.com/o/images%2FDefaultProfilePicture.jpg?alt=media&token=ab7f0ea9-7387-48de-8fb7-5553103601fb"
                   sx={{ width: 100, height: 100, marginTop: -6 }}
                   style={{
                     border: '3px solid white'
@@ -105,7 +168,7 @@ const FullProfile = ({ profile, setCurrentProfile, setDisplayPage }) => {
                   {profile.basicInfo.fname + " " + profile.basicInfo.lname}
                 </Typography>
                 <Typography style={{ color: "grey" }}>
-                  {"Computer Science"}
+                  {profile.basicInfo.nextYearGrade}
                 </Typography>
 
               </Stack>
@@ -137,19 +200,19 @@ const FullProfile = ({ profile, setCurrentProfile, setDisplayPage }) => {
               href="https://facebook.com"
               fontSize={80}
             >
-              <FacebookOutlinedIcon sx={{ color: '#4267B2', fontSize: "80px" }} />
+              <FacebookOutlinedIcon sx={{ color: '#4267B2', fontSize: "40px" }} />
             </IconButton>
             <IconButton
 
               href="https://twitter.com"
             >
-              <TwitterIcon sx={{ color: '#1DA1F2' }} />
+              <TwitterIcon sx={{ color: '#1DA1F2', fontSize: "40px" }} />
             </IconButton>
             <IconButton
 
               href="https://instagram.com"
             >
-              <InstagramIcon sx={{ color: '#E1306C' }} />
+              <InstagramIcon sx={{ color: '#E1306C', fontSize: "40px" }} />
             </IconButton>
           </Stack>
 
@@ -163,55 +226,133 @@ const FullProfile = ({ profile, setCurrentProfile, setDisplayPage }) => {
               {profile.bio}
             </Typography>
             <br />
-            <Stack
+            <Grid
+              container
               direction="row"
-              justifyContent="flex-start"
-              alignItems="center"
-              spacing={0.5}
-              paddingY={1}
+              justifyContent="space-between"
+              alignItems="flex-start"
             >
-              <LocationOnIcon />
+              <Grid item md={8} xs={12}>
+                <Stack
+                  direction="row"
+                  justifyContent="flex-start"
+                  alignItems="center"
+                  spacing={0.5}
+                  paddingY={1}
+                >
+                  <LocationOnIcon />
 
-              <Typography variant="body2" color="black" >
-                {"Lives in"} <span style={{fontWeight: 'bold'}}>{profile.basicInfo.whereYouFrom}</span>
-              </Typography>
-            </Stack>
-            <Stack
-              direction="row"
-              justifyContent="flex-start"
-              alignItems="center"
-              spacing={0.5}
-              paddingY={1}
-            >
-              <MailIcon />
-              <Typography variant="body2" color="black" >
-                {profile.basicInfo.email}
-              </Typography>
-            </Stack>
-            <Stack
-              direction="row"
-              justifyContent="flex-start"
-              alignItems="center"
-              spacing={0.5}
-              paddingY={1}
-            >
-              <PhoneIcon />
-              <Typography variant="body2" color="black" >
-                {"224-688-3129"}
-              </Typography>
-            </Stack>
-            <Stack
-              direction="row"
-              justifyContent="flex-start"
-              alignItems="center"
-              spacing={0.5}
-              paddingY={1}
-            >
-              <SchoolIcon />
-              <Typography variant="body2" color="black" >
-              {"Next Year Grade: "} <span style={{fontWeight: 'bold'}}>{profile.basicInfo.nextYearGrade}</span>
-              </Typography>
-            </Stack>
+                  <Typography variant="body2" color="black" >
+                    {"Lives in"} <span style={{ fontWeight: 'bold' }}>{profile.basicInfo.whereYouFrom}</span>
+                  </Typography>
+                </Stack>
+                <Stack
+                  direction="row"
+                  justifyContent="flex-start"
+                  alignItems="center"
+                  spacing={0.5}
+                  paddingY={1}
+                >
+                  <MailIcon />
+                  <Typography variant="body2" color="black" >
+                    {profile.basicInfo.email}
+                  </Typography>
+                </Stack>
+                <Stack
+                  direction="row"
+                  justifyContent="flex-start"
+                  alignItems="center"
+                  spacing={0.5}
+                  paddingY={1}
+                >
+                  <PhoneIcon />
+                  <Typography variant="body2" color="black" >
+                    {"224-688-3129"}
+                  </Typography>
+                </Stack>
+                <Stack
+                  direction="row"
+                  justifyContent="flex-start"
+                  alignItems="center"
+                  spacing={0.5}
+                  paddingY={1}
+                >
+                  <SchoolIcon />
+                  <Typography variant="body2" color="black" >
+                    {"Next Year Grade: "} <span style={{ fontWeight: 'bold' }}>{profile.basicInfo.nextYearGrade}</span>
+                  </Typography>
+                </Stack>
+
+              </Grid>
+              <Grid item md={4} xs={12}>
+                <Stack
+                  direction="row"
+                  justifyContent="flex-start"
+                  alignItems="center"
+                  spacing={0.5}
+                  paddingY={1}
+                >
+
+                  <Typography variant="body2" color="black" >
+                    {profile.basicInfo.gender}
+                  </Typography>
+                </Stack>
+                <Stack
+                  direction="row"
+                  justifyContent="flex-start"
+                  alignItems="center"
+                  spacing={0.5}
+                  paddingY={1}
+                >
+
+                  <Typography variant="body2" color="black" >
+                    {"Pronouns: " + profile.basicInfo.pronouns}
+                  </Typography>
+
+
+                </Stack>
+                <Stack
+                  direction="row"
+                  justifyContent="flex-start"
+                  alignItems="center"
+                  spacing={0.5}
+                  paddingY={1}
+                >
+
+                  <Typography variant="body2" color="black" >
+                    {"Looking for: " + profile.moreAboutMe.lookingFor}
+                  </Typography>
+
+
+                </Stack>
+                <Stack direction="row"
+                  justifyContent="flex-start"
+                  alignItems="center"
+                  spacing={1}
+                  paddingY={1}>
+                  {"Hobbies: "}
+                  {
+                    profile.moreAboutMe.hobbies.map((hobbie) => (
+                      <Chip label={hobbie} variant="outlined" />
+                    ))
+                  }
+                </Stack>
+                
+                <Stack direction="row"
+                  justifyContent="flex-start"
+                  alignItems="center"
+                  spacing={1}
+                  paddingY={1}>
+                  {"Personalities: "}
+                  {
+                    profile.moreAboutMe.personality.map((p) => (
+                      <Chip label={p} variant="outlined" />
+                    ))
+                  }
+                </Stack>
+              </Grid>
+            </Grid>
+
 
 
 

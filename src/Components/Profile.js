@@ -21,7 +21,10 @@ import FullProfile from "./FullProfile";
 import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
 import "../CSS/profile.css";
 import { useState, useEffect } from "react";
-
+import Chip from '@mui/material/Chip';
+import ListItem from '@mui/material/ListItem';
+import Paper from '@mui/material/Paper';
+import Stack from '@mui/material/Stack';
 
 import { GetFireBaseImage } from "../utilities/firebase.js";
 import { initializeApp } from 'firebase/app';
@@ -71,7 +74,6 @@ const ExpandMore = styled((props) => {
 export default function Profile({ profile, setCurrentProfile, setDisplayPage }) {
   const [expanded, setExpanded] = React.useState(false);
   const [fullProfilePage, setFullProfilePage] = React.useState(false);
-  const [fireBaseImage, setFirebaseImage] = useState();
 
   const randomNumber = Math.floor(Math.random() * (500 - 10 + 1)) + 10;
   const databaseProfileImageName = profile.profileImage;
@@ -92,8 +94,6 @@ export default function Profile({ profile, setCurrentProfile, setDisplayPage }) 
     setExpanded(!expanded);
   };
 
-  const randomNumber = Math.floor(Math.random() * (500 - 10 + 1)) + 10;
-  const link = `https://picsum.photos/200/${randomNumber}`;
   // console.log('profile:', profile)
   useEffect(async () => {
     getDownloadURL(sRef(storage, "images/" + databaseProfileImageName))
@@ -138,17 +138,30 @@ export default function Profile({ profile, setCurrentProfile, setDisplayPage }) 
   let hobbiesList = null;
   if (profile.moreAboutMe.hobbies !== undefined) {
     hobbiesList = profile.moreAboutMe.hobbies.map((hobby) =>
-      <li>{hobby}</li>
+      <Chip sx = {{marginRight: '4px', marginBottom: '4px'}}  variant="outlined" label={hobby}/>
     );
   } 
 
   let personalityList = null
   if (profile.moreAboutMe.personality !== undefined) {
      personalityList = profile.moreAboutMe.personality.map((personality) =>
-      <li>{personality}</li>
+     <Chip sx = {{marginRight: '4px', marginBottom: '4px'}}  variant="outlined" label={personality}/>
     );
   }
 
+  // const [chipData, setChipData] = React.useState([
+  //   { key: 0, label: 'Angular' },
+  //   { key: 1, label: 'jQuery' },
+  //   { key: 2, label: 'Polymer' },
+  //   { key: 3, label: 'React' },
+  //   { key: 4, label: 'Vue.js' },
+  // ]);
+
+  const chipData = []
+  for (var hobby in hobbiesList) {
+    chipData.push({key: chipData.length, label: hobby})
+    console.log(chipData)
+  }
   return (
     <Card sx={{ width: 1 }}>
       <CardHeader
@@ -157,17 +170,44 @@ export default function Profile({ profile, setCurrentProfile, setDisplayPage }) 
       />
       <CardMedia
         component="img"
-        height="194"
-        // image={fireBaseImage}
+        height="250"
+        width="250"
+        image="https://firebasestorage.googleapis.com/v0/b/nu-room-92e71.appspot.com/o/images%2FDefaultProfilePicture.jpg?alt=media&token=ab7f0ea9-7387-48de-8fb7-5553103601fb"
         alt="Roommate photo"
         id = {profile.basicInfo.fname + profile.basicInfo.lname + "PhotoID"}
       />
       <CardContent>
-        <Typography variant="body2" color="text.secondary">
-          {profile.bio}
+        <Typography  variant="body2" color="text.secondary" sx={{ fontWeight: 700, marginBottom: '8px'}}>About Me</Typography>
+        <Typography variant="body2" color="text.secondary" sx={{ marginBottom: '16px'}}>
+          {profile.moreAboutMe.lookingFor}
         </Typography>
-      </CardContent>
-      <CardActions disableSpacing>
+    
+          <Typography  variant="body2" color="text.secondary" sx={{ fontWeight: 700, marginBottom: '8px'}}>Hobbies:</Typography>
+          {/* {chipData.map((data) => {
+          return (
+              
+          );
+          })} */}
+          <Typography variant="body2" color="text.secondary" sx={{ marginBottom: '16px'}}>
+            {hobbiesList}
+            {/* {profile.hobbies[0]} */}
+          </Typography>
+
+          
+          {/* <Chip label=size="small" />
+           */}
+          {/* <Typography paragraph>
+            {profile.hobbies[1]}
+          </Typography> */}
+          <Typography  variant="body2" color="text.secondary" sx={{ fontWeight: 700, marginBottom: '8px' }}>Personality:</Typography>
+          <Typography variant="body2" color="text.secondary">
+            {/* {profile.personality[0]} */}
+            {personalityList}
+          </Typography>
+
+        </CardContent>
+
+      {/* <CardActions disableSpacing>
         <ExpandMore
           expand={expanded}
           onClick={handleExpandClick}
@@ -176,7 +216,7 @@ export default function Profile({ profile, setCurrentProfile, setDisplayPage }) 
         >
           <ExpandMoreIcon />
         </ExpandMore>
-      </CardActions>
+      </CardActions> */}
 
       <Box textAlign='center'
         m={2}
@@ -211,23 +251,9 @@ export default function Profile({ profile, setCurrentProfile, setDisplayPage }) 
       </Routes>
     </Router> */}
 
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent>
-          <Typography paragraph sx={{ fontWeight: 700 }}>Hobbies:</Typography>
-          <Typography paragraph>
-            {hobbiesList}
-            {/* {profile.hobbies[0]} */}
-          </Typography>
-          {/* <Typography paragraph>
-            {profile.hobbies[1]}
-          </Typography> */}
-          <Typography paragraph sx={{ fontWeight: 700 }}>Personality:</Typography>
-          <Typography paragraph>
-            {/* {profile.personality[0]} */}
-            {personalityList}
-          </Typography>
-        </CardContent>
-      </Collapse>
+      {/* <Collapse in={expanded} timeout="auto" unmountOnExit>
+        
+      </Collapse> */}
     </Card>
   );
 }
