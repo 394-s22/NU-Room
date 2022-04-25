@@ -524,11 +524,13 @@ const Form = ({ data, profile, setDisplayPage, setLoading, setCurrentMatches }) 
                     console.log(matches);
                     
                     //index 3 is profileID
+                    const matchesIDs = matches.map(matchInfo => {return matchInfo[3];});
                     matches = matches.map(matchInfo => {return data.profile[matchInfo[3]];});
 
                     //save matches
-                    userData["savedMatches"]["matches"] = matches;
-                    localStorage.setItem("matches", matches);
+                    userData["savedMatches"]["matches"] = matchesIDs.length == 0 ? false : matchesIDs;
+                    localStorage.setItem("userID", userData.ID);
+                    localStorage.setItem("matches", matchesIDs);
 
                     //upload to firebase
                     setData("/profile/" + userData["ID"], userData);
