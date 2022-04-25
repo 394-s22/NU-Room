@@ -70,7 +70,7 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export default function Profile({ profile, setCurrentProfile, setDisplayPage, matchScore }) {
+export default function Profile({ profile, setCurrentProfile, setDisplayPage, matchScore, matchCommonalities, setMatchCommonalities}) {
   const [expanded, setExpanded] = React.useState(false);
   const [fullProfilePage, setFullProfilePage] = React.useState(false);
 
@@ -81,7 +81,8 @@ export default function Profile({ profile, setCurrentProfile, setDisplayPage, ma
   //console.log("test: " + useImage(databaseProfileImageName))
 
   const link = `https://picsum.photos/200/${randomNumber}`;
-
+console.log("matchCommonaltiies")
+console.log(matchCommonalities)
 
   const showFullProfilePage = () => {
     setFullProfilePage(true);
@@ -233,6 +234,7 @@ export default function Profile({ profile, setCurrentProfile, setDisplayPage, ma
         }}
           onClick={() => {
             setCurrentProfile(profile);
+            setMatchCommonalities(matchCommonalities);
             setDisplayPage('FullProfile');
           }}>
           View Full Profile</Button>

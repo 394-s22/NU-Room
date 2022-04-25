@@ -12,7 +12,7 @@ import { convertDictToList } from '../utilities/matchAlgo';
 import Button, { ButtonProps } from '@mui/material/Button';
 import "../CSS/matchespage.css"
 
-const MatchesPage = ({ currentMatches, setCurrentProfile, setDisplayPage, currentMatchScores}) => {
+const MatchesPage = ({ currentMatches, setCurrentProfile, setDisplayPage, currentMatchScores, matchesCommonalities, setMatchCommonalities}) => {
     /* let profiles = currentMatches === null || currentMatches === undefined ? data.profile : currentMatches;
     profiles = convertDictToList(profiles)
     console.log('profiles:',profiles); */
@@ -159,7 +159,7 @@ const MatchesPage = ({ currentMatches, setCurrentProfile, setDisplayPage, curren
 
                             { profiles.map((profile, index) => {
                                 return (
-                                    <Profile key={index} profile={profile} setCurrentProfile={setCurrentProfile} setDisplayPage={setDisplayPage} matchScore={currentMatchScores[index]}></Profile>
+                                    <Profile key={index} profile={profile} setCurrentProfile={setCurrentProfile} setDisplayPage={setDisplayPage} matchScore={currentMatchScores[index]} matchCommonalities = {matchesCommonalities[index]} setMatchCommonalities = {setMatchCommonalities}></Profile>
                                         
                                 );
                             }) }

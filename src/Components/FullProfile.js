@@ -76,7 +76,7 @@ const ExpandMore = styled((props) => {
 }));
 
 
-const FullProfile = ({ profile, setCurrentProfile, setDisplayPage }) => {
+const FullProfile = ({ profile, setCurrentProfile, setDisplayPage, commonalities }) => {
   const [expanded, setExpanded] = React.useState(false);
   console.log('full profile:', profile)
 
@@ -280,6 +280,17 @@ const FullProfile = ({ profile, setCurrentProfile, setDisplayPage }) => {
                   <SchoolIcon />
                   <Typography variant="body2" color="black" >
                     {"Next Year Grade: "} <span style={{ fontWeight: 'bold' }}>{profile.basicInfo.nextYearGrade}</span>
+                  </Typography>
+                </Stack>
+                <Stack
+                  direction="row"
+                  justifyContent="flex-start"
+                  alignItems="center"
+                  spacing={0.5}
+                  paddingY={1}
+                >
+                  <Typography variant="body2" color="black" >
+                  {commonalities}
                   </Typography>
                 </Stack>
 
