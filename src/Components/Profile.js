@@ -176,6 +176,7 @@ export default function Profile({ profile, setCurrentProfile, setDisplayPage }) 
         id = {profile.basicInfo.fname + profile.basicInfo.lname + "PhotoID"}
       />
       <CardContent>
+      <Typography  variant="body2" color="text.secondary" sx={{ fontWeight: 700, marginBottom: '8px'}}>About Me</Typography>
         <Typography  variant="body2" color="text.secondary" sx={{ fontWeight: 700, marginBottom: '8px'}}>About Me</Typography>
         <Typography variant="body2" color="text.secondary" sx={{ marginBottom: '16px'}}>
           {profile.moreAboutMe.lookingFor}

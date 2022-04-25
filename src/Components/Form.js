@@ -341,6 +341,12 @@ const Form = ({ data, profile, setDisplayPage, setLoading, setCurrentMatches }) 
         petOwner: false,
     });
 
+    const [match, setMatch] = React.useState({
+        matchID: false,
+        matchScore: false,
+        commonalities: false,
+    });
+
     const [personalCheckBoxes, setPersonalCheckBoxes] = React.useState({
         musician: false,
         partnerOver: false,
@@ -495,7 +501,7 @@ const Form = ({ data, profile, setDisplayPage, setLoading, setCurrentMatches }) 
             };
 
             userData["savedMatches"] = {
-                matches: false,
+                matches: {...match},
                 favorites: false
             };
 
@@ -520,15 +526,20 @@ const Form = ({ data, profile, setDisplayPage, setLoading, setCurrentMatches }) 
 
 
                     let matches = compareAll(userData, profile);
+                    // [min_dist, match_score, commonTraitsReport, profile["ID"]];
 
                     console.log(matches);
                     
                     //index 3 is profileID
                     const matchesIDs = matches.map(matchInfo => {return matchInfo[3];});
+                    const matchesScores = matches.map(matchInfo => {return matchInfo[1];});
+                    const matchesCommonalities = matches.map(matchInfo => {return matchInfo[2];});
                     matches = matches.map(matchInfo => {return data.profile[matchInfo[3]];});
 
                     //save matches
-                    userData["savedMatches"]["matches"] = matchesIDs.length == 0 ? false : matchesIDs;
+                    userData["savedMatches"]["matches"]["matchID"] = matchesIDs.length == 0 ? false : matchesIDs;
+                    userData["savedMatches"]["matches"]["matchScore"] = matchesScores.length == 0 ? false : matchesScores;
+                    userData["savedMatches"]["matches"]["commonalities"] = matchesCommonalities.length == 0 ? false : matchesCommonalities
                     localStorage.setItem("userID", userData.ID);
                     localStorage.setItem("matches", matchesIDs);
 
