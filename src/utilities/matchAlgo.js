@@ -10,7 +10,7 @@ export const convertDictToList = (dict) => {
 }
 
 const compare = (a, b) =>  {
-    return a[0] - b[0];
+    return b[0] - a[0];
 }
 
 // profile: individual profile (dictionary) to compare to user
@@ -73,7 +73,7 @@ const min_distance = (user, profile) => {
         }
     }
 
-    match_score = Math.abs(min_dist) / 7.5;
+    match_score = Math.round(((7.5 - Math.abs(min_dist)) / 7.5) * 100);
     
     return [min_dist, match_score, commonTraitsReport, profile["ID"]];
 }

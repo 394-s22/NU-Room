@@ -70,14 +70,14 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export default function Profile({ profile, setCurrentProfile, setDisplayPage }) {
+export default function Profile({ profile, setCurrentProfile, setDisplayPage, matchScore }) {
   const [expanded, setExpanded] = React.useState(false);
   const [fullProfilePage, setFullProfilePage] = React.useState(false);
 
   const randomNumber = Math.floor(Math.random() * (500 - 10 + 1)) + 10;
   const databaseProfileImageName = profile.profileImage;
 
-  console.log(databaseProfileImageName)
+  //console.log(databaseProfileImageName)
   //console.log("test: " + useImage(databaseProfileImageName))
 
   const link = `https://picsum.photos/200/${randomNumber}`;
@@ -99,7 +99,7 @@ export default function Profile({ profile, setCurrentProfile, setDisplayPage }) 
         .then((url) => {
           document.getElementById(profile.basicInfo.fname + profile.basicInfo.lname + "PhotoID").setAttribute('src', url);
           
-          console.log(url);
+        //  console.log(url);
         })
         .catch((error) => {
             // Handle any errors
@@ -159,8 +159,10 @@ export default function Profile({ profile, setCurrentProfile, setDisplayPage }) 
   const chipData = []
   for (var hobby in hobbiesList) {
     chipData.push({key: chipData.length, label: hobby})
-    console.log(chipData)
+    // console.log(chipData)
   }
+  console.log("Profile matchScore")
+  console.log(matchScore)
   return (
     <Card sx={{ width: 1 }}>
       <CardHeader
@@ -176,7 +178,7 @@ export default function Profile({ profile, setCurrentProfile, setDisplayPage }) 
         id = {profile.basicInfo.fname + profile.basicInfo.lname + "PhotoID"}
       />
       <CardContent>
-      <Typography  variant="body2" color="text.secondary" sx={{ fontWeight: 700, marginBottom: '8px'}}>About Me</Typography>
+      <Typography  variant="body2" color="text.secondary" sx={{ fontWeight: 700, marginBottom: '8px'}}>Match Score: {matchScore} </Typography>
         <Typography  variant="body2" color="text.secondary" sx={{ fontWeight: 700, marginBottom: '8px'}}>About Me</Typography>
         <Typography variant="body2" color="text.secondary" sx={{ marginBottom: '16px'}}>
           {profile.moreAboutMe.lookingFor}
