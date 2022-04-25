@@ -33,6 +33,8 @@ import { getDatabase, onValue, ref, set } from 'firebase/database';
 import { getStorage } from "firebase/storage";
 import { ref as sRef } from 'firebase/storage';
 import { getDownloadURL} from "firebase/storage";
+import StarIcon from '@mui/icons-material/Star';
+import StarBorderIcon from '@mui/icons-material/StarBorder';
 
 const firebaseConfig = {
     apiKey: "AIzaSyAIe24tq4GELA23AwacArSKJh0h_Z5jJ64",
@@ -70,18 +72,19 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export default function Profile({ profile, setCurrentProfile, setDisplayPage }) {
+export default function Profile({ profile, setCurrentProfile, setDisplayPage, matchScore, matchCommonalities, setMatchCommonalities}) {
   const [expanded, setExpanded] = React.useState(false);
   const [fullProfilePage, setFullProfilePage] = React.useState(false);
 
   const randomNumber = Math.floor(Math.random() * (500 - 10 + 1)) + 10;
   const databaseProfileImageName = profile.profileImage;
 
-  console.log(databaseProfileImageName)
+  //console.log(databaseProfileImageName)
   //console.log("test: " + useImage(databaseProfileImageName))
 
   const link = `https://picsum.photos/200/${randomNumber}`;
-
+console.log("matchCommonaltiies")
+console.log(matchCommonalities)
 
   const showFullProfilePage = () => {
     setFullProfilePage(true);
@@ -99,7 +102,7 @@ export default function Profile({ profile, setCurrentProfile, setDisplayPage }) 
         .then((url) => {
           document.getElementById(profile.basicInfo.fname + profile.basicInfo.lname + "PhotoID").setAttribute('src', url);
           
-          console.log(url);
+        //  console.log(url);
         })
         .catch((error) => {
             // Handle any errors
@@ -159,14 +162,27 @@ export default function Profile({ profile, setCurrentProfile, setDisplayPage }) 
   const chipData = []
   for (var hobby in hobbiesList) {
     chipData.push({key: chipData.length, label: hobby})
-    console.log(chipData)
+    // console.log(chipData)
   }
+  console.log("Profile matchScore")
+  console.log(matchScore)
   return (
-    <Card sx={{ width: 1 }}>
-      <CardHeader
-        title={profile.basicInfo.fname + " " + profile.basicInfo.lname}
-      //   subheader="September 14, 2016"
-      />
+    <Card sx={{ width: 1}}>
+      <Grid container direction="row" alignItems="center" justifyContent="space-between" sx={{ paddingRight: '10px'}}>
+        <Grid item>
+            <CardHeader
+            title={profile.basicInfo.fname + " " + profile.basicInfo.lname}
+          //   subheader="September 14, 2016"
+          />
+        </Grid>
+        <Grid item>
+          <button>
+            <StarIcon></StarIcon>
+          </button>
+        </Grid>
+      </Grid>
+      
+      
       <CardMedia
         component="img"
         height="250"
@@ -176,6 +192,7 @@ export default function Profile({ profile, setCurrentProfile, setDisplayPage }) 
         id = {profile.basicInfo.fname + profile.basicInfo.lname + "PhotoID"}
       />
       <CardContent>
+      <Typography  variant="body2" color="text.secondary" sx={{ fontWeight: 700, marginBottom: '8px'}}>Match Score: {matchScore} </Typography>
         <Typography  variant="body2" color="text.secondary" sx={{ fontWeight: 700, marginBottom: '8px'}}>About Me</Typography>
         <Typography variant="body2" color="text.secondary" sx={{ marginBottom: '16px'}}>
           {profile.moreAboutMe.lookingFor}
@@ -230,6 +247,7 @@ export default function Profile({ profile, setCurrentProfile, setDisplayPage }) 
         }}
           onClick={() => {
             setCurrentProfile(profile);
+            setMatchCommonalities(matchCommonalities);
             setDisplayPage('FullProfile');
           }}>
           View Full Profile</Button>

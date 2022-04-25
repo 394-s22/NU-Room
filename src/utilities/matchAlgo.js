@@ -10,7 +10,7 @@ export const convertDictToList = (dict) => {
 }
 
 const compare = (a, b) =>  {
-    return a[0] - b[0];
+    return b[0] - a[0];
 }
 
 // profile: individual profile (dictionary) to compare to user
@@ -25,7 +25,7 @@ const min_distance = (user, profile) => {
     min_dist += cleaningTolerance
 
     if (cleaningTolerance < 0.5) {
-        commonTraitsReport.push("You both feel similarly about cleaning frequency.")
+        commonTraitsReport.push("You both feel similarly about cleaning frequency.\n")
     }
     
     min_dist += Math.abs((user.aboutMe.personalTraitsValues.partnerOverValue/100) - (profile.aboutMe.personalTraitsValues.partnerOverValue/100));
@@ -34,7 +34,7 @@ const min_distance = (user, profile) => {
     min_dist += guestTolerance
 
     if (guestTolerance <= 0.5) {
-        commonTraitsReport.push("You both feel similarly about having guests over.")
+        commonTraitsReport.push("You both feel similarly about having guests over.\n")
     }
 
     if (user.basicInfo.nextYearGrade === profile.basicInfo.nextYearGrade){
@@ -42,7 +42,7 @@ const min_distance = (user, profile) => {
     }
     if (user.housingPrefs.accomodation === profile.housingPrefs.accomodation) {
         min_dist -= 1;
-        commonTraitsReport.push("You both prefer to live " + user.housingPrefs.accomodation + "!")
+        commonTraitsReport.push("You both prefer to live " + user.housingPrefs.accomodation + "!\n")
     }
     if (user.housingPrefs.location === "No preference") {
         min_dist -= 0.5;
@@ -50,12 +50,13 @@ const min_distance = (user, profile) => {
         min_dist -= 0.5;
     } else if (user.housingPrefs.location === profile.housingPrefs.location){
         min_dist -= 1;
-        commonTraitsReport.push("You both prefer to live " + user.housingPrefs.location + "!")
+        commonTraitsReport.push("You both prefer to live " + user.housingPrefs.location + "!\n")
     }
     
     const commonHobbies = user.moreAboutMe.hobbies.filter(hobby => profile.moreAboutMe.hobbies.indexOf(hobby) !== -1);
     const hobby_count = commonHobbies.length;
-
+    console.log("common Hobbies list")
+    console.log(commonHobbies)
     const commonPersonalityTraits = user.moreAboutMe.personality.filter(trait => profile.moreAboutMe.personality.indexOf(trait) !== -1);
     const personalityTrait_count = commonPersonalityTraits.length;
 
@@ -73,7 +74,7 @@ const min_distance = (user, profile) => {
         }
     }
 
-    match_score = Math.abs(min_dist) / 7.5;
+    match_score = Math.round(((7.5 - Math.abs(min_dist)) / 7.5) * 100);
     
     return [min_dist, match_score, commonTraitsReport, profile["ID"]];
 }
