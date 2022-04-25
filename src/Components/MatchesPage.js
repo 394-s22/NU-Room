@@ -9,20 +9,71 @@ import Masonry from '@mui/lab/Masonry';
 import Box from '@mui/material/Box';
 import { getStorage, ref, getDownloadURL} from "firebase/storage";
 import { convertDictToList } from '../utilities/matchAlgo';
+import Button, { ButtonProps } from '@mui/material/Button';
+import "../CSS/matchespage.css"
 
-const MatchesPage = ({ data, currentMatches, setCurrentProfile, setDisplayPage}) => {
+const MatchesPage = ({ currentMatches, setCurrentProfile, setDisplayPage}) => {
     /* let profiles = currentMatches === null || currentMatches === undefined ? data.profile : currentMatches;
     profiles = convertDictToList(profiles)
     console.log('profiles:',profiles); */
 
-    // console.log("current matches", currentMatches);
-    // if (currentMatches === null) {
-    //     // TODO: Style this
-    //     return <div>Unfortunately, you are matchless</div>;
-    // }
+    const changePage = () => {
+        if (localStorage.getItem("userID") === null) {
+            setDisplayPage('Form');
+        }
+    }
 
-    // const profiles = currentMatches;
-    const profiles = convertDictToList(data.profile);
+    // TODO: Style this
+    if (currentMatches === null || currentMatches === false || currentMatches.length === 0) {
+        if (localStorage.getItem("userID") === null) {
+            return (
+                <div className='matchless'>
+                    <Grid 
+                        container columnSpacing={{ xs: 2}}
+                        rowSpacing = {{xs:5}}
+                        justifyContent="center"
+                        direction="row"
+                        alignItems="center"
+                        sx={{m: 30}}
+                    >
+                        <h2>Unfortunately, you haven't created a profile yet</h2>
+                        <br/>
+                        <p>Click below to get started</p>
+                        <br/>
+                        <Button w={1} variant="contained" sx = {{
+                            width: 300,
+                            minHeight: "48px",
+                            fontWeight: 700,
+                            fontSize: "16px",
+                            whiteSpace: 'nowrap',
+                            textAlign: 'center'
+                            
+                            }}
+                            onClick={() => {
+                                changePage();
+                            }}>Create a profile</Button>
+                    </Grid>
+                </div>
+            );
+        }
+        return (
+            <div className='matchless'>
+                <Grid 
+                    container columnSpacing={{ xs: 2}}
+                    rowSpacing = {{xs:5}}
+                    justifyContent="center"
+                    direction="row"
+                    alignItems="center"
+                    sx={{m: 5}}
+                >
+                    <h2>Unfortunately, there are no matches for you at this time. Check back at a later time</h2>
+                </Grid>
+            </div>
+        );
+    }
+
+    const profiles = currentMatches;
+    // const profiles = convertDictToList(data.profile);
 
     /* if (currentMatches != null) {
         console.log('currentMatches:',currentMatches);
