@@ -64,12 +64,14 @@ function App() {
   const renderSwitch = (displayPage) => {
     switch(displayPage) {
       case "Form":
-        return <Form data={data} profile={data.profile} setDisplayPage={setDisplayPage} setLoading={setLoading} setCurrentMatches={setCurrentMatches}></Form>; 
+        return <Form data={data} profile={data.profile} setDisplayPage={setDisplayPage} setLoading={setLoading} setCurrentMatches={setCurrentMatches}
+                    setCurrentMatchScores={setCurrentMatchScores} setMatchesCommonalities={setMatchesCommonalities}></Form>; 
       case "Matches":
         // return <MatchesPage data={data} setCurrentProfile={setCurrentProfile} setDisplayPage={setDisplayPage}></MatchesPage>;
-        return <MatchesPage currentMatches={currentMatches} setCurrentProfile={setCurrentProfile} setDisplayPage={setDisplayPage} currentMatchScores = {currentMatchScores} matchesCommonalities = {matchesCommonalities} setMatchCommonalities = {setMatchCommonalities}></MatchesPage>;
+        return <MatchesPage currentMatches={currentMatches} setCurrentProfile={setCurrentProfile} setDisplayPage={setDisplayPage} 
+                    currentMatchScores={currentMatchScores} matchesCommonalities={matchesCommonalities} setMatchCommonalities={setMatchCommonalities}></MatchesPage>;
       case "FullProfile":
-        return <FullProfile profile={currentProfile} setDisplayPage={setDisplayPage} commonalities = {matchCommonalities}></FullProfile>;
+        return <FullProfile profile={currentProfile} setDisplayPage={setDisplayPage} commonalities={matchCommonalities}></FullProfile>;
       default:
         return null;
     }
