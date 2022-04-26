@@ -226,7 +226,7 @@ function valuetext(value) {
     return `${value}°C`;
 }
 
-const Form = ({ data, profile, setDisplayPage, setLoading, setCurrentMatches }) => {
+const Form = ({ data, profile, setDisplayPage, setLoading, setCurrentMatches, setCurrentMatchScores, setMatchesCommonalities}) => {
     const theme = useTheme();
     const [year, setYear] = React.useState('');
     const handleChangeYear = (event) => {
@@ -539,7 +539,7 @@ const Form = ({ data, profile, setDisplayPage, setLoading, setCurrentMatches }) 
                     //save matches
                     userData["savedMatches"]["matches"]["matchID"] = matchesIDs.length == 0 ? false : matchesIDs;
                     userData["savedMatches"]["matches"]["matchScore"] = matchesScores.length == 0 ? false : matchesScores;
-                    userData["savedMatches"]["matches"]["commonalities"] = matchesCommonalities.length == 0 ? false : matchesCommonalities
+                    userData["savedMatches"]["matches"]["commonalities"] = matchesCommonalities.length == 0 ? false : matchesCommonalities;
                     localStorage.setItem("userID", userData.ID);
                     localStorage.setItem("matches", matchesIDs);
 
@@ -550,6 +550,9 @@ const Form = ({ data, profile, setDisplayPage, setLoading, setCurrentMatches }) 
                     console.log("User data uploaded!");
 
                     setCurrentMatches(matches);
+                    setCurrentMatchScores(matchesScores);
+                    setMatchesCommonalities(matchesCommonalities);
+
                     setDisplayPage('Matches');
 
                 } catch {
