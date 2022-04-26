@@ -36,22 +36,24 @@ const MatchesPage = ({ currentMatches, setCurrentProfile, setDisplayPage, curren
                         alignItems="center"
                         sx={{m: 30}}
                     >
-                        <h2>Unfortunately, you haven't created a profile yet</h2>
-                        <br/>
-                        <p>Click below to get started</p>
-                        <br/>
-                        <Button w={1} variant="contained" sx = {{
-                            width: 300,
-                            minHeight: "48px",
-                            fontWeight: 700,
-                            fontSize: "16px",
-                            whiteSpace: 'nowrap',
-                            textAlign: 'center'
-                            
-                            }}
-                            onClick={() => {
-                                changePage();
-                            }}>Create a profile</Button>
+                        <div className='matchlessGrid'>
+                            <h2 id='heading'>Unfortunately, you haven't created a profile yet</h2>
+                            <br/>
+                            <p id='message'>Click below to get started</p>
+                            <br/>
+                            <Button w={1} variant="contained" sx = {{
+                                width: 300,
+                                minHeight: "48px",
+                                fontWeight: 700,
+                                fontSize: "16px",
+                                whiteSpace: 'nowrap',
+                                textAlign: 'center'
+                                
+                                }}
+                                onClick={() => {
+                                    changePage();
+                                }}>Create a profile</Button>
+                        </div>
                     </Grid>
                 </div>
             );
