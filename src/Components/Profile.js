@@ -168,7 +168,7 @@ console.log(matchCommonalities)
   console.log(matchScore)
   return (
     <Card sx={{ width: 1}}>
-      <Grid container direction="row" alignItems="center" justifyContent="space-between" sx={{ paddingRight: '10px'}}>
+      {/* <Grid container direction="row" alignItems="center" justifyContent="space-between" sx={{ paddingRight: '10px'}}>
         <Grid item>
             <CardHeader
             title={profile.basicInfo.fname + " " + profile.basicInfo.lname}
@@ -180,7 +180,11 @@ console.log(matchCommonalities)
             <StarIcon></StarIcon>
           </button>
         </Grid>
-      </Grid>
+      </Grid> */}
+      <CardHeader
+            title={profile.basicInfo.fname + " " + profile.basicInfo.lname}
+          //   subheader="September 14, 2016"
+          />
       
       
       <CardMedia
