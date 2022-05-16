@@ -1,7 +1,7 @@
-10:14:25.508 [NamespaceSystem-akka.actor.default-dispatcher-5] INFO akka.event.slf4j.Slf4jLogger - Slf4jLogger started
-10:14:25.620 [main] INFO com.firebase.server.forge.App$ - Listening at 127.0.0.1:9000
-10:24:03.208 [Thread-1] INFO com.firebase.server.forge.App$ - Attempting graceful shutdown.
-10:24:03.213 [NamespaceSystem-akka.actor.default-dispatcher-19] INFO com.firebase.core.namespace.Terminator$Terminator - 1 actors left to terminate: nu-room-92e71
-10:24:03.218 [NamespaceSystem-akka.actor.default-dispatcher-21] INFO com.firebase.core.namespace.NamespaceActor - Stopping namespace actor for nu-room-92e71
-10:24:03.219 [NamespaceSystem-akka.actor.default-dispatcher-21] INFO com.firebase.core.namespace.NamespaceActor - Gauges removed for nu-room-92e71
-10:24:03.222 [Thread-1] INFO com.firebase.server.forge.App$ - Graceful shutdown complete.
+10:39:08.156 [NamespaceSystem-akka.actor.default-dispatcher-5] INFO akka.event.slf4j.Slf4jLogger - Slf4jLogger started
+10:39:08.502 [main] INFO com.firebase.server.forge.App$ - Listening at 127.0.0.1:9000
+10:40:23.372 [Thread-0] INFO com.firebase.server.forge.App$ - Attempting graceful shutdown.
+10:40:23.381 [NamespaceSystem-akka.actor.default-dispatcher-6] INFO com.firebase.core.namespace.Terminator$Terminator - 1 actors left to terminate: nu-room-92e71
+10:40:23.395 [NamespaceSystem-akka.actor.default-dispatcher-9] INFO com.firebase.core.namespace.NamespaceActor - Stopping namespace actor for nu-room-92e71
+10:40:23.399 [NamespaceSystem-akka.actor.default-dispatcher-9] INFO com.firebase.core.namespace.NamespaceActor - Gauges removed for nu-room-92e71
+10:40:23.408 [Thread-0] INFO com.firebase.server.forge.App$ - Graceful shutdown complete.
