@@ -68,7 +68,7 @@ const MatchesPage = ({ currentMatches, setCurrentProfile, setDisplayPage, curren
                     alignItems="center"
                     sx={{m: 5}}
                 >
-                    <h2>Unfortunately, there are no matches for you at this time. Check back at a later time</h2>
+                    <h2 data-cy='match'>Unfortunately, there are no matches for you at this time. Check back at a later time</h2>
                 </Grid>
             </div>
         );

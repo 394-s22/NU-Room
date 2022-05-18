@@ -6,7 +6,7 @@ const NavBar = ({displayPage, setDisplayPage}) => {
         <nav>
             <h2>NU-Room</h2>
             <button onClick ={() => setDisplayPage("Form")}>Form</button>
-            <button onClick ={() => setDisplayPage("Matches")}>Matches</button>
+            <button onClick ={() => setDisplayPage("Matches")} data-cy="navbarMatch">Matches</button>
         </nav>
     )
 
