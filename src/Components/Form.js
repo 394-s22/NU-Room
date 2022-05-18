@@ -609,6 +609,7 @@ const Form = ({ data, profile, setDisplayPage, setLoading, setCurrentMatches, se
                                                     textAlign: "left",
                                                     fontWeight: "lighter",
                                                 }}
+                                                data-cy="form"
                                                 >   
                                                 {"Basic Information"}
                                             </div>

@@ -150,7 +150,8 @@ const MatchesPage = ({ currentMatches, setCurrentProfile, setDisplayPage, curren
                                 <h2 style = {{
                                 fontSize: 35,
                                 fontWeight: "lighter"
-                                }}>
+                                }}
+                               >
                                     Potential Roommate Matches
                                 </h2>
                         </div>
