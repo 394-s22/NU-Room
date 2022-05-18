@@ -1,0 +1,74 @@
+const functions = require("firebase-functions");
+const cors = require('cors')({origin: true});
+var axios = require('axios');
+
+// const axios = require('axios').default;
+const YELP_API_KEY = "VPovzyqS_jRHh5F6Ygz9gHogCdAjrBc_DMsrfhUEpW5ccFtNTnFppyOixGmHROE40NhBkdHz_LruuEaDM9hT_Q5deONxEHp3vGnV43lw5vH44Mt5XhKFqKl5xpJyYnYx"
+const GMAP_API_KEY = "AIzaSyBLyqauHklm9Ch8XS0NzNGaXjNUFqUi88k"
+// axios.defaults.headers.common['Authorization'] = `Bearer ${YELP_API_KEY}` 
+// const client = yelp.client(YELP_API_KEY);
+
+// // Create and Deploy Your First Cloud Functions
+// // https://firebase.google.com/docs/functions/write-firebase-functions
+//
+exports.helloWorld = functions.https.onRequest((request, response) => {
+  functions.logger.info("Hello logs!", {structuredData: true});
+  response.send("Hello from Team Orange! If you're seeing this message, then our backend is successfully working.");
+});
+
+exports.getNearbyRestaurants = functions.https.onCall((data, context) => {
+  var userLatitude = data.lat;
+  var userLongitude = data.lng;
+  cors(request, response, () => {
+    // request to yelp api
+    axios.get("https://api.yelp.com/v3/businesses/search", {
+      headers: { Authorization: `bearer ${YELP_API_KEY}`}
+    })
+    .then(r => {
+      console.log("Cloud yelp resp", r);
+      response.send(r.data);
+    })
+    .catch(e => {
+      console.log( "Cloud yelp error: ", e);
+      response.sendStatus(500); // ¯\_(ツ)_/¯
+    })
+  })
+
+});
+
+  // Make a request for a user with a given ID
+  // axios.get('https://api.yelp.com/v3/businesses/search?latitude=' + userLatitude + '&longitude=' + userLongitude)
+  // .then(function (response) {
+  //   // handle success
+  //   console.log(response);
+  //   return response
+  // })
+  // .catch(function (error) {
+  //   // handle error
+  //   console.log(error);
+  // })
+  // .then(function () {
+  //   // always executed
+  // });
+
+  // console.log(userLatitude, userLongitude)
+  // const searchRequest = {
+  //   // latitude: data.lat,
+  //   // longitude: data.lng,
+  //   location: "Evanston, IL"
+  // };
+
+  // console.log("this is a test")
+  // client.search(searchRequest)
+  // .then((response) => {
+  //   console.log("this is another test")
+  //   console.log(response.jsonBody);
+  //   // return response.jsonBody
+  // })
+  // .catch((error) => {
+  //   console.log(error);
+  // });
+  // app.get('https://api.yelp.com/v3/businesses/search?latitude=' + userLatitude + '&longitude=' + userLongitude, function(req, res) {
+  //   res.header('Authorization', 'Bearer '+ YELP_API_KEY);
+  //   return res
+  // });

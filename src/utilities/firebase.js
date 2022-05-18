@@ -24,7 +24,7 @@ const storage = getStorage(firebase);
 export default storage;
 
 export const useData = (path, transform) => {
-    if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
+    // if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
     const [data, setData] = useState();
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState();
@@ -47,11 +47,11 @@ export const useData = (path, transform) => {
     }, [path, transform]);
 
     return [data, loading, error];
-}
+// }
 };
 
 export const GetFireBaseImage = (profilePhotoId) => {
-    if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
+    // if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
     let image_url = 'images/' + profilePhotoId;
 
     useEffect(() => {
@@ -87,7 +87,7 @@ export const GetFireBaseImage = (profilePhotoId) => {
               }
         });
     }, []);
-}
+// }
 
     
 }

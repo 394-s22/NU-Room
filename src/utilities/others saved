@@ -1,0 +1,65 @@
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+import { getFunctions, httpsCallable } from "firebase/functions";
+
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyBKvgrvsfJkxu4eDzkiSNBEfvyEEEl-J84",
+  authDomain: "jr-pace.firebaseapp.com",
+  databaseURL: "https://jr-pace-default-rtdb.firebaseio.com",
+  projectId: "jr-pace",
+  storageBucket: "jr-pace.appspot.com",
+  messagingSenderId: "18398809696",
+  appId: "1:18398809696:web:88f6b7122737b2b42ffd05",
+  measurementId: "G-8T9F6M2F2Y"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+
+// Initialize Importable Cloud Functions
+const functions = getFunctions(app);
+export const getNearbyRestaurants = httpsCallable(functions, 'getNearbyRestaurants');
+
+
+// INSIDE APP
+
+import { getNearbyRestaurants } from './utilities/firebase';
+
+const App = () => {
+  const [lat, setLat] = useState(null);
+  const [lng, setLng] = useState(null);
+  const [status, setStatus] = useState(null);
+
+  const getLocation = () => {
+    if (!navigator.geolocation) {
+      setStatus('Geolocation is not supported by your browser');
+    } else {
+      setStatus('Locating...');
+      navigator.geolocation.getCurrentPosition((position) => {
+        setStatus(null);
+        console.log("Coords:", position.coords.latitude, position.coords.longitude)
+        setLat(parseFloat(position.coords.latitude));
+        setLng(parseFloat(position.coords.longitude));
+      }, () => {
+        setStatus('Unable to retrieve your location');
+      });
+    }
+  }
+
+  getNearbyRestaurants({ lat: '42.047768', lng: '-87.677540' })
+  .then((result) => {
+    // Read result of the Cloud Function.
+    /** @type {any} */
+    console.log("Result: " + result)
+    const data = result.data;
+    console.log("Data: " + data)
+    const sanitizedMessage = data.text;
+    console.log("Sanitized: " + sanitizedMessage)
+  });
