@@ -1,6 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import App from './App';
+import Form from "./Components/Form";
+import MatchesPage from "./Components/MatchesPage";
 
 class LocalStorageMock {
     constructor() {
@@ -26,13 +28,25 @@ class LocalStorageMock {
   
   global.localStorage = new LocalStorageMock;
 
-  test('shows the Loading screen if user id exists', async () => {
+  // Testing existing user id in localStorage mock
+  // Expected response: PASS
+  test('shows the Matches screen if user id exists', async () => {
     global.localStorage.setItem('uid', 'test-id')
-    render(<App />);
     if (expect(global.localStorage.getItem('uid')).toBe("test-id")) {
-        const title = await screen.getAllByText('Loading...', {}, { timeout: 3000 })[0];
-        expect(title).toBeVisible();
+        render(<Matches />);
+        const matchesTitle = await screen.getAllByText('Loading...', {}, { timeout: 3000 })[0];
+        expect(matchesTitle).toBeVisible();
     }
   });
-
+  
+  // Testing undefined user id in localStorage mock
+  // Expected Response: PASS 
+  test('shows Form screen if user id does not exist', async () => {
+    global.localStorage.clear()
+    if (expect(global.localStorage.getItem('uid')).toBe(null)) {
+        render(<Form />);
+        const formTitle = await screen.getAllByText('Roommate matches will be created based on your responses to this form. It is important that all information is accurate and honest.', {}, { timeout: 3000 })[0];
+        expect(formTitle).toBeVisible();
+    }
+  });
   
