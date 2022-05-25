@@ -211,7 +211,9 @@ const FullProfile = ({ profile, setCurrentProfile, setDisplayPage, commonalities
                 >
 
                   <Typography variant="body2" color="black" >
+                  <div data-testid="genderTest">
                     {profile.basicInfo.gender}
+                  </div>
                   </Typography>
                 </Stack>
                 <Stack
@@ -250,7 +252,9 @@ const FullProfile = ({ profile, setCurrentProfile, setDisplayPage, commonalities
                 >
                   <MailIcon />
                   <Typography variant="body2" color="black" >
-                    {profile.basicInfo.email}
+                    <div data-testid="emailTest">
+                       {profile.basicInfo.email}
+                    </div>
                   </Typography>
                 </Stack>
                 <Stack
