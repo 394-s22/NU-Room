@@ -84,7 +84,8 @@ test("Full profile should have gender Displayed", async () => {
     expect(await screen.getByTestId('genderTest')).toBeVisible();
 })
 
-test("Full profile should have email Displayed", async () => {
+//hanyang@gmail.com
+test("Full profile should have email displayed with correct text", async () => {
   render(<FullProfile profile={profile} setDisplayPage={()=>{}} commonalities={[]}></FullProfile>);
   expect(await screen.getByTestId('emailTest')).toBeVisible();
 })

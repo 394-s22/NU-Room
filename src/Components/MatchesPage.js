@@ -37,11 +37,13 @@ const MatchesPage = ({ currentMatches, setCurrentProfile, setDisplayPage, curren
                         sx={{m: 30}}
                     >
                         <div className='matchlessGrid'>
-                            <h2 id='heading'>Unfortunately, you haven't created a profile yet</h2>
+                            <h2 data-cy='matchless' id='heading'>Unfortunately, you haven't created a profile yet</h2>
                             <br/>
                             <p id='message'>Click below to get started</p>
                             <br/>
-                            <Button w={1} variant="contained" sx = {{
+                            <Button
+                                data-cy='profilebtn'
+                             w={1} variant="contained" sx = {{
                                 width: 300,
                                 minHeight: "48px",
                                 fontWeight: 700,
