@@ -109,16 +109,26 @@ const ResponsiveAppBar = ({displayPage, setDisplayPage}) => {
             NU Room
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
+            
+            <Button
+            data-cy='navbarPref'
+                key={'Preferences'}
                 onClick={handleCloseNavMenu}
-                value={page}
+                value={'Preferences'}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
-                {page}
+                Preferences
               </Button>
-            ))}
+
+              <Button
+              data-cy='navbarMatch'
+                key={'Matches'}
+                onClick={handleCloseNavMenu}
+                value={'Matches'}
+                sx={{ my: 2, color: 'white', display: 'block' }}
+              >
+                Matches
+              </Button>
           </Box>
         </Toolbar>
       </Container>
