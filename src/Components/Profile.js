@@ -181,10 +181,12 @@ console.log(matchCommonalities)
           </button>
         </Grid>
       </Grid> */}
+      <div data-testid="nameTest">
       <CardHeader
             title={profile.basicInfo.fname + " " + profile.basicInfo.lname}
           //   subheader="September 14, 2016"
           />
+          </div>
       
       
       <CardMedia
@@ -241,7 +243,7 @@ console.log(matchCommonalities)
       <Box textAlign='center'
         m={2}
       >
-        <Button w={1} variant="contained" sx={{
+        <Button data-testid="full-profile-button" w={1} variant="contained" sx={{
           width: 0.75,
           minHeight: "48px",
           fontWeight: 700,
