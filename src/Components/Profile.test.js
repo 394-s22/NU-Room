@@ -83,7 +83,7 @@ const profile = {
 };
 
 // Josh's tests
-
+//Josh 1
   test('Button to go to view full profile exists', async () => {
     render(<Profile profile={profile} setCurrentProfile={() => {}} setDisplayPage={() => {}} matchScore={[]} matchCommonalities = {[]} setMatchCommonalities = {() => {}}></Profile>);
     const fullProfileButton = screen.getByTestId('full-profile-button');
@@ -91,6 +91,7 @@ const profile = {
     fireEvent.click(fullProfileButton);
   });
 
+// Josh 2
   test('Button to go to view full profile exists and see if the name in the profile is there', async () => {
     render(<Profile profile={profile} setCurrentProfile={() => {}} setDisplayPage={() => {}} matchScore={[]} matchCommonalities = {[]} setMatchCommonalities = {() => {}}></Profile>);
     const fullProfileButton = screen.getByTestId('full-profile-button');
