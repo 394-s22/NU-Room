@@ -226,7 +226,7 @@ function valuetext(value) {
     return `${value}°C`;
 }
 
-const Form = ({ data, profile, setDisplayPage, setLoading, setCurrentMatches, setCurrentMatchScores, setMatchesCommonalities}) => {
+const Form = ({profile, setDisplayPage, setLoading, setCurrentMatches, setCurrentMatchScores, setMatchesCommonalities}) => {
     const theme = useTheme();
     const [year, setYear] = React.useState('');
     const handleChangeYear = (event) => {
@@ -534,7 +534,7 @@ const Form = ({ data, profile, setDisplayPage, setLoading, setCurrentMatches, se
                     const matchesIDs = matches.map(matchInfo => {return matchInfo[3];});
                     const matchesScores = matches.map(matchInfo => {return matchInfo[1];});
                     const matchesCommonalities = matches.map(matchInfo => {return matchInfo[2];});
-                    matches = matches.map(matchInfo => {return data.profile[matchInfo[3]];});
+                    matches = matches.map(matchInfo => {return profile[matchInfo[3]];});
 
                     //save matches
                     userData["savedMatches"]["matches"]["matchID"] = matchesIDs.length == 0 ? false : matchesIDs;
@@ -610,6 +610,7 @@ const Form = ({ data, profile, setDisplayPage, setLoading, setCurrentMatches, se
                                                     fontWeight: "lighter",
                                                 }}
                                                 data-cy="form"
+                                                data-testid="basicTest"
                                                 >   
                                                 {"Basic Information"}
                                             </div>
@@ -1030,6 +1031,7 @@ const Form = ({ data, profile, setDisplayPage, setLoading, setCurrentMatches, se
                                                 aria-label="Custom marks"
                                                 defaultValue={0}
                                                 aria-labelledby="cleaning-slider"
+                                                data-testid="sliderTest"
                                                 // getAriaValueText={valuetext}
                                                 step={null}
                                                 valueLabelDisplay="off"
